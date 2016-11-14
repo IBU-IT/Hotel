@@ -1,15 +1,21 @@
 package ba.ibu.edu.oop;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.*;
+import java.awt.*;
+import java.sql.*;
+import javax.swing.*;
 
 public class GymManagementWindow {
 
-	private JFrame frame;
+	private JFrame frmLogin;
 
 	/**
 	 * Launch the application.
@@ -19,7 +25,7 @@ public class GymManagementWindow {
 			public void run() {
 				try {
 					GymManagementWindow window = new GymManagementWindow();
-					window.frame.setVisible(true);
+					window.frmLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,31 +44,35 @@ public class GymManagementWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmLogin = new JFrame();
+		frmLogin.setTitle("Login");
+		frmLogin.setBounds(100, 100, 410, 324);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
 		
-		JButton button = new JButton("Manager");
-		button.setBounds(231, 197, 104, 41);
-		frame.getContentPane().add(button);
+		JLabel welcomeLbl = new JLabel("Welcome to \"Body Fit\"");
+		welcomeLbl.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		welcomeLbl.setBounds(106, 127, 181, 23);
+		frmLogin.getContentPane().add(welcomeLbl);
 		
-		JButton button_1 = new JButton("Employee");
-		button_1.setBounds(229, 151, 104, 41);
-		frame.getContentPane().add(button_1);
+		JLabel loginMsg = new JLabel("Login as:");
+		loginMsg.setFont(new Font("Arial", Font.BOLD, 12));
+		loginMsg.setBounds(167, 175, 70, 14);
+		frmLogin.getContentPane().add(loginMsg);
 		
-		JLabel label = new JLabel("Login as:");
-		label.setFont(new Font("Arial", Font.BOLD, 12));
-		label.setBounds(180, 155, 70, 14);
-		frame.getContentPane().add(label);
+		JButton Empbutton = new JButton("Employee");
+		Empbutton.setBounds(59, 200, 104, 41);
+		frmLogin.getContentPane().add(Empbutton);
 		
-		JLabel label_1 = new JLabel("Welcome to \"Body Fit\"");
-		label_1.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		label_1.setBounds(119, 107, 181, 23);
-		frame.getContentPane().add(label_1);
+		JButton Manbutton = new JButton("Manager");
+		Manbutton.setBounds(229, 200, 104, 41);
+		frmLogin.getContentPane().add(Manbutton);
 		
-		JLabel label_2 = new JLabel(" ");
-		label_2.setBounds(41, 11, 335, 85);
-		frame.getContentPane().add(label_2);
+		JLabel labelPict = new JLabel(" ");
+		labelPict.setBounds(30, 28, 335, 85);
+		frmLogin.getContentPane().add(labelPict);
+		Image img = new ImageIcon(this.getClass().getResource("/GymLogo.png")).getImage();
+		labelPict.setIcon(new ImageIcon(img));
+		
 	}
 }
