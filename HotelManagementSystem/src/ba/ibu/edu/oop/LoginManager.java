@@ -14,7 +14,7 @@ public class LoginManager extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void loginManager() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
