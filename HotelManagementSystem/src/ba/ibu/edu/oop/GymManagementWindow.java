@@ -61,6 +61,13 @@ public class GymManagementWindow {
 		frmLogin.getContentPane().add(loginMsg);
 		
 		JButton Empbutton = new JButton("Employee");
+		Empbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				LoginEmployee loginEmp = new LoginEmployee();
+				loginEmp.loginEmployee();
+			}
+		});
 		Empbutton.setBounds(59, 200, 104, 41);
 		frmLogin.getContentPane().add(Empbutton);
 		
