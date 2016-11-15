@@ -45,6 +45,7 @@ public class GymManagementWindow {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setResizable(false);
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 410, 324);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
