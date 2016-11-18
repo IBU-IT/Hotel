@@ -42,6 +42,7 @@ public class LoginManager extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginManager() {
+		setResizable(false);
 		setTitle("Manager Login");
 		setBounds(100, 100, 368, 355);
 		contentPane = new JPanel();

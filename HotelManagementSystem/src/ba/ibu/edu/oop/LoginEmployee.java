@@ -40,7 +40,8 @@ public class LoginEmployee extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginEmployee() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setTitle("Employee Login");
 		setBounds(100, 100, 368, 355);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
