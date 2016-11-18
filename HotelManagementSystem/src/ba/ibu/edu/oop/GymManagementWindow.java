@@ -32,7 +32,9 @@ public class GymManagementWindow {
 			}
 		});
 	}
-
+	
+	Connection con = null;
+	
 	/**
 	 * Create the application.
 	 */
@@ -67,6 +69,7 @@ public class GymManagementWindow {
 				
 				LoginEmployee loginEmp = new LoginEmployee();
 				loginEmp.loginEmployee();
+				con = DatabaseConnector.databaseConnector();
 			}
 		});
 		Empbutton.setBounds(59, 200, 104, 41);
