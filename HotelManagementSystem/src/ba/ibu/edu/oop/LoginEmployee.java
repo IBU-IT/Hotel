@@ -13,6 +13,9 @@ import java.awt.Color;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.awt.event.ActionEvent;
 
 public class LoginEmployee extends JFrame {
 
@@ -35,7 +38,9 @@ public class LoginEmployee extends JFrame {
 			}
 		});
 	}
-
+	
+	Connection connect = null;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -81,6 +86,12 @@ public class LoginEmployee extends JFrame {
 		contentPane.add(labelPw);
 		
 		JButton loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				connect = DatabaseConnector.databaseConnector();
+			}
+		});
 		loginBtn.setBounds(130, 250, 110, 32);
 		contentPane.add(loginBtn);
 		Image ok = new ImageIcon(this.getClass().getResource("/Ok.png")).getImage();
