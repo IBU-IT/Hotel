@@ -17,7 +17,6 @@ public class DatabaseConnector {
 			
 			Class.forName("org.sqlite.JDBC");
 			Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Mujo\\git\\Hotel\\HotelManagementSystem\\GymDatabase.sqlite");
-			JOptionPane.showMessageDialog(null, "Succesfully connected to database!");
 			
 			return con;
 		} catch (Exception e) {
