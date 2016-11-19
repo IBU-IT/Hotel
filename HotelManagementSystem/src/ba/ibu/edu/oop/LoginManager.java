@@ -8,12 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class LoginManager extends JFrame {
@@ -37,7 +41,8 @@ public class LoginManager extends JFrame {
 			}
 		});
 	}
-
+	
+	Connection connect = null;
 	/**
 	 * Create the frame.
 	 */
@@ -83,6 +88,39 @@ public class LoginManager extends JFrame {
 		contentPane.add(passwordField);
 		
 		JButton loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				connect = DatabaseConnector.databaseConnector();
+				
+				try {
+					
+					String query = "select * from Managers where UserName =? and Password =?";
+					PreparedStatement pps = connect.prepareStatement(query);
+					pps.setString(1, uN.getText());
+					pps.setString(2, passwordField.getText());
+					ResultSet res = pps.executeQuery();
+					
+					int counter = 0;
+					
+					while(res.next())
+					{
+						counter++;
+					}
+					
+					if(counter == 1)
+					{
+						JOptionPane.showMessageDialog(null, "Thank you, succesfully logged in as manager.");
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Wrong UserName or Password. Please, try again");
+					}
+					
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, e2);
+				}
+			}
+		});
 		loginBtn.setBounds(130, 250, 110, 32);
 		contentPane.add(loginBtn);
 		Image ok = new ImageIcon(this.getClass().getResource("/Ok.png")).getImage();
