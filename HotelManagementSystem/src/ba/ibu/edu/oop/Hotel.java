@@ -6,6 +6,6 @@ public class Hotel {
 	
 	public static void main(String[] args) {
 		
-		JOptionPane.showMessageDialog(null, "Hello Hotel");
+		JOptionPane.showMessageDialog(null, "Izmjena hotel!");
 	}
 }
