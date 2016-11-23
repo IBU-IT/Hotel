@@ -732,7 +732,6 @@ public class Caffe {
 		panel_3.add(Buton_Reset);
 		
 		
-		System.out.println("aaa");
 		
 		
 	}
