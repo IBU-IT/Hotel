@@ -60,5 +60,14 @@ public class ManagerWindow extends JFrame {
 		
 		JMenuItem mntmItem = new JMenuItem("All Members");
 		mnNewMenu.add(mntmItem);
+		
+		JMenu mnEmployees = new JMenu("Employees");
+		menuBar.add(mnEmployees);
+		
+		JMenuItem mntmAddremove = new JMenuItem("Add/Remove ");
+		mnEmployees.add(mntmAddremove);
+		
+		JMenuItem mntmCheckEmployees = new JMenuItem("Check Employees");
+		mnEmployees.add(mntmCheckEmployees);
 	}
 }
