@@ -81,7 +81,7 @@ public class mini_calculator {
 		});
 		btnAdd.setBounds(30, 99, 89, 23);
 		frame.getContentPane().add(btnAdd);
-		
+
 		JButton btnMinus = new JButton("MINUS");
 		btnMinus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
