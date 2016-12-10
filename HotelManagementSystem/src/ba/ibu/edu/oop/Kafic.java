@@ -555,6 +555,7 @@ public class Kafic {
 				total=cTotal_1+cTotal_2+S+Tax;
 				String Total=String.format("%.2f", total);
 				lblTotal.setText(Total);
+				
 			}
 
 			
