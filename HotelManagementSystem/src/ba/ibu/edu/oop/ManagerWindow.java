@@ -25,10 +25,20 @@ import javax.swing.JLayeredPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import java.awt.Font;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class ManagerWindow extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
 
 	/**
 	 * Launch the application.
@@ -121,6 +131,48 @@ public class ManagerWindow extends JFrame {
 		mailLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
 		mailLbl.setBounds(10, 314, 103, 26);
 		empPanel.add(mailLbl);
+		
+		textField = new JTextField();
+		textField.setBounds(219, 43, 126, 32);
+		empPanel.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(219, 98, 126, 32);
+		empPanel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(219, 152, 126, 32);
+		empPanel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(219, 206, 126, 32);
+		empPanel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(219, 261, 126, 32);
+		empPanel.add(textField_4);
+		textField_4.setColumns(10);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(219, 313, 126, 32);
+		empPanel.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JButton btnSave = new JButton("SAVE");
+		btnSave.setBounds(10, 413, 103, 37);
+		empPanel.add(btnSave);
+		
+		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.setBounds(123, 413, 103, 37);
+		empPanel.add(btnUpdate);
+		
+		JButton btnDelete = new JButton("DELETE");
+		btnDelete.setBounds(236, 413, 103, 37);
+		empPanel.add(btnDelete);
 		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
