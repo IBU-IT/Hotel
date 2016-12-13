@@ -72,15 +72,15 @@ public class LoginEmployee extends JFrame {
 		Image logo = new ImageIcon(this.getClass().getResource("/GymLogo.png")).getImage();
 		labelLogo.setIcon(new ImageIcon(logo));
 		
-		JLabel labelPict = new JLabel(" ");
-		labelPict.setBounds(10, 96, 150, 176);
-		contentPane.add(labelPict);
+		JLabel labelPicture = new JLabel(" ");
+		labelPicture.setBounds(10, 96, 150, 176);
+		contentPane.add(labelPicture);
 		Image emp = new ImageIcon(this.getClass().getResource("/Employee.png")).getImage();
-		labelPict.setIcon(new ImageIcon(emp));
+		labelPicture.setIcon(new ImageIcon(emp));
 		
-		JLabel labelUn = new JLabel("UserName");
-		labelUn.setBounds(130, 148, 69, 22);
-		contentPane.add(labelUn);
+		JLabel labelUN = new JLabel("UserName");
+		labelUN.setBounds(130, 148, 69, 22);
+		contentPane.add(labelUN);
 		
 		textField = new JTextField();
 		textField.setToolTipText("");
