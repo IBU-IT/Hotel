@@ -58,7 +58,7 @@ public class ManagerWindow extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Add/Remove");
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmItem = new JMenuItem("All Members");
+		JMenuItem mntmItem = new JMenuItem("List Members");
 		mnNewMenu.add(mntmItem);
 		
 		JMenu mnEmployees = new JMenu("Employees");
@@ -69,5 +69,26 @@ public class ManagerWindow extends JFrame {
 		
 		JMenuItem mntmCheckEmployees = new JMenuItem("Check Employees");
 		mnEmployees.add(mntmCheckEmployees);
+		
+		JMenu mnNewMenu_1 = new JMenu("Equipment");
+		menuBar.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Add Gym Equipment");
+		mnNewMenu_1.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Check Items");
+		mnNewMenu_1.add(mntmNewMenuItem_2);
+		
+		JMenu mnHelp = new JMenu("Help");
+		menuBar.add(mnHelp);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Welcome");
+		mnHelp.add(mntmNewMenuItem_3);
+		
+		JMenuItem mntmHelpContents = new JMenuItem("Help Contents");
+		mnHelp.add(mntmHelpContents);
+		
+		JMenuItem mntmAboutSoftware = new JMenuItem("About Software...");
+		mnHelp.add(mntmAboutSoftware);
 	}
 }
