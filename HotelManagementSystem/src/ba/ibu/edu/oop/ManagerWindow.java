@@ -33,12 +33,12 @@ import javax.swing.JButton;
 public class ManagerWindow extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField idTxt;
+	private JTextField nameTxt;
+	private JTextField surnameTxt;
+	private JTextField ageTxt;
+	private JTextField creationTxt;
+	private JTextField mailTxt;
 
 	/**
 	 * Launch the application.
@@ -132,35 +132,35 @@ public class ManagerWindow extends JFrame {
 		mailLbl.setBounds(10, 314, 103, 26);
 		empPanel.add(mailLbl);
 		
-		textField = new JTextField();
-		textField.setBounds(219, 43, 126, 32);
-		empPanel.add(textField);
-		textField.setColumns(10);
+		idTxt = new JTextField();
+		idTxt.setBounds(219, 43, 126, 32);
+		empPanel.add(idTxt);
+		idTxt.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(219, 98, 126, 32);
-		empPanel.add(textField_1);
-		textField_1.setColumns(10);
+		nameTxt = new JTextField();
+		nameTxt.setBounds(219, 98, 126, 32);
+		empPanel.add(nameTxt);
+		nameTxt.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(219, 152, 126, 32);
-		empPanel.add(textField_2);
-		textField_2.setColumns(10);
+		surnameTxt = new JTextField();
+		surnameTxt.setBounds(219, 152, 126, 32);
+		empPanel.add(surnameTxt);
+		surnameTxt.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(219, 206, 126, 32);
-		empPanel.add(textField_3);
-		textField_3.setColumns(10);
+		ageTxt = new JTextField();
+		ageTxt.setBounds(219, 206, 126, 32);
+		empPanel.add(ageTxt);
+		ageTxt.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(219, 261, 126, 32);
-		empPanel.add(textField_4);
-		textField_4.setColumns(10);
+		creationTxt = new JTextField();
+		creationTxt.setBounds(219, 261, 126, 32);
+		empPanel.add(creationTxt);
+		creationTxt.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(219, 313, 126, 32);
-		empPanel.add(textField_5);
-		textField_5.setColumns(10);
+		mailTxt = new JTextField();
+		mailTxt.setBounds(219, 313, 126, 32);
+		empPanel.add(mailTxt);
+		mailTxt.setColumns(10);
 		
 		JButton btnSave = new JButton("SAVE");
 		btnSave.setBounds(10, 413, 103, 37);
