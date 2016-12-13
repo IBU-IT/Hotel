@@ -77,11 +77,11 @@ public class LoginManager extends JFrame {
 		labelPw.setBounds(130, 193, 69, 22);
 		contentPane.add(labelPw);
 		
-		JLabel labelPict = new JLabel(" ");
-		labelPict.setBounds(10, 96, 150, 176);
-		contentPane.add(labelPict);
+		JLabel labelPictManager = new JLabel(" ");
+		labelPictManager.setBounds(10, 96, 150, 176);
+		contentPane.add(labelPictManager);
 		Image logoPict = new ImageIcon(this.getClass().getResource("/Manageri.png")).getImage();
-		labelPict.setIcon(new ImageIcon(logoPict));
+		labelPictManager.setIcon(new ImageIcon(logoPict));
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(209, 192, 103, 25);
