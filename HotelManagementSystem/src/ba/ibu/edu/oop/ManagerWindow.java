@@ -92,8 +92,8 @@ public class ManagerWindow extends JFrame {
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 		
-		JMenuItem welcome = new JMenuItem("Welcome");
-		mnHelp.add(welcome);
+		JMenuItem welcomea = new JMenuItem("Welcome");
+		mnHelp.add(welcomea);
 		
 		JMenuItem helpContent = new JMenuItem("Help Contents");
 		mnHelp.add(helpContent);
