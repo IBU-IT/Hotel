@@ -213,7 +213,7 @@ public class ManagerWindow extends JFrame {
 		pwField.setColumns(10);
 		
 		JLabel pictLbl = new JLabel("");
-		pictLbl.setBounds(38, 70, 154, 194);
+		pictLbl.setBounds(38, 70, 154, 195);
 		empPanel.add(pictLbl);
 		Image emp = new ImageIcon(this.getClass().getResource("/Emp.png")).getImage();
 		pictLbl.setIcon(new ImageIcon(emp));
