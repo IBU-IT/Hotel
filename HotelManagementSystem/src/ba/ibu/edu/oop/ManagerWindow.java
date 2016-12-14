@@ -34,6 +34,8 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
+import javax.swing.JSeparator;
 
 public class ManagerWindow extends JFrame {
 
@@ -217,6 +219,11 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(pictLbl);
 		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
 		pictLbl.setIcon(new ImageIcon(emp));
+		
+		JButton btnLoadEmployeeData = new JButton("Load Employee Data");
+		btnLoadEmployeeData.setFont(new Font("Arial Black", Font.BOLD, 14));
+		btnLoadEmployeeData.setBounds(662, 41, 255, 32);
+		empPanel.add(btnLoadEmployeeData);
 		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
