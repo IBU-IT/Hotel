@@ -20,6 +20,9 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
@@ -30,12 +33,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Component;
+
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class ManagerWindow extends JFrame {
 
@@ -65,11 +72,17 @@ public class ManagerWindow extends JFrame {
 			}
 		});
 	}
-
+	
+	Connection connect = null;
+	private JTable table;
+	
 	/**
 	 * Create the frame.
 	 */
 	public ManagerWindow() {
+		
+		connect = DatabaseConnector.databaseConnector();
+		
 		setTitle("Manager Editor");
 		setType(Type.POPUP);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -221,9 +234,29 @@ public class ManagerWindow extends JFrame {
 		pictLbl.setIcon(new ImageIcon(emp));
 		
 		JButton btnLoadEmployeeData = new JButton("Load Employee Data");
+		btnLoadEmployeeData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					
+					String query = "SELECT * Form Employees";
+					PreparedStatement pps = connect.prepareStatement(query);
+					ResultSet rs = pps.executeQuery();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		btnLoadEmployeeData.setFont(new Font("Arial Black", Font.BOLD, 14));
-		btnLoadEmployeeData.setBounds(662, 41, 255, 32);
+		btnLoadEmployeeData.setBounds(664, 11, 255, 32);
 		empPanel.add(btnLoadEmployeeData);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(596, 70, 381, 404);
+		empPanel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
 		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
