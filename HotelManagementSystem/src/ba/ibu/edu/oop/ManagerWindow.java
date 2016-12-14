@@ -215,7 +215,7 @@ public class ManagerWindow extends JFrame {
 		JLabel pictLbl = new JLabel("");
 		pictLbl.setBounds(38, 70, 154, 195);
 		empPanel.add(pictLbl);
-		Image emp = new ImageIcon(this.getClass().getResource("/Emp.png")).getImage();
+		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
 		pictLbl.setIcon(new ImageIcon(emp));
 		
 		JPanel equipPanel = new JPanel();
