@@ -52,6 +52,7 @@ import java.awt.Panel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
+import javax.swing.JComboBox;
 
 public class ManagerWindow extends JFrame {
 
@@ -82,6 +83,25 @@ public class ManagerWindow extends JFrame {
 	
 	Connection connect = null;
 	private JTable tableEmp;
+	
+	/*public void takeValues()
+	{
+		try {
+			
+			String query = "SELECT * FROM Employees";
+			PreparedStatement pps = connect.prepareStatement(query);
+			ResultSet rs = pps.executeQuery();
+			
+			while(rs.next())
+			{
+				nameTxt.add(rs.getString("Emp_Name"));
+			}
+
+			pps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
 	
 	/**
 	 * Create the frame.
@@ -197,7 +217,6 @@ public class ManagerWindow extends JFrame {
 					
 					String query = "INSERT INTO Employees (Emp_Name, Emp_Surname, Emp_Age, Emp_Mail, Emp_City, UserName) VALUES (?, ?, ?, ?, ?, ?)";
 					PreparedStatement pps = connect.prepareStatement(query);
-					//ResultSet rs = pps.executeQuery();
 					pps.setString(1, nameTxt.getText());
 					pps.setString(2, surnameTxt.getText());
 					pps.setString(3, ageTxt.getText());
@@ -208,7 +227,6 @@ public class ManagerWindow extends JFrame {
 					pps.execute();
 					
 					pps.close();
-					//rs.close();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -220,6 +238,22 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnSave);
 		
 		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					
+					String query = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"', UserName = '"+unField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
+					PreparedStatement pps = connect.prepareStatement(query);
+					
+					pps.execute();
+					pps.close();
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+		});
 		btnUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnUpdate.setBounds(305, 400, 103, 37);
 		empPanel.add(btnUpdate);
@@ -291,6 +325,22 @@ public class ManagerWindow extends JFrame {
 		tableEmp.setToolTipText("");
 		tableEmp.setFont(new Font("Arial", Font.PLAIN, 11));
 		scrollPane.setViewportView(tableEmp);
+		
+		JButton btnClear = new JButton("CLEAR FIELDS");
+		btnClear.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				nameTxt.setText("");
+				surnameTxt.setText("");
+				ageTxt.setText("");
+				mailTxt.setText("");
+				cityField.setText("");
+				unField.setText("");
+			}
+		});
+		btnClear.setBounds(187, 447, 339, 37);
+		empPanel.add(btnClear);
 		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
