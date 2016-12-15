@@ -63,7 +63,6 @@ public class ManagerWindow extends JFrame {
 	private JTextField mailTxt;
 	private JTextField cityField;
 	private JTextField unField;
-	private JTextField pwField;
 
 	/**
 	 * Launch the application.
@@ -194,7 +193,26 @@ public class ManagerWindow extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
+				try {
+					
+					String query = "INSERT INTO Employees (Emp_Name, Emp_Surname, Emp_Age, Emp_Mail, Emp_City, UserName) VALUES (?, ?, ?, ?, ?, ?)";
+					PreparedStatement pps = connect.prepareStatement(query);
+					//ResultSet rs = pps.executeQuery();
+					pps.setString(1, nameTxt.getText());
+					pps.setString(2, surnameTxt.getText());
+					pps.setString(3, ageTxt.getText());
+					pps.setString(4, mailTxt.getText());
+					pps.setString(5, cityField.getText());
+					pps.setString(6, unField.getText());
+					
+					pps.execute();
+					
+					pps.close();
+					//rs.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		btnSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -216,11 +234,6 @@ public class ManagerWindow extends JFrame {
 		lblUn.setBounds(187, 291, 162, 32);
 		empPanel.add(lblUn);
 				
-		JLabel lblPw = new JLabel("Password:");
-		lblPw.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblPw.setBounds(187, 334, 103, 32);
-		empPanel.add(lblPw);
-				
 		JLabel lblCity = new JLabel("City:");
 		lblCity.setFont(new Font("Arial Black", Font.BOLD, 14));
 		lblCity.setBounds(187, 248, 46, 32);
@@ -235,11 +248,6 @@ public class ManagerWindow extends JFrame {
 		unField.setBounds(400, 293, 126, 32);
 		empPanel.add(unField);
 		unField.setColumns(10);
-				
-		pwField = new JTextField();
-		pwField.setBounds(400, 336, 126, 32);
-		empPanel.add(pwField);
-		pwField.setColumns(10);
 				
 		JLabel pictLbl = new JLabel("");
 		pictLbl.setBounds(10, 33, 151, 152);
@@ -256,6 +264,9 @@ public class ManagerWindow extends JFrame {
 					PreparedStatement pps = connect.prepareStatement(query);
 					ResultSet rs = pps.executeQuery();
 					tableEmp .setModel(DbUtils.resultSetToTableModel(rs));
+					
+					pps.close();
+					rs.close();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
