@@ -38,6 +38,7 @@ import java.awt.Image;
 import java.awt.Component;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -47,6 +48,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Panel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class ManagerWindow extends JFrame {
 
@@ -55,7 +60,6 @@ public class ManagerWindow extends JFrame {
 	private JTextField nameTxt;
 	private JTextField surnameTxt;
 	private JTextField ageTxt;
-	private JTextField creationTxt;
 	private JTextField mailTxt;
 	private JTextField cityField;
 	private JTextField unField;
@@ -124,119 +128,124 @@ public class ManagerWindow extends JFrame {
 		JPanel memberPanel = new JPanel();
 		memberPanel.setToolTipText("Members");
 		tabbedPane.addTab("Members", null, memberPanel, null);
+		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
 		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
 		empPanel.setLayout(null);
+		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+		separator.setForeground(SystemColor.scrollbar);
+		separator.setBackground(SystemColor.scrollbar);
+		separator.setSize(2, 515);
+		separator.setLocation(545, 0);
+		empPanel.add(separator);
 		
 		JLabel idLbl = new JLabel("Employee ID: ");
 		idLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
-		idLbl.setBounds(187, 22, 162, 26);
+		idLbl.setBounds(187, 33, 162, 32);
 		empPanel.add(idLbl);
 		
 		JLabel nameLbl = new JLabel("Employee Name:");
 		nameLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
-		nameLbl.setBounds(187, 77, 142, 26);
+		nameLbl.setBounds(187, 76, 142, 32);
 		empPanel.add(nameLbl);
 		
 		JLabel surnameLbl = new JLabel("Employee Surname:");
 		surnameLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
-		surnameLbl.setBounds(187, 131, 168, 26);
+		surnameLbl.setBounds(187, 119, 168, 32);
 		empPanel.add(surnameLbl);
 		
 		JLabel ageLbl = new JLabel("Employee Age:");
 		ageLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
-		ageLbl.setBounds(187, 185, 126, 26);
+		ageLbl.setBounds(187, 162, 126, 32);
 		empPanel.add(ageLbl);
-		
-		JLabel creationLbl = new JLabel("Date Of Creation:");
-		creationLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
-		creationLbl.setBounds(187, 240, 162, 26);
-		empPanel.add(creationLbl);
 		
 		JLabel mailLbl = new JLabel("E-Mail:");
 		mailLbl.setFont(new Font("Arial Black", Font.BOLD, 14));
-		mailLbl.setBounds(187, 292, 103, 26);
+		mailLbl.setBounds(187, 205, 103, 32);
 		empPanel.add(mailLbl);
 		
 		idTxt = new JTextField();
-		idTxt.setBounds(400, 21, 126, 32);
+		idTxt.setBounds(400, 33, 126, 32);
 		empPanel.add(idTxt);
 		idTxt.setColumns(10);
 		
 		nameTxt = new JTextField();
-		nameTxt.setBounds(400, 76, 126, 32);
+		nameTxt.setBounds(400, 78, 126, 32);
 		empPanel.add(nameTxt);
 		nameTxt.setColumns(10);
 		
 		surnameTxt = new JTextField();
-		surnameTxt.setBounds(400, 130, 126, 32);
+		surnameTxt.setBounds(400, 121, 126, 32);
 		empPanel.add(surnameTxt);
 		surnameTxt.setColumns(10);
 		
 		ageTxt = new JTextField();
-		ageTxt.setBounds(400, 184, 126, 32);
+		ageTxt.setBounds(400, 164, 126, 32);
 		empPanel.add(ageTxt);
 		ageTxt.setColumns(10);
 		
-		creationTxt = new JTextField();
-		creationTxt.setBounds(400, 239, 126, 32);
-		empPanel.add(creationTxt);
-		creationTxt.setColumns(10);
-		
 		mailTxt = new JTextField();
-		mailTxt.setBounds(400, 291, 126, 32);
+		mailTxt.setBounds(400, 207, 126, 32);
 		empPanel.add(mailTxt);
 		mailTxt.setColumns(10);
 		
 		JButton btnSave = new JButton("SAVE");
-		btnSave.setBounds(26, 318, 103, 37);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
+		btnSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnSave.setBounds(187, 400, 103, 37);
 		empPanel.add(btnSave);
 		
 		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.setBounds(26, 366, 103, 37);
+		btnUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnUpdate.setBounds(305, 400, 103, 37);
 		empPanel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("DELETE");
-		btnDelete.setBounds(26, 414, 103, 37);
+		btnDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnDelete.setBounds(423, 400, 103, 37);
 		empPanel.add(btnDelete);
-
+		
 		JLabel lblUn = new JLabel("User Name:");
 		lblUn.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblUn.setBounds(187, 393, 162, 26);
+		lblUn.setBounds(187, 291, 162, 32);
 		empPanel.add(lblUn);
-		
+				
 		JLabel lblPw = new JLabel("Password:");
 		lblPw.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblPw.setBounds(187, 443, 103, 26);
+		lblPw.setBounds(187, 334, 103, 32);
 		empPanel.add(lblPw);
-		
+				
 		JLabel lblCity = new JLabel("City:");
 		lblCity.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblCity.setBounds(187, 342, 46, 26);
+		lblCity.setBounds(187, 248, 46, 32);
 		empPanel.add(lblCity);
-		
+				
 		cityField = new JTextField();
-		cityField.setBounds(400, 341, 126, 32);
+		cityField.setBounds(400, 250, 126, 32);
 		empPanel.add(cityField);
 		cityField.setColumns(10);
-		
+				
 		unField = new JTextField();
-		unField.setBounds(400, 392, 126, 32);
+		unField.setBounds(400, 293, 126, 32);
 		empPanel.add(unField);
 		unField.setColumns(10);
-		
+				
 		pwField = new JTextField();
-		pwField.setBounds(400, 442, 126, 32);
+		pwField.setBounds(400, 336, 126, 32);
 		empPanel.add(pwField);
 		pwField.setColumns(10);
-		
+				
 		JLabel pictLbl = new JLabel("");
-		pictLbl.setBounds(10, 50, 151, 152);
+		pictLbl.setBounds(10, 33, 151, 152);
 		empPanel.add(pictLbl);
-		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
 		pictLbl.setIcon(new ImageIcon(emp));
-		
+				
 		JButton btnLoadEmployeeData = new JButton("Load Employee Data");
 		btnLoadEmployeeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -247,26 +256,27 @@ public class ManagerWindow extends JFrame {
 					PreparedStatement pps = connect.prepareStatement(query);
 					ResultSet rs = pps.executeQuery();
 					tableEmp .setModel(DbUtils.resultSetToTableModel(rs));
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		btnLoadEmployeeData.setFont(new Font("Arial Black", Font.BOLD, 14));
-		btnLoadEmployeeData.setBounds(645, 11, 255, 32);
+		btnLoadEmployeeData.setBounds(649, 448, 255, 32);
 		empPanel.add(btnLoadEmployeeData);
-		
+				
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(560, 70, 417, 404);
+		scrollPane.setBounds(560, 33, 417, 404);
 		empPanel.add(scrollPane);
-		
+				
 		tableEmp = new JTable();
 		tableEmp.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-			}
-		));
+				new Object[][] {
+				},
+				new String[] {
+				}
+			));
 		tableEmp.setToolTipText("");
 		tableEmp.setFont(new Font("Arial", Font.PLAIN, 11));
 		scrollPane.setViewportView(tableEmp);
