@@ -91,7 +91,7 @@ public class ManagerWindow extends JFrame {
 	{
 		try {
 			
-			String query = "SELECT Emp_Name, Emp_Surname, Emp_Age, Emp_City, UserName FROM Employees";
+			String query = "SELECT Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
 			PreparedStatement pps = connect.prepareStatement(query);
 			ResultSet rs = pps.executeQuery();
 			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
@@ -128,6 +128,17 @@ public class ManagerWindow extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void clearFields()
+	{
+		idTxt.setText("");
+		nameTxt.setText("");
+		surnameTxt.setText("");
+		ageTxt.setText("");
+		mailTxt.setText("");
+		cityField.setText("");
+		unField.setText("");
 	}
 	
 	/**
@@ -265,6 +276,7 @@ public class ManagerWindow extends JFrame {
 					e.printStackTrace();
 				}
 				refresh();
+				clearFields();
 			}
 		});
 		btnSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -287,6 +299,7 @@ public class ManagerWindow extends JFrame {
 					e2.printStackTrace();
 				}
 				refresh();
+				clearFields();
 			}
 		});
 		btnUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -310,6 +323,7 @@ public class ManagerWindow extends JFrame {
 					e.printStackTrace();
 				}
 				refresh();
+				clearFields();
 			}
 			}
 		});
@@ -385,13 +399,7 @@ public class ManagerWindow extends JFrame {
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				idTxt.setText("");
-				nameTxt.setText("");
-				surnameTxt.setText("");
-				ageTxt.setText("");
-				mailTxt.setText("");
-				cityField.setText("");
-				unField.setText("");
+				clearFields();
 			}
 		});
 		btnClear.setBounds(187, 447, 339, 37);
