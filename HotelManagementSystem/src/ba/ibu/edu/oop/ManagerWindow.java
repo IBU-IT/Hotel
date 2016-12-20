@@ -88,20 +88,40 @@ public class ManagerWindow extends JFrame {
 	{
 		try {
 			
-			String query = "SELECT * FROM Employees";
+			String query = "SELECT * FROM Employees WHERE Emp_ID =?";
 			PreparedStatement pps = connect.prepareStatement(query);
-			ResultSet rs = pps.executeQuery();
 			
-			while(rs.next())
-			{
-				nameTxt.add(rs.getString("Emp_Name"));
-			}
+			 pps.setString(1, "Emp_ID");
+			 
+			 ResultSet rs = pps.executeQuery();
+			 
+			 while(rs.next())
+			 {
+				 nameTxt.setText(rs.getString("Emp_Name"));
+			 }
 
-			pps.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	} ovo cu kasnije zavrsiti */
+	
+	public void refresh()
+	{
+		try {
+			
+			String query = "SELECT Emp_Name, Emp_Surname, Emp_Age, Emp_City, UserName FROM Employees";
+			PreparedStatement pps = connect.prepareStatement(query);
+			ResultSet rs = pps.executeQuery();
+			tableEmp .setModel(DbUtils.resultSetToTableModel(rs));
+			
+			pps.close();
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Create the frame.
@@ -231,6 +251,7 @@ public class ManagerWindow extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				refresh();
 			}
 		});
 		btnSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -252,6 +273,7 @@ public class ManagerWindow extends JFrame {
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
+				refresh();
 			}
 		});
 		btnUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -259,6 +281,22 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("DELETE");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					String query = "DELETE FROM Employees WHERE Emp_ID = '"+ idTxt.getText() +"'";
+					PreparedStatement pps = connect.prepareStatement(query);
+					
+					pps.execute();
+					pps.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				refresh();
+			}
+		});
 		btnDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnDelete.setBounds(423, 400, 103, 37);
 		empPanel.add(btnDelete);
