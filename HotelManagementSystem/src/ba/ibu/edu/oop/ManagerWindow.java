@@ -53,6 +53,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
 import javax.swing.JComboBox;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ManagerWindow extends JFrame {
 
@@ -83,28 +85,7 @@ public class ManagerWindow extends JFrame {
 	
 	Connection connect = null;
 	private JTable tableEmp;
-	
-	/*public void takeValues()
-	{
-		try {
-			
-			String query = "SELECT * FROM Employees WHERE Emp_ID =?";
-			PreparedStatement pps = connect.prepareStatement(query);
-			
-			 pps.setString(1, "Emp_ID");
-			 
-			 ResultSet rs = pps.executeQuery();
-			 
-			 while(rs.next())
-			 {
-				 nameTxt.setText(rs.getString("Emp_Name"));
-			 }
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	} ovo cu kasnije zavrsiti */
+	private JTextField txtSearchByName;
 	
 	public void refresh()
 	{
@@ -113,10 +94,36 @@ public class ManagerWindow extends JFrame {
 			String query = "SELECT Emp_Name, Emp_Surname, Emp_Age, Emp_City, UserName FROM Employees";
 			PreparedStatement pps = connect.prepareStatement(query);
 			ResultSet rs = pps.executeQuery();
-			tableEmp .setModel(DbUtils.resultSetToTableModel(rs));
+			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
 			
 			pps.close();
 			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void fillFields()
+	{
+		try {
+			
+			String query = "SELECT * FROM Employees WHERE Emp_ID =?";
+			PreparedStatement pps = connect.prepareStatement(query);
+			pps.setString(1, idTxt.getText());
+			ResultSet rs = pps.executeQuery();
+			
+			while(rs.next())
+			{
+				nameTxt.setText(rs.getString("Emp_Name"));
+				surnameTxt.setText(rs.getString("Emp_Surname"));
+				ageTxt.setText(rs.getString("Emp_Age"));
+				mailTxt.setText(rs.getString("Emp_Mail"));
+				cityField.setText(rs.getString("Emp_City"));
+				unField.setText(rs.getString("UserName"));
+			}
+			
+			pps.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -205,6 +212,12 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(mailLbl);
 		
 		idTxt = new JTextField();
+		idTxt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				fillFields();
+			}
+		});
 		idTxt.setBounds(400, 33, 126, 32);
 		empPanel.add(idTxt);
 		idTxt.setColumns(10);
@@ -284,6 +297,8 @@ public class ManagerWindow extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				int deleteAction = JOptionPane.showConfirmDialog(null, "Do you really want to delete record ?", "Delete", JOptionPane.YES_NO_OPTION );
+				if(deleteAction == 0){
 				try {
 					String query = "DELETE FROM Employees WHERE Emp_ID = '"+ idTxt.getText() +"'";
 					PreparedStatement pps = connect.prepareStatement(query);
@@ -295,6 +310,7 @@ public class ManagerWindow extends JFrame {
 					e.printStackTrace();
 				}
 				refresh();
+			}
 			}
 		});
 		btnDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -332,7 +348,7 @@ public class ManagerWindow extends JFrame {
 				
 				try {
 					
-					String query = "SELECT Emp_Name, Emp_Surname, Emp_Age, Emp_City, UserName FROM Employees";
+					String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
 					PreparedStatement pps = connect.prepareStatement(query);
 					ResultSet rs = pps.executeQuery();
 					tableEmp .setModel(DbUtils.resultSetToTableModel(rs));
@@ -369,6 +385,7 @@ public class ManagerWindow extends JFrame {
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				idTxt.setText("");
 				nameTxt.setText("");
 				surnameTxt.setText("");
 				ageTxt.setText("");
@@ -380,7 +397,43 @@ public class ManagerWindow extends JFrame {
 		btnClear.setBounds(187, 447, 339, 37);
 		empPanel.add(btnClear);
 		
+		txtSearchByName = new JTextField();
+		txtSearchByName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				
+				try {
+					
+					String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE Emp_Name =?";
+					PreparedStatement pps = connect.prepareStatement(query);
+					pps.setString(1, txtSearchByName.getText());
+					ResultSet rs = pps.executeQuery();
+					
+					tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
+					/*while(rs.next())
+					{
+						nameTxt.setText(rs.getString("Emp_Name"));
+						surnameTxt.setText(rs.getString("Emp_Surname"));
+						ageTxt.setText(rs.getString("Emp_Age"));
+						mailTxt.setText(rs.getString("Emp_Mail"));
+						cityField.setText(rs.getString("Emp_City"));
+						unField.setText(rs.getString("UserName"));
+					}*/
+					
+					pps.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		txtSearchByName.setToolTipText("");
+		txtSearchByName.setBounds(704, 11, 132, 22);
+		empPanel.add(txtSearchByName);
+		txtSearchByName.setColumns(10);
+		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
+		
 	}
 }
