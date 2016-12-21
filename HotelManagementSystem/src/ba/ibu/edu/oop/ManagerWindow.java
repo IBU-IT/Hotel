@@ -26,6 +26,8 @@ import java.awt.image.ImageProducer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
@@ -33,6 +35,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Component;
@@ -68,6 +71,7 @@ public class ManagerWindow extends JFrame {
 	private JTextField cityField;
 	private JTextField unField;
 	private JComboBox comboBoxSearch;
+	private JLabel timeLbl;
 
 	/**
 	 * Launch the application.
@@ -143,6 +147,37 @@ public class ManagerWindow extends JFrame {
 		unField.setText("");
 	}
 	
+	public void timeMethod()
+	{
+		Thread clock = new Thread()
+		{
+			public void run()
+			{
+				try {
+					for(;;)
+					{
+						Calendar calendar = new GregorianCalendar();
+						
+						int hour = calendar.get(Calendar.HOUR);
+						int minute = calendar.get(Calendar.MINUTE);
+						int second = calendar.get(Calendar.SECOND);
+						
+						int day = calendar.get(Calendar.DAY_OF_MONTH);
+						int month = calendar.get(Calendar.MONTH);
+						int year = calendar.get(Calendar.YEAR);
+						
+						timeLbl.setText("Time: " + hour + ":" + minute + ":" + second + "     " + "Date: " + day + "/" + month + "/" + year);
+						
+						sleep(1000);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		clock.start();
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -164,7 +199,13 @@ public class ManagerWindow extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Exit");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				System.exit(EXIT_ON_CLOSE);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenu mnNewMenu_1 = new JMenu("Help");
@@ -181,7 +222,7 @@ public class ManagerWindow extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 11, 1010, 543);
+		tabbedPane.setBounds(10, 11, 1010, 538);
 		contentPane.add(tabbedPane);
 		
 		JPanel memberPanel = new JPanel();
@@ -455,6 +496,13 @@ public class ManagerWindow extends JFrame {
 		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
+		
+		timeLbl = new JLabel();
+		timeLbl.setToolTipText("Today's Date and Time");
+		timeLbl.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		timeLbl.setBounds(844, 549, 168, 16);
+		contentPane.add(timeLbl);
+		timeMethod();
 		
 	}
 }
