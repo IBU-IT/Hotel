@@ -55,6 +55,7 @@ import java.awt.SystemColor;
 import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class ManagerWindow extends JFrame {
 
@@ -66,6 +67,7 @@ public class ManagerWindow extends JFrame {
 	private JTextField mailTxt;
 	private JTextField cityField;
 	private JTextField unField;
+	private JComboBox comboBoxSearch;
 
 	/**
 	 * Launch the application.
@@ -91,7 +93,7 @@ public class ManagerWindow extends JFrame {
 	{
 		try {
 			
-			String query = "SELECT Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+			String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
 			PreparedStatement pps = connect.prepareStatement(query);
 			ResultSet rs = pps.executeQuery();
 			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
@@ -412,7 +414,8 @@ public class ManagerWindow extends JFrame {
 				
 				try {
 					
-					String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE Emp_Name =?";
+					String searchBy = (String)comboBoxSearch.getSelectedItem();
+					String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
 					PreparedStatement pps = connect.prepareStatement(query);
 					pps.setString(1, txtSearchByName.getText());
 					ResultSet rs = pps.executeQuery();
@@ -436,9 +439,19 @@ public class ManagerWindow extends JFrame {
 			}
 		});
 		txtSearchByName.setToolTipText("");
-		txtSearchByName.setBounds(704, 11, 132, 22);
+		txtSearchByName.setBounds(817, 8, 132, 22);
 		empPanel.add(txtSearchByName);
 		txtSearchByName.setColumns(10);
+		
+		comboBoxSearch = new JComboBox();
+		comboBoxSearch.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City"}));
+		comboBoxSearch.setBounds(675, 8, 132, 22);
+		empPanel.add(comboBoxSearch);
+		
+		JLabel lblSearchBy = new JLabel("Search by:");
+		lblSearchBy.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblSearchBy.setBounds(586, 8, 79, 22);
+		empPanel.add(lblSearchBy);
 		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
