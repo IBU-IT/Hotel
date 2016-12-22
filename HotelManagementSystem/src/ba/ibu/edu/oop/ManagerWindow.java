@@ -443,6 +443,13 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(clearFieldButton);
 		
 		JButton btnButton = new JButton("Load Member Data");
+		btnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String query = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City FROM Members";
+				loadData(query, tableMember);
+			}
+		});
 		btnButton.setFont(new Font("Arial Black", Font.BOLD, 14));
 		btnButton.setBounds(649, 448, 255, 32);
 		memberPanel.add(btnButton);
