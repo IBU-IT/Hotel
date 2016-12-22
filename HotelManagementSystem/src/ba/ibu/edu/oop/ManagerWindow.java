@@ -43,6 +43,7 @@ import java.awt.Component;
 import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -75,7 +76,8 @@ public class ManagerWindow extends JFrame {
 	private JLabel timeLbl;
 	private JTable tableEmp;
 	private JTextField txtSearchByName;
-
+	private PreparedStatement pps;
+	private ResultSet rs;
 	/**
 	 * Launch the application.
 	 */
@@ -101,14 +103,16 @@ public class ManagerWindow extends JFrame {
 	private JTextField textFieldCity;
 	private JTextField textFieldUn;
 	private JTable tableMember;
+	private JTextField textField;
+	private ButtonGroup bg = new ButtonGroup();
 	
 	public void refresh()
 	{
 		try {
 			
 			String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
-			PreparedStatement pps = connect.prepareStatement(query);
-			ResultSet rs = pps.executeQuery();
+			pps = connect.prepareStatement(query);
+			rs = pps.executeQuery();
 			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
 			
 			pps.close();
@@ -124,9 +128,9 @@ public class ManagerWindow extends JFrame {
 		try {
 			
 			String query = "SELECT * FROM Employees WHERE Emp_ID =?";
-			PreparedStatement pps = connect.prepareStatement(query);
+			pps = connect.prepareStatement(query);
 			pps.setString(1, idTxt.getText());
-			ResultSet rs = pps.executeQuery();
+			rs = pps.executeQuery();
 			
 			while(rs.next())
 			{
@@ -185,6 +189,97 @@ public class ManagerWindow extends JFrame {
 			}
 		};
 		clock.start();
+	}
+	
+	private void saveRecord()
+	{
+		try {
+			
+			String query = "INSERT INTO Employees (Emp_Name, Emp_Surname, Emp_Age, Emp_Mail, Emp_City, UserName) VALUES (?, ?, ?, ?, ?, ?)";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, nameTxt.getText());
+			pps.setString(2, surnameTxt.getText());
+			pps.setString(3, ageTxt.getText());
+			pps.setString(4, mailTxt.getText());
+			pps.setString(5, cityField.getText());
+			pps.setString(6, unField.getText());
+			
+			pps.execute();
+			
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void updateRecord(String query)
+	{
+		try {
+		
+			pps = connect.prepareStatement(query);
+			
+			pps.execute();
+			pps.close();
+			
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+	}
+	
+	private void deleteRecord(String query)
+	{
+		int deleteAction = JOptionPane.showConfirmDialog(null, "Do you really want to delete record ?", "Delete", JOptionPane.YES_NO_OPTION );
+		if(deleteAction == 0){
+		try {
+			
+			pps = connect.prepareStatement(query);
+			
+			pps.execute();
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		refresh();
+		clearFields();
+	}
+	}
+	
+	private void loadData(String query, JTable table)
+	{
+		try {
+			
+			
+			pps = connect.prepareStatement(query);
+			rs = pps.executeQuery();
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+			
+			pps.close();
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void comboGetsFromDB()
+	{
+		try {
+			
+			String searchBy = (String)comboBoxSearch.getSelectedItem();
+			String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, txtSearchByName.getText());
+			rs = pps.executeQuery();
+			
+			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
+			
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -316,14 +411,6 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(textFieldMail);
 		textFieldMail.setColumns(10);
 		
-		JRadioButton rdbtnMale = new JRadioButton("Male");
-		rdbtnMale.setBounds(400, 347, 55, 23);
-		memberPanel.add(rdbtnMale);
-		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
-		rdbtnFemale.setBounds(457, 347, 72, 23);
-		memberPanel.add(rdbtnFemale);
-		
 		textFieldCity = new JTextField();
 		textFieldCity.setBounds(400, 250, 126, 32);
 		memberPanel.add(textFieldCity);
@@ -333,6 +420,7 @@ public class ManagerWindow extends JFrame {
 		textFieldUn.setBounds(400, 293, 126, 32);
 		memberPanel.add(textFieldUn);
 		textFieldUn.setColumns(10);
+		
 		
 		JButton saveButton = new JButton("SAVE");
 		saveButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -354,6 +442,11 @@ public class ManagerWindow extends JFrame {
 		clearFieldButton.setBounds(187, 448, 339, 37);
 		memberPanel.add(clearFieldButton);
 		
+		JButton btnButton = new JButton("Load Member Data");
+		btnButton.setFont(new Font("Arial Black", Font.BOLD, 14));
+		btnButton.setBounds(649, 448, 255, 32);
+		memberPanel.add(btnButton);
+		
 		JScrollPane scrollPaneMember = new JScrollPane();
 		scrollPaneMember.setBounds(560, 33, 417, 404);
 		memberPanel.add(scrollPaneMember);
@@ -361,9 +454,30 @@ public class ManagerWindow extends JFrame {
 		tableMember = new JTable();
 		scrollPaneMember.setViewportView(tableMember);
 		
-		JButton btnButton = new JButton("Button");
-		btnButton.setBounds(586, 456, 89, 23);
-		memberPanel.add(btnButton);
+		JLabel lblSearchBy_1 = new JLabel("Search by:");
+		lblSearchBy_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblSearchBy_1.setBounds(586, 8, 79, 22);
+		memberPanel.add(lblSearchBy_1);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City", "UserName", "Gender"}));
+		comboBox.setBounds(675, 8, 132, 22);
+		memberPanel.add(comboBox);
+		
+		textField = new JTextField();
+		textField.setBounds(817, 8, 132, 22);
+		memberPanel.add(textField);
+		textField.setColumns(10);
+		
+		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.setBounds(396, 347, 59, 23);
+		memberPanel.add(rdbtnMale);
+		
+		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.setBounds(457, 347, 69, 23);
+		memberPanel.add(rdbtnFemale);
+		bg.add(rdbtnMale);
+		bg.add(rdbtnFemale);
 		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
@@ -456,28 +570,21 @@ public class ManagerWindow extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				try {
-					
-					String query = "INSERT INTO Employees (Emp_Name, Emp_Surname, Emp_Age, Emp_Mail, Emp_City, UserName) VALUES (?, ?, ?, ?, ?, ?)";
-					PreparedStatement pps = connect.prepareStatement(query);
-					pps.setString(1, nameTxt.getText());
-					pps.setString(2, surnameTxt.getText());
-					pps.setString(3, ageTxt.getText());
-					pps.setString(4, mailTxt.getText());
-					pps.setString(5, cityField.getText());
-					pps.setString(6, unField.getText());
-					
-					pps.execute();
-					
-					pps.close();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				saveRecord();
 				refresh();
 				clearFields();
 			}
 		});
+		
+		cityField = new JTextField();
+		cityField.setBounds(400, 250, 126, 32);
+		empPanel.add(cityField);
+		cityField.setColumns(10);
+		
+		unField = new JTextField();
+		unField.setBounds(400, 293, 126, 32);
+		empPanel.add(unField);
+		unField.setColumns(10);
 		btnSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnSave.setBounds(187, 400, 103, 37);
 		empPanel.add(btnSave);
@@ -485,18 +592,8 @@ public class ManagerWindow extends JFrame {
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					
-					String query = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"', UserName = '"+unField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
-					PreparedStatement pps = connect.prepareStatement(query);
-					
-					pps.execute();
-					pps.close();
-					
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
+				String query = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"', UserName = '"+unField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
+				updateRecord(query);
 				refresh();
 				clearFields();
 			}
@@ -509,54 +606,20 @@ public class ManagerWindow extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				int deleteAction = JOptionPane.showConfirmDialog(null, "Do you really want to delete record ?", "Delete", JOptionPane.YES_NO_OPTION );
-				if(deleteAction == 0){
-				try {
-					String query = "DELETE FROM Employees WHERE Emp_ID = '"+ idTxt.getText() +"'";
-					PreparedStatement pps = connect.prepareStatement(query);
-					
-					pps.execute();
-					pps.close();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				refresh();
-				clearFields();
-			}
+				String query = "DELETE FROM Employees WHERE Emp_ID = '"+ idTxt.getText() +"'";
+				deleteRecord(query);
 			}
 		});
 		btnDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnDelete.setBounds(423, 400, 103, 37);
 		empPanel.add(btnDelete);
 		
-		cityField = new JTextField();
-		cityField.setBounds(400, 250, 126, 32);
-		empPanel.add(cityField);
-		cityField.setColumns(10);
-		
-		unField = new JTextField();
-		unField.setBounds(400, 293, 126, 32);
-		empPanel.add(unField);
-		unField.setColumns(10);
-		
 		JButton btnLoadEmployeeData = new JButton("Load Employee Data");
 		btnLoadEmployeeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				try {
-					
-					String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
-					PreparedStatement pps = connect.prepareStatement(query);
-					ResultSet rs = pps.executeQuery();
-					tableEmp .setModel(DbUtils.resultSetToTableModel(rs));
-					
-					pps.close();
-					rs.close();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				loadData(query, tableEmp);
 			}
 		});
 		btnLoadEmployeeData.setFont(new Font("Arial Black", Font.BOLD, 14));
@@ -590,25 +653,12 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnClear);
 		
 		txtSearchByName = new JTextField();
+		txtSearchByName.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtSearchByName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				
-				try {
-					
-					String searchBy = (String)comboBoxSearch.getSelectedItem();
-					String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
-					PreparedStatement pps = connect.prepareStatement(query);
-					pps.setString(1, txtSearchByName.getText());
-					ResultSet rs = pps.executeQuery();
-					
-					tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
-					
-					pps.close();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				comboGetsFromDB();
 			}
 		});
 		txtSearchByName.setToolTipText("");
@@ -617,6 +667,7 @@ public class ManagerWindow extends JFrame {
 		txtSearchByName.setColumns(10);
 		
 		comboBoxSearch = new JComboBox();
+		comboBoxSearch.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboBoxSearch.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City", "UserName"}));
 		comboBoxSearch.setBounds(675, 8, 132, 22);
 		empPanel.add(comboBoxSearch);
