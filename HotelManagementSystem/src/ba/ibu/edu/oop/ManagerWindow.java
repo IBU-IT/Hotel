@@ -361,6 +361,10 @@ public class ManagerWindow extends JFrame {
 		tableMember = new JTable();
 		scrollPaneMember.setViewportView(tableMember);
 		
+		JButton btnButton = new JButton("Button");
+		btnButton.setBounds(586, 456, 89, 23);
+		memberPanel.add(btnButton);
+		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
 		empPanel.setLayout(null);
