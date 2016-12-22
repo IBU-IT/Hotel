@@ -125,10 +125,10 @@ public class BeerBar {
         SubTotal_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
         panel_3.add(SubTotal_2);
         
-        JLabel Total_2 = new JLabel("");
-        Total_2.setBounds(163, 180, 158, 40);
-        Total_2.setBorder(new LineBorder(new Color(0, 0, 0),2));
-        panel_3.add(Total_2);
+        JLabel totalaObada = new JLabel("");
+        totalaObada.setBounds(163, 180, 158, 40);
+        totalaObada.setBorder(new LineBorder(new Color(0, 0, 0),2));
+        panel_3.add(totalaObada);
         
         JPanel panel_4 = new JPanel();
         panel_4.setBounds(10, 432, 499, 239);
@@ -672,6 +672,12 @@ public class BeerBar {
 				SubTotal_2.setText(subtotal);
 				
 				
+				double ctotal=Double.parseDouble(Tax_2.getText());
+				double ctotal1=Double.parseDouble(SubTotal_2.getText());
+				double total;
+				total=(ctotal+ctotal1);
+				String total_2= String.format("%.2f", total);
+				totalaObada.setText(total_2);
 				
 			}
 		});
@@ -720,7 +726,7 @@ public class BeerBar {
 				CostOfCh_2.setText(null);
 				Tax_2.setText(null);
 				SubTotal_2.setText(null);
-				Total_2.setText(null);
+				totalaObada.setText(null);
 			}
 		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
