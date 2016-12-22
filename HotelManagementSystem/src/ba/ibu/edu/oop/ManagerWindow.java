@@ -100,6 +100,7 @@ public class ManagerWindow extends JFrame {
 	private JTextField textFieldMail;
 	private JTextField textFieldCity;
 	private JTextField textFieldUn;
+	private JTable tableMember;
 	
 	public void refresh()
 	{
@@ -353,6 +354,13 @@ public class ManagerWindow extends JFrame {
 		clearFieldButton.setBounds(187, 448, 339, 37);
 		memberPanel.add(clearFieldButton);
 		
+		JScrollPane scrollPaneMember = new JScrollPane();
+		scrollPaneMember.setBounds(560, 33, 417, 404);
+		memberPanel.add(scrollPaneMember);
+		
+		tableMember = new JTable();
+		scrollPaneMember.setViewportView(tableMember);
+		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
 		empPanel.setLayout(null);
@@ -551,9 +559,9 @@ public class ManagerWindow extends JFrame {
 		btnLoadEmployeeData.setBounds(649, 448, 255, 32);
 		empPanel.add(btnLoadEmployeeData);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(560, 33, 417, 404);
-		empPanel.add(scrollPane);
+		JScrollPane scrollPaneEmp = new JScrollPane();
+		scrollPaneEmp.setBounds(560, 33, 417, 404);
+		empPanel.add(scrollPaneEmp);
 		
 		tableEmp = new JTable();
 		tableEmp.setModel(new DefaultTableModel(
@@ -564,7 +572,7 @@ public class ManagerWindow extends JFrame {
 			));
 		tableEmp.setToolTipText("");
 		tableEmp.setFont(new Font("Arial", Font.PLAIN, 11));
-		scrollPane.setViewportView(tableEmp);
+		scrollPaneEmp.setViewportView(tableEmp);
 		
 		JButton btnClear = new JButton("CLEAR FIELDS");
 		btnClear.setFont(new Font("Arial Black", Font.PLAIN, 11));
