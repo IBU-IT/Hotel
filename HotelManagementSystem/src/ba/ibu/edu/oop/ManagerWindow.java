@@ -605,7 +605,7 @@ public class ManagerWindow extends JFrame {
 		txtSearchByName.setColumns(10);
 		
 		comboBoxSearch = new JComboBox();
-		comboBoxSearch.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City"}));
+		comboBoxSearch.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City", "UserName"}));
 		comboBoxSearch.setBounds(675, 8, 132, 22);
 		empPanel.add(comboBoxSearch);
 		
