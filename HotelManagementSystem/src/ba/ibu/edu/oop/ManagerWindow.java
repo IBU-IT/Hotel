@@ -233,16 +233,22 @@ public class ManagerWindow extends JFrame {
 		tabbedPane.setBounds(10, 11, 1010, 538);
 		contentPane.add(tabbedPane);
 		
-		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
-		
 		JPanel memberPanel = new JPanel();
 		memberPanel.setToolTipText("Members");
 		tabbedPane.addTab("Members", null, memberPanel, null);
 		memberPanel.setLayout(null);
+		JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
+		separator1.setForeground(SystemColor.scrollbar);
+		separator1.setBackground(SystemColor.scrollbar);
+		separator1.setSize(2, 515);
+		separator1.setLocation(545, 0);
+		memberPanel.add(separator1);
 		
 		JLabel pictLabel = new JLabel("");
 		pictLabel.setBounds(10, 33, 151, 152);
 		memberPanel.add(pictLabel);
+		Image member = new ImageIcon(this.getClass().getResource("/gymMember.png")).getImage();
+		pictLabel.setIcon(new ImageIcon(member));
 		
 		JLabel lblNewLabel = new JLabel("Member ID:");
 		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 14));
@@ -327,6 +333,26 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(textFieldUn);
 		textFieldUn.setColumns(10);
 		
+		JButton saveButton = new JButton("SAVE");
+		saveButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		saveButton.setBounds(187, 400, 103, 37);
+		memberPanel.add(saveButton);
+		
+		JButton updateButton = new JButton("UPDATE");
+		updateButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		updateButton.setBounds(305, 400, 103, 37);
+		memberPanel.add(updateButton);
+		
+		JButton deleteButton = new JButton("DELETE");
+		deleteButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		deleteButton.setBounds(423, 400, 103, 37);
+		memberPanel.add(deleteButton);
+		
+		JButton clearFieldButton = new JButton("CLEAR FIELDS");
+		clearFieldButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		clearFieldButton.setBounds(187, 448, 339, 37);
+		memberPanel.add(clearFieldButton);
+		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
 		empPanel.setLayout(null);
@@ -383,6 +409,7 @@ public class ManagerWindow extends JFrame {
 		JLabel pictLbl = new JLabel("");
 		pictLbl.setBounds(10, 33, 151, 152);
 		empPanel.add(pictLbl);
+		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
 		pictLbl.setIcon(new ImageIcon(emp));
 		
 		JLabel lblSearchBy = new JLabel("Search by:");
@@ -564,15 +591,6 @@ public class ManagerWindow extends JFrame {
 					ResultSet rs = pps.executeQuery();
 					
 					tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
-					/*while(rs.next())
-					{
-						nameTxt.setText(rs.getString("Emp_Name"));
-						surnameTxt.setText(rs.getString("Emp_Surname"));
-						ageTxt.setText(rs.getString("Emp_Age"));
-						mailTxt.setText(rs.getString("Emp_Mail"));
-						cityField.setText(rs.getString("Emp_City"));
-						unField.setText(rs.getString("UserName"));
-					}*/
 					
 					pps.close();
 					
