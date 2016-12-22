@@ -59,6 +59,7 @@ import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JRadioButton;
 
 public class ManagerWindow extends JFrame {
 
@@ -72,6 +73,8 @@ public class ManagerWindow extends JFrame {
 	private JTextField unField;
 	private JComboBox comboBoxSearch;
 	private JLabel timeLbl;
+	private JTable tableEmp;
+	private JTextField txtSearchByName;
 
 	/**
 	 * Launch the application.
@@ -90,8 +93,13 @@ public class ManagerWindow extends JFrame {
 	}
 	
 	Connection connect = null;
-	private JTable tableEmp;
-	private JTextField txtSearchByName;
+	private JTextField textFieldID;
+	private JTextField textFieldName;
+	private JTextField textFieldSurname;
+	private JTextField textFieldAge;
+	private JTextField textFieldMail;
+	private JTextField textFieldCity;
+	private JTextField textFieldUn;
 	
 	public void refresh()
 	{
@@ -193,29 +201,29 @@ public class ManagerWindow extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("File");
-		menuBar.add(mnNewMenu);
+		JMenu fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		mnNewMenu.add(mntmNewMenuItem);
+		fileMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Exit");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		exitMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				System.exit(EXIT_ON_CLOSE);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem_1);
+		fileMenu.add(exitMenuItem);
 		
-		JMenu mnNewMenu_1 = new JMenu("Help");
-		menuBar.add(mnNewMenu_1);
+		JMenu helpMenu = new JMenu("Help");
+		menuBar.add(helpMenu);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
-		mnNewMenu_1.add(mntmNewMenuItem_2);
+		helpMenu.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("New menu item");
-		mnNewMenu_1.add(mntmNewMenuItem_3);
+		helpMenu.add(mntmNewMenuItem_3);
 		contentPane = new JPanel();
 		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setContentPane(contentPane);
@@ -225,10 +233,99 @@ public class ManagerWindow extends JFrame {
 		tabbedPane.setBounds(10, 11, 1010, 538);
 		contentPane.add(tabbedPane);
 		
+		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
+		
 		JPanel memberPanel = new JPanel();
 		memberPanel.setToolTipText("Members");
 		tabbedPane.addTab("Members", null, memberPanel, null);
-		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
+		memberPanel.setLayout(null);
+		
+		JLabel pictLabel = new JLabel("");
+		pictLabel.setBounds(10, 33, 151, 152);
+		memberPanel.add(pictLabel);
+		
+		JLabel lblNewLabel = new JLabel("Member ID:");
+		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblNewLabel.setBounds(187, 33, 162, 32);
+		memberPanel.add(lblNewLabel);
+		
+		JLabel lblMemberName = new JLabel("Member Name:");
+		lblMemberName.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberName.setBounds(187, 76, 142, 32);
+		memberPanel.add(lblMemberName);
+		
+		JLabel lblMemberSurname = new JLabel("Member Surname:");
+		lblMemberSurname.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberSurname.setBounds(187, 119, 168, 32);
+		memberPanel.add(lblMemberSurname);
+		
+		JLabel lblMemberAge = new JLabel("Member Age:");
+		lblMemberAge.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberAge.setBounds(187, 162, 126, 32);
+		memberPanel.add(lblMemberAge);
+		
+		JLabel lblMemberMail = new JLabel("Member Mail:");
+		lblMemberMail.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberMail.setBounds(187, 205, 130, 32);
+		memberPanel.add(lblMemberMail);
+		
+		JLabel lblMemberGender = new JLabel("Member Gender:");
+		lblMemberGender.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberGender.setBounds(187, 340, 145, 32);
+		memberPanel.add(lblMemberGender);
+		
+		JLabel labelCity = new JLabel("Member City:");
+		labelCity.setFont(new Font("Arial Black", Font.BOLD, 14));
+		labelCity.setBounds(187, 248, 122, 32);
+		memberPanel.add(labelCity);
+		
+		JLabel lblMemberUsername = new JLabel("Member UserName:");
+		lblMemberUsername.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberUsername.setBounds(187, 293, 172, 32);
+		memberPanel.add(lblMemberUsername);
+		
+		textFieldID = new JTextField();
+		textFieldID.setBounds(400, 33, 126, 32);
+		memberPanel.add(textFieldID);
+		textFieldID.setColumns(10);
+		
+		textFieldName = new JTextField();
+		textFieldName.setBounds(400, 78, 126, 32);
+		memberPanel.add(textFieldName);
+		textFieldName.setColumns(10);
+		
+		textFieldSurname = new JTextField();
+		textFieldSurname.setBounds(400, 121, 126, 32);
+		memberPanel.add(textFieldSurname);
+		textFieldSurname.setColumns(10);
+		
+		textFieldAge = new JTextField();
+		textFieldAge.setBounds(400, 164, 126, 32);
+		memberPanel.add(textFieldAge);
+		textFieldAge.setColumns(10);
+		
+		textFieldMail = new JTextField();
+		textFieldMail.setBounds(400, 207, 126, 32);
+		memberPanel.add(textFieldMail);
+		textFieldMail.setColumns(10);
+		
+		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.setBounds(400, 347, 55, 23);
+		memberPanel.add(rdbtnMale);
+		
+		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.setBounds(457, 347, 72, 23);
+		memberPanel.add(rdbtnFemale);
+		
+		textFieldCity = new JTextField();
+		textFieldCity.setBounds(400, 250, 126, 32);
+		memberPanel.add(textFieldCity);
+		textFieldCity.setColumns(10);
+		
+		textFieldUn = new JTextField();
+		textFieldUn.setBounds(400, 293, 126, 32);
+		memberPanel.add(textFieldUn);
+		textFieldUn.setColumns(10);
 		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
@@ -272,6 +369,26 @@ public class ManagerWindow extends JFrame {
 				fillFields();
 			}
 		});
+		
+		JLabel lblUn = new JLabel("User Name:");
+		lblUn.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblUn.setBounds(187, 291, 162, 32);
+		empPanel.add(lblUn);
+		
+		JLabel lblCity = new JLabel("City:");
+		lblCity.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblCity.setBounds(187, 248, 46, 32);
+		empPanel.add(lblCity);
+		
+		JLabel pictLbl = new JLabel("");
+		pictLbl.setBounds(10, 33, 151, 152);
+		empPanel.add(pictLbl);
+		pictLbl.setIcon(new ImageIcon(emp));
+		
+		JLabel lblSearchBy = new JLabel("Search by:");
+		lblSearchBy.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblSearchBy.setBounds(586, 8, 79, 22);
+		empPanel.add(lblSearchBy);
 		idTxt.setBounds(400, 33, 126, 32);
 		empPanel.add(idTxt);
 		idTxt.setColumns(10);
@@ -374,31 +491,16 @@ public class ManagerWindow extends JFrame {
 		btnDelete.setBounds(423, 400, 103, 37);
 		empPanel.add(btnDelete);
 		
-		JLabel lblUn = new JLabel("User Name:");
-		lblUn.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblUn.setBounds(187, 291, 162, 32);
-		empPanel.add(lblUn);
-				
-		JLabel lblCity = new JLabel("City:");
-		lblCity.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblCity.setBounds(187, 248, 46, 32);
-		empPanel.add(lblCity);
-				
 		cityField = new JTextField();
 		cityField.setBounds(400, 250, 126, 32);
 		empPanel.add(cityField);
 		cityField.setColumns(10);
-				
+		
 		unField = new JTextField();
 		unField.setBounds(400, 293, 126, 32);
 		empPanel.add(unField);
 		unField.setColumns(10);
-				
-		JLabel pictLbl = new JLabel("");
-		pictLbl.setBounds(10, 33, 151, 152);
-		empPanel.add(pictLbl);
-		pictLbl.setIcon(new ImageIcon(emp));
-				
+		
 		JButton btnLoadEmployeeData = new JButton("Load Employee Data");
 		btnLoadEmployeeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -421,11 +523,11 @@ public class ManagerWindow extends JFrame {
 		btnLoadEmployeeData.setFont(new Font("Arial Black", Font.BOLD, 14));
 		btnLoadEmployeeData.setBounds(649, 448, 255, 32);
 		empPanel.add(btnLoadEmployeeData);
-				
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(560, 33, 417, 404);
 		empPanel.add(scrollPane);
-				
+		
 		tableEmp = new JTable();
 		tableEmp.setModel(new DefaultTableModel(
 				new Object[][] {
@@ -489,20 +591,14 @@ public class ManagerWindow extends JFrame {
 		comboBoxSearch.setBounds(675, 8, 132, 22);
 		empPanel.add(comboBoxSearch);
 		
-		JLabel lblSearchBy = new JLabel("Search by:");
-		lblSearchBy.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblSearchBy.setBounds(586, 8, 79, 22);
-		empPanel.add(lblSearchBy);
-		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
 		
 		timeLbl = new JLabel();
 		timeLbl.setToolTipText("Today's Date and Time");
 		timeLbl.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		timeLbl.setBounds(844, 549, 168, 16);
+		timeLbl.setBounds(813, 549, 199, 16);
 		contentPane.add(timeLbl);
 		timeMethod();
-		
 	}
 }
