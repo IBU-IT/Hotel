@@ -101,19 +101,18 @@ public class ManagerWindow extends JFrame {
 	private JTextField textFieldAge;
 	private JTextField textFieldMail;
 	private JTextField textFieldCity;
-	private JTextField textFieldUn;
 	private JTable tableMember;
-	private JTextField textField;
+	private JTextField textFieldSearch;
+	private String gender;
 	private ButtonGroup bg = new ButtonGroup();
 	
-	public void refresh()
+	public void refresh(String query, JTable table)
 	{
 		try {
 			
-			String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
 			pps = connect.prepareStatement(query);
 			rs = pps.executeQuery();
-			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
+			table.setModel(DbUtils.resultSetToTableModel(rs));
 			
 			pps.close();
 			rs.close();
@@ -123,7 +122,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void fillFields()
+	public void fillFieldsEmp()
 	{
 		try {
 			
@@ -149,7 +148,34 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void clearFields()
+	public void fillFieldsMem()
+	{
+		try {
+			
+			String query = "SELECT * FROM Members WHERE Mem_ID =?";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, textFieldID.getText());
+			rs = pps.executeQuery();
+			
+			while(rs.next())
+			{
+				textFieldName.setText(rs.getString("Mem_Name"));
+				textFieldSurname.setText(rs.getString("Mem_Surname"));
+				textFieldAge.setText(rs.getString("Mem_Age"));
+				textFieldCity.setText(rs.getString("Mem_City"));
+				textFieldMail.setText(rs.getString("Mem_Mail"));
+				
+				
+			}
+			
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void clearFieldsEmp()
 	{
 		idTxt.setText("");
 		nameTxt.setText("");
@@ -158,6 +184,126 @@ public class ManagerWindow extends JFrame {
 		mailTxt.setText("");
 		cityField.setText("");
 		unField.setText("");
+	}
+	
+	public void clearFieldsMem()
+	{
+		textFieldID.setText("");
+		textFieldName.setText("");
+		textFieldSurname.setText("");
+		textFieldAge.setText("");
+		textFieldCity.setText("");
+		textFieldMail.setText("");
+	}
+	
+	private void saveRecordEmp()
+	{
+		try {
+			
+			String query = "INSERT INTO Employees (Emp_Name, Emp_Surname, Emp_Age, Emp_Mail, Emp_City, UserName) VALUES (?, ?, ?, ?, ?, ?)";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, nameTxt.getText());
+			pps.setString(2, surnameTxt.getText());
+			pps.setString(3, ageTxt.getText());
+			pps.setString(4, mailTxt.getText());
+			pps.setString(5, cityField.getText());
+			pps.setString(6, unField.getText());
+			
+			pps.execute();
+			
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void saveRecordMem()
+	{
+		try {
+			
+			String query = "INSERT INTO Members (Mem_Name, Mem_Surname, Mem_Age, Mem_Mail, Mem_City, Mem_Gender) VALUES (?, ?, ?, ?, ?, ?)";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, textFieldName.getText());
+			pps.setString(2, textFieldSurname.getText());
+			pps.setString(3, textFieldAge.getText());
+			pps.setString(4, textFieldMail.getText());
+			pps.setString(5, textFieldCity.getText());
+			pps.setString(6, gender);
+			
+			pps.execute();
+			pps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void updateRecord(String query)
+	{
+		try {
+			
+			pps = connect.prepareStatement(query);
+			
+			pps.execute();
+			pps.close();
+			
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+	}
+	
+	private void deleteRecord(String query)
+	{
+		String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+		int deleteAction = JOptionPane.showConfirmDialog(null, "Do you really want to delete record ?", "Delete", JOptionPane.YES_NO_OPTION );
+		if(deleteAction == 0){
+		try {
+			
+			pps = connect.prepareStatement(query);
+			
+			pps.execute();
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		refresh(queryRefresh, tableEmp);
+		clearFieldsEmp();
+	}
+	}
+	
+	private void loadData(String query, JTable table)
+	{
+		try {
+			
+			
+			pps = connect.prepareStatement(query);
+			rs = pps.executeQuery();
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+			
+			pps.close();
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void comboGetsFromDB(String query)
+	{
+		try {
+			
+			pps = connect.prepareStatement(query);
+			pps.setString(1, txtSearchByName.getText());
+			rs = pps.executeQuery();
+			
+			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
+			
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void timeMethod()
@@ -189,97 +335,6 @@ public class ManagerWindow extends JFrame {
 			}
 		};
 		clock.start();
-	}
-	
-	private void saveRecord()
-	{
-		try {
-			
-			String query = "INSERT INTO Employees (Emp_Name, Emp_Surname, Emp_Age, Emp_Mail, Emp_City, UserName) VALUES (?, ?, ?, ?, ?, ?)";
-			pps = connect.prepareStatement(query);
-			pps.setString(1, nameTxt.getText());
-			pps.setString(2, surnameTxt.getText());
-			pps.setString(3, ageTxt.getText());
-			pps.setString(4, mailTxt.getText());
-			pps.setString(5, cityField.getText());
-			pps.setString(6, unField.getText());
-			
-			pps.execute();
-			
-			pps.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void updateRecord(String query)
-	{
-		try {
-		
-			pps = connect.prepareStatement(query);
-			
-			pps.execute();
-			pps.close();
-			
-		} catch (Exception e2) {
-			e2.printStackTrace();
-		}
-	}
-	
-	private void deleteRecord(String query)
-	{
-		int deleteAction = JOptionPane.showConfirmDialog(null, "Do you really want to delete record ?", "Delete", JOptionPane.YES_NO_OPTION );
-		if(deleteAction == 0){
-		try {
-			
-			pps = connect.prepareStatement(query);
-			
-			pps.execute();
-			pps.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		refresh();
-		clearFields();
-	}
-	}
-	
-	private void loadData(String query, JTable table)
-	{
-		try {
-			
-			
-			pps = connect.prepareStatement(query);
-			rs = pps.executeQuery();
-			table.setModel(DbUtils.resultSetToTableModel(rs));
-			
-			pps.close();
-			rs.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void comboGetsFromDB()
-	{
-		try {
-			
-			String searchBy = (String)comboBoxSearch.getSelectedItem();
-			String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
-			pps = connect.prepareStatement(query);
-			pps.setString(1, txtSearchByName.getText());
-			rs = pps.executeQuery();
-			
-			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
-			
-			pps.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -373,7 +428,7 @@ public class ManagerWindow extends JFrame {
 		
 		JLabel lblMemberGender = new JLabel("Member Gender:");
 		lblMemberGender.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblMemberGender.setBounds(187, 340, 145, 32);
+		lblMemberGender.setBounds(187, 293, 145, 32);
 		memberPanel.add(lblMemberGender);
 		
 		JLabel labelCity = new JLabel("Member City:");
@@ -381,12 +436,14 @@ public class ManagerWindow extends JFrame {
 		labelCity.setBounds(187, 248, 122, 32);
 		memberPanel.add(labelCity);
 		
-		JLabel lblMemberUsername = new JLabel("Member UserName:");
-		lblMemberUsername.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblMemberUsername.setBounds(187, 293, 172, 32);
-		memberPanel.add(lblMemberUsername);
-		
 		textFieldID = new JTextField();
+		textFieldID.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				
+				fillFieldsMem();
+			}
+		});
 		textFieldID.setBounds(400, 33, 126, 32);
 		memberPanel.add(textFieldID);
 		textFieldID.setColumns(10);
@@ -416,13 +473,14 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(textFieldCity);
 		textFieldCity.setColumns(10);
 		
-		textFieldUn = new JTextField();
-		textFieldUn.setBounds(400, 293, 126, 32);
-		memberPanel.add(textFieldUn);
-		textFieldUn.setColumns(10);
-		
 		
 		JButton saveButton = new JButton("SAVE");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				saveRecordMem();
+			}
+		});
 		saveButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		saveButton.setBounds(187, 400, 103, 37);
 		memberPanel.add(saveButton);
@@ -438,6 +496,12 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(deleteButton);
 		
 		JButton clearFieldButton = new JButton("CLEAR FIELDS");
+		clearFieldButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				clearFieldsMem();
+			}
+		});
 		clearFieldButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		clearFieldButton.setBounds(187, 448, 339, 37);
 		memberPanel.add(clearFieldButton);
@@ -471,21 +535,34 @@ public class ManagerWindow extends JFrame {
 		comboBox.setBounds(675, 8, 132, 22);
 		memberPanel.add(comboBox);
 		
-		textField = new JTextField();
-		textField.setBounds(817, 8, 132, 22);
-		memberPanel.add(textField);
-		textField.setColumns(10);
+		textFieldSearch = new JTextField();
+		textFieldSearch.setBounds(817, 8, 132, 22);
+		memberPanel.add(textFieldSearch);
+		textFieldSearch.setColumns(10);
 		
 		JRadioButton rdbtnMale = new JRadioButton("Male");
-		rdbtnMale.setBounds(396, 347, 59, 23);
+		rdbtnMale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				gender = "Male";
+			}
+		});
+		rdbtnMale.setBounds(400, 300, 59, 23);
 		memberPanel.add(rdbtnMale);
 		
 		JRadioButton rdbtnFemale = new JRadioButton("Female");
-		rdbtnFemale.setBounds(457, 347, 69, 23);
+		rdbtnFemale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				gender = "Female";
+			}
+		});
+		rdbtnFemale.setBounds(457, 300, 69, 23);
 		memberPanel.add(rdbtnFemale);
 		bg.add(rdbtnMale);
 		bg.add(rdbtnFemale);
 		
+		// START OF EMPLOYEE PANEL
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
 		empPanel.setLayout(null);
@@ -524,8 +601,9 @@ public class ManagerWindow extends JFrame {
 		idTxt = new JTextField();
 		idTxt.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent arg0) {
-				fillFields();
+			public void keyPressed(KeyEvent e) {
+				
+				fillFieldsEmp();
 			}
 		});
 		
@@ -577,9 +655,10 @@ public class ManagerWindow extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				saveRecord();
-				refresh();
-				clearFields();
+				String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				saveRecordEmp();
+				refresh(queryRefresh, tableEmp);
+				clearFieldsEmp();
 			}
 		});
 		
@@ -599,10 +678,11 @@ public class ManagerWindow extends JFrame {
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String query = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"', UserName = '"+unField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
-				updateRecord(query);
-				refresh();
-				clearFields();
+				String queryUpdate = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"', UserName = '"+unField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
+				String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				updateRecord(queryUpdate);
+				refresh(queryRefresh, tableEmp);
+				clearFieldsEmp();
 			}
 		});
 		btnUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -613,8 +693,8 @@ public class ManagerWindow extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String query = "DELETE FROM Employees WHERE Emp_ID = '"+ idTxt.getText() +"'";
-				deleteRecord(query);
+				String queryDelete = "DELETE FROM Employees WHERE Emp_ID = '"+ idTxt.getText() +"'";
+				deleteRecord(queryDelete);
 			}
 		});
 		btnDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -625,8 +705,8 @@ public class ManagerWindow extends JFrame {
 		btnLoadEmployeeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String query = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
-				loadData(query, tableEmp);
+				String queryLoad = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				loadData(queryLoad, tableEmp);
 			}
 		});
 		btnLoadEmployeeData.setFont(new Font("Arial Black", Font.BOLD, 14));
@@ -653,7 +733,7 @@ public class ManagerWindow extends JFrame {
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				clearFields();
+				clearFieldsEmp();
 			}
 		});
 		btnClear.setBounds(187, 447, 339, 37);
@@ -665,7 +745,9 @@ public class ManagerWindow extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				
-				comboGetsFromDB();
+				String searchBy = (String)comboBoxSearch.getSelectedItem();
+				String querySearch = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
+				comboGetsFromDB(querySearch);
 			}
 		});
 		txtSearchByName.setToolTipText("");
@@ -687,6 +769,7 @@ public class ManagerWindow extends JFrame {
 		timeLbl.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		timeLbl.setBounds(813, 549, 199, 16);
 		contentPane.add(timeLbl);
+		
 		timeMethod();
 	}
 }
