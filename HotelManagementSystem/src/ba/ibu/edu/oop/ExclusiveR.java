@@ -153,10 +153,7 @@ public class ExclusiveR extends JFrame {
 		contentPane.add(lblPrice);
 		Image image=new ImageIcon(this.getClass().getResource("/exc.png")).getImage();
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"610", "611", "612", "613", "614", "615"}));
-		comboBox.setBounds(147, 89, 86, 20);
-		contentPane.add(comboBox);
+	
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(image));
