@@ -216,6 +216,7 @@ public class ManagerWindow extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		JOptionPane.showMessageDialog(null, "Data Succesfully Saved!");
 	}
 	
 	private void saveRecordMem()
@@ -236,6 +237,7 @@ public class ManagerWindow extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		JOptionPane.showMessageDialog(null, "Data Succesfully Saved!");
 	}
 	
 	private void updateRecord(String query)
@@ -270,6 +272,7 @@ public class ManagerWindow extends JFrame {
 		refresh(queryRefresh, tableEmp);
 		clearFieldsEmp();
 	}
+		JOptionPane.showMessageDialog(null, "Data Succesfully Deleted!");
 	}
 	
 	private void loadData(String query, JTable table)
