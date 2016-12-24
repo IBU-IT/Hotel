@@ -29,6 +29,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
+import java.awt.Window.Type;
 
 public class LoginEmployee extends JFrame {
 
@@ -58,6 +59,7 @@ public class LoginEmployee extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginEmployee() {
+		setType(Type.POPUP);
 		setResizable(false);
 		setTitle("Employee Login");
 		setBounds(100, 100, 368, 355);

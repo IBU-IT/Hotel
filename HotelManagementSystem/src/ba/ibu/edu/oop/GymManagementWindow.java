@@ -66,7 +66,6 @@ public class GymManagementWindow {
 				
 				LoginEmployee loginEmp = new LoginEmployee();
 				loginEmp.loginEmployee();
-				JOptionPane.showMessageDialog(null, "Hii");
 			}
 		});
 		Empbutton.setBounds(59, 200, 104, 41);
