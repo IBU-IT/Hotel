@@ -75,7 +75,7 @@ public class ManagerWindow extends JFrame {
 	private JComboBox comboBoxSearch;
 	private JLabel timeLbl;
 	private JTable tableEmp;
-	private JTextField txtSearchByName;
+	private JTextField txtSearchBy;
 	private PreparedStatement pps;
 	private ResultSet rs;
 	/**
@@ -292,15 +292,15 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	private void comboGetsFromDB(String query)
+	private void comboGetsFromDB(String query, JTable table)
 	{
 		try {
 			
 			pps = connect.prepareStatement(query);
-			pps.setString(1, txtSearchByName.getText());
+			pps.setString(1, txtSearchBy.getText());
 			rs = pps.executeQuery();
 			
-			tableEmp.setModel(DbUtils.resultSetToTableModel(rs));
+			table.setModel(DbUtils.resultSetToTableModel(rs));
 			
 			pps.close();
 			
@@ -558,6 +558,15 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(comboBox);
 		
 		textFieldSearch = new JTextField();
+		textFieldSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				
+				String searchBy = (String)comboBox.getSelectedItem();
+				String querySearch = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City, Mem_Gender AS Gender FROM Members WHERE "+ searchBy +" =?";
+				comboGetsFromDB(querySearch, tableMember);
+			}
+		});
 		textFieldSearch.setBounds(817, 8, 132, 22);
 		memberPanel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
@@ -761,21 +770,21 @@ public class ManagerWindow extends JFrame {
 		btnClear.setBounds(187, 447, 339, 37);
 		empPanel.add(btnClear);
 		
-		txtSearchByName = new JTextField();
-		txtSearchByName.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtSearchByName.addKeyListener(new KeyAdapter() {
+		txtSearchBy = new JTextField();
+		txtSearchBy.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtSearchBy.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				
 				String searchBy = (String)comboBoxSearch.getSelectedItem();
 				String querySearch = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
-				comboGetsFromDB(querySearch);
+				comboGetsFromDB(querySearch, tableEmp);
 			}
 		});
-		txtSearchByName.setToolTipText("");
-		txtSearchByName.setBounds(817, 8, 132, 22);
-		empPanel.add(txtSearchByName);
-		txtSearchByName.setColumns(10);
+		txtSearchBy.setToolTipText("");
+		txtSearchBy.setBounds(817, 8, 132, 22);
+		empPanel.add(txtSearchBy);
+		txtSearchBy.setColumns(10);
 		
 		comboBoxSearch = new JComboBox();
 		comboBoxSearch.setFont(new Font("Arial", Font.PLAIN, 12));
