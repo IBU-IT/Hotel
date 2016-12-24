@@ -478,7 +478,9 @@ public class ManagerWindow extends JFrame {
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				String queryRefresh = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City FROM Members";
 				saveRecordMem();
+				refresh(queryRefresh, tableMember);
 			}
 		});
 		saveButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -486,11 +488,29 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(saveButton);
 		
 		JButton updateButton = new JButton("UPDATE");
+		updateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String queryRefresh = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City FROM Members";
+				String queryUpdate = "UPDATE Members SET Mem_ID = '"+ textFieldID.getText() +"', Mem_Name = '"+ textFieldName.getText() +"', Mem_Surname = '"+ textFieldSurname.getText() +"', Mem_Age = '"+ textFieldAge.getText() +"', Mem_Mail = '"+ textFieldMail.getText() +"', Mem_City = '"+ textFieldCity.getText() +"', Mem_Gender = '"+ gender +"' WHERE Mem_ID = '"+ textFieldID.getText() +"'";
+				updateRecord(queryUpdate);
+				refresh(queryRefresh, tableMember);
+			}
+		});
 		updateButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		updateButton.setBounds(305, 400, 103, 37);
 		memberPanel.add(updateButton);
 		
 		JButton deleteButton = new JButton("DELETE");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String queryRefresh = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City FROM Members";
+				String queryDelete = "DELETE FROM Members WHERE Mem_ID = '"+ textFieldID.getText() +"'";
+				deleteRecord(queryDelete);
+				refresh(queryRefresh, tableMember);
+			}
+		});
 		deleteButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		deleteButton.setBounds(423, 400, 103, 37);
 		memberPanel.add(deleteButton);
