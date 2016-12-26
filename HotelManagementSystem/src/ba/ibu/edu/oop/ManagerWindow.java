@@ -879,7 +879,7 @@ public class ManagerWindow extends JFrame {
 		buttonUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryUpdate = "UPDATE Equipment SET Eq_Code = '"+ textFieldEqCode.getText() +"', Eq_Name = '"+ textFieldEqName.getText() +"'";
+				String queryUpdate = "UPDATE Equipment SET Eq_Code = '"+ textFieldEqCode.getText() +"', Eq_Name = '"+ textFieldEqName.getText() +"', Eq_Description = '"+ itemDescription.getText() +"' WHERE Eq_Code = '"+ textFieldEqCode.getText() +"'";
 				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
 				updateRecord(queryUpdate);
 				refresh(queryRefresh, tableEquip);
@@ -891,6 +891,16 @@ public class ManagerWindow extends JFrame {
 		equipPanel.add(buttonUpdate);
 		
 		JButton buttonDelete = new JButton("DELETE");
+		buttonDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
+				String queryDelete = "DELETE FROM Equipment WHERE Eq_Code = '"+ textFieldEqCode.getText() +"'";
+				deleteRecord(queryDelete);
+				refresh(queryRefresh, tableEquip);
+				clearFieldsEquip();
+			}
+		});
 		buttonDelete.setBounds(423, 400, 103, 37);
 		buttonDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		equipPanel.add(buttonDelete);
@@ -930,6 +940,13 @@ public class ManagerWindow extends JFrame {
 		equipPanel.add(textFieldSrc);
 		
 		JButton buttonLoad = new JButton("Load Equipment Data");
+		buttonLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String queryLoad = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
+				loadData(queryLoad, tableEquip);
+			}
+		});
 		buttonLoad.setBounds(649, 448, 255, 32);
 		buttonLoad.setFont(new Font("Arial Black", Font.BOLD, 14));
 		equipPanel.add(buttonLoad);
