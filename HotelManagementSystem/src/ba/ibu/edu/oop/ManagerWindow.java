@@ -473,14 +473,16 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(labelCity);
 		
 		textFieldID = new JTextField();
-		textFieldID.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldID.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
+			public void keyReleased(KeyEvent e) {
 				
 				fillFieldsMem();
 			}
 		});
+		
+		textFieldID.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		textFieldID.setBounds(400, 33, 126, 32);
 		memberPanel.add(textFieldID);
 		textFieldID.setColumns(10);
@@ -680,14 +682,14 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(mailLbl);
 		
 		idTxt = new JTextField();
-		idTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		idTxt.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {
 				
 				fillFieldsEmp();
 			}
 		});
+		idTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		JLabel lblUn = new JLabel("User Name:");
 		lblUn.setFont(new Font("Arial Black", Font.BOLD, 14));
