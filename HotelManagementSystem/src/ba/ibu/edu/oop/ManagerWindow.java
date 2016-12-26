@@ -61,6 +61,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+import java.awt.Toolkit;
+import javax.swing.JTextArea;
+import javax.swing.JFormattedTextField;
+import javax.swing.JEditorPane;
 
 public class ManagerWindow extends JFrame {
 
@@ -73,15 +77,17 @@ public class ManagerWindow extends JFrame {
 	private JTextField cityField;
 	private JTextField unField;
 	private JComboBox comboBoxSearch;
+	private JComboBox comboBox;
 	private JLabel timeLbl;
 	private JTable tableEmp;
 	private JTextField txtSearchBy;
 	private PreparedStatement pps;
 	private ResultSet rs;
+	private JEditorPane itemDescription;
 	/**
 	 * Launch the application.
 	 */
-	public static void managerWindow() {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -105,6 +111,10 @@ public class ManagerWindow extends JFrame {
 	private JTextField textFieldSearch;
 	private String gender;
 	private ButtonGroup bg = new ButtonGroup();
+	private JTextField textFieldSrc;
+	private JTable tableEquip;
+	private JTextField textFieldEqCode;
+	private JTextField textFieldEqName;
 	
 	public void refresh(String query, JTable table)
 	{
@@ -196,6 +206,13 @@ public class ManagerWindow extends JFrame {
 		textFieldMail.setText("");
 	}
 	
+	public void clearFieldsEquip()
+	{
+		textFieldEqCode.setText("");
+		textFieldEqName.setText("");
+		itemDescription.setText("");
+	}
+	
 	private void saveRecordEmp()
 	{
 		try {
@@ -238,6 +255,23 @@ public class ManagerWindow extends JFrame {
 			e.printStackTrace();
 		}
 		JOptionPane.showMessageDialog(null, "Data Succesfully Saved!");
+	}
+	
+	private void saveRecordEquipment()
+	{
+		try {
+			
+			String query = "INSERT INTO Equipment (Eq_Name, Eq_Description) VALUES (?, ?)";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, textFieldEqName.getText());
+			pps.setString(2, itemDescription.getText());
+			
+			pps.execute();
+			pps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void updateRecord(String query)
@@ -292,12 +326,12 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	private void comboGetsFromDB(String query, JTable table)
+	private void comboGetsFromDB(String query, JTable table, JTextField textField)
 	{
 		try {
 			
 			pps = connect.prepareStatement(query);
-			pps.setString(1, txtSearchBy.getText());
+			pps.setString(1, textField.getText());
 			rs = pps.executeQuery();
 			
 			table.setModel(DbUtils.resultSetToTableModel(rs));
@@ -439,6 +473,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(labelCity);
 		
 		textFieldID = new JTextField();
+		textFieldID.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldID.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
@@ -451,26 +486,31 @@ public class ManagerWindow extends JFrame {
 		textFieldID.setColumns(10);
 		
 		textFieldName = new JTextField();
+		textFieldName.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldName.setBounds(400, 78, 126, 32);
 		memberPanel.add(textFieldName);
 		textFieldName.setColumns(10);
 		
 		textFieldSurname = new JTextField();
+		textFieldSurname.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldSurname.setBounds(400, 121, 126, 32);
 		memberPanel.add(textFieldSurname);
 		textFieldSurname.setColumns(10);
 		
 		textFieldAge = new JTextField();
+		textFieldAge.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldAge.setBounds(400, 164, 126, 32);
 		memberPanel.add(textFieldAge);
 		textFieldAge.setColumns(10);
 		
 		textFieldMail = new JTextField();
+		textFieldMail.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldMail.setBounds(400, 207, 126, 32);
 		memberPanel.add(textFieldMail);
 		textFieldMail.setColumns(10);
 		
 		textFieldCity = new JTextField();
+		textFieldCity.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldCity.setBounds(400, 250, 126, 32);
 		memberPanel.add(textFieldCity);
 		textFieldCity.setColumns(10);
@@ -545,6 +585,12 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(scrollPaneMember);
 		
 		tableMember = new JTable();
+		tableMember.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+				}
+			));
 		scrollPaneMember.setViewportView(tableMember);
 		
 		JLabel lblSearchBy_1 = new JLabel("Search by:");
@@ -552,21 +598,24 @@ public class ManagerWindow extends JFrame {
 		lblSearchBy_1.setBounds(586, 8, 79, 22);
 		memberPanel.add(lblSearchBy_1);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City", "UserName", "Gender"}));
 		comboBox.setBounds(675, 8, 132, 22);
 		memberPanel.add(comboBox);
 		
 		textFieldSearch = new JTextField();
+		textFieldSearch.setFont(new Font("Arial", Font.PLAIN, 11));
 		textFieldSearch.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				
-				String searchBy = (String)comboBox.getSelectedItem();
-				String querySearch = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City, Mem_Gender AS Gender FROM Members WHERE "+ searchBy +" =?";
-				comboGetsFromDB(querySearch, tableMember);
+				String search = (String)comboBox.getSelectedItem();
+				String querySearch = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City FROM Members WHERE "+ search +" =?";
+				comboGetsFromDB(querySearch, tableMember, textFieldSearch);
 			}
 		});
+		textFieldSearch.setToolTipText("");
 		textFieldSearch.setBounds(817, 8, 132, 22);
 		memberPanel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
@@ -594,6 +643,7 @@ public class ManagerWindow extends JFrame {
 		bg.add(rdbtnFemale);
 		
 		// START OF EMPLOYEE PANEL
+		
 		JPanel empPanel = new JPanel();
 		tabbedPane.addTab("Employees", null, empPanel, null);
 		empPanel.setLayout(null);
@@ -630,6 +680,7 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(mailLbl);
 		
 		idTxt = new JTextField();
+		idTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		idTxt.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -651,7 +702,7 @@ public class ManagerWindow extends JFrame {
 		JLabel pictLbl = new JLabel("");
 		pictLbl.setBounds(10, 33, 151, 152);
 		empPanel.add(pictLbl);
-		Image emp = new ImageIcon(this.getClass().getResource("/Emp1.png")).getImage();
+		Image emp = new ImageIcon(this.getClass().getResource("/gymEmployee.png")).getImage();
 		pictLbl.setIcon(new ImageIcon(emp));
 		
 		JLabel lblSearchBy = new JLabel("Search by:");
@@ -663,21 +714,25 @@ public class ManagerWindow extends JFrame {
 		idTxt.setColumns(10);
 		
 		nameTxt = new JTextField();
+		nameTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		nameTxt.setBounds(400, 78, 126, 32);
 		empPanel.add(nameTxt);
 		nameTxt.setColumns(10);
 		
 		surnameTxt = new JTextField();
+		surnameTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		surnameTxt.setBounds(400, 121, 126, 32);
 		empPanel.add(surnameTxt);
 		surnameTxt.setColumns(10);
 		
 		ageTxt = new JTextField();
+		ageTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		ageTxt.setBounds(400, 164, 126, 32);
 		empPanel.add(ageTxt);
 		ageTxt.setColumns(10);
 		
 		mailTxt = new JTextField();
+		mailTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		mailTxt.setBounds(400, 207, 126, 32);
 		empPanel.add(mailTxt);
 		mailTxt.setColumns(10);
@@ -686,7 +741,7 @@ public class ManagerWindow extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City FROM Employees";
 				saveRecordEmp();
 				refresh(queryRefresh, tableEmp);
 				clearFieldsEmp();
@@ -694,11 +749,13 @@ public class ManagerWindow extends JFrame {
 		});
 		
 		cityField = new JTextField();
+		cityField.setFont(new Font("Arial", Font.PLAIN, 12));
 		cityField.setBounds(400, 250, 126, 32);
 		empPanel.add(cityField);
 		cityField.setColumns(10);
 		
 		unField = new JTextField();
+		unField.setFont(new Font("Arial", Font.PLAIN, 12));
 		unField.setBounds(400, 293, 126, 32);
 		empPanel.add(unField);
 		unField.setColumns(10);
@@ -709,8 +766,8 @@ public class ManagerWindow extends JFrame {
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String queryUpdate = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"', UserName = '"+unField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
-				String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				String queryUpdate = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
+				String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City FROM Employees";
 				updateRecord(queryUpdate);
 				refresh(queryRefresh, tableEmp);
 				clearFieldsEmp();
@@ -736,7 +793,7 @@ public class ManagerWindow extends JFrame {
 		btnLoadEmployeeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String queryLoad = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
+				String queryLoad = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City FROM Employees";
 				loadData(queryLoad, tableEmp);
 			}
 		});
@@ -771,14 +828,14 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnClear);
 		
 		txtSearchBy = new JTextField();
-		txtSearchBy.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtSearchBy.setFont(new Font("Arial", Font.PLAIN, 11));
 		txtSearchBy.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				
 				String searchBy = (String)comboBoxSearch.getSelectedItem();
-				String querySearch = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees WHERE "+ searchBy +" =?";
-				comboGetsFromDB(querySearch, tableEmp);
+				String querySearch = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City FROM Employees WHERE "+ searchBy +" =?";
+				comboGetsFromDB(querySearch, tableEmp, txtSearchBy);
 			}
 		});
 		txtSearchBy.setToolTipText("");
@@ -792,8 +849,134 @@ public class ManagerWindow extends JFrame {
 		comboBoxSearch.setBounds(675, 8, 132, 22);
 		empPanel.add(comboBoxSearch);
 		
+		//Equipment Panel Start
+		
 		JPanel equipPanel = new JPanel();
 		tabbedPane.addTab("Equipment", null, equipPanel, null);
+		equipPanel.setLayout(null);
+		
+		JLabel labelPict = new JLabel("");
+		labelPict.setBounds(10, 33, 151, 152);
+		equipPanel.add(labelPict);
+		Image equipment = new ImageIcon(this.getClass().getResource("/gymEquipment.png")).getImage();
+		labelPict.setIcon(new ImageIcon(equipment));
+		
+		JButton buttonSave = new JButton("SAVE");
+		buttonSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				 
+				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
+				saveRecordEquipment();
+				refresh(queryRefresh, tableEquip);
+				clearFieldsEquip();
+			}
+		});
+		buttonSave.setBounds(187, 400, 103, 37);
+		buttonSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		equipPanel.add(buttonSave);
+		
+		JButton buttonUpdate = new JButton("UPDATE");
+		buttonUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String queryUpdate = "UPDATE Equipment SET Eq_Code = '"+ textFieldEqCode.getText() +"', Eq_Name = '"+ textFieldEqName.getText() +"'";
+				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
+				updateRecord(queryUpdate);
+				refresh(queryRefresh, tableEquip);
+				clearFieldsEquip();
+			}
+		});
+		buttonUpdate.setBounds(305, 400, 103, 37);
+		buttonUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		equipPanel.add(buttonUpdate);
+		
+		JButton buttonDelete = new JButton("DELETE");
+		buttonDelete.setBounds(423, 400, 103, 37);
+		buttonDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		equipPanel.add(buttonDelete);
+		
+		JButton buttonClear = new JButton("CLEAR FIELDS");
+		buttonClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				clearFieldsEquip();
+			}
+		});
+		buttonClear.setBounds(187, 447, 339, 37);
+		buttonClear.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		equipPanel.add(buttonClear);
+		
+		JSeparator separator_1 = new JSeparator(SwingConstants.VERTICAL);
+		separator_1.setBounds(545, 0, 2, 515);
+		separator_1.setForeground(SystemColor.scrollbar);
+		separator_1.setBackground(SystemColor.scrollbar);
+		equipPanel.add(separator_1);
+		
+		JLabel labelSrchBy = new JLabel("Search by:");
+		labelSrchBy.setBounds(586, 8, 79, 22);
+		labelSrchBy.setFont(new Font("Arial", Font.PLAIN, 12));
+		equipPanel.add(labelSrchBy);
+		
+		JComboBox comboBoxSrc = new JComboBox();
+		comboBoxSrc.setBounds(675, 8, 132, 22);
+		comboBoxSrc.setFont(new Font("Arial", Font.PLAIN, 12));
+		equipPanel.add(comboBoxSrc);
+		
+		textFieldSrc = new JTextField();
+		textFieldSrc.setBounds(817, 8, 132, 22);
+		textFieldSrc.setToolTipText("");
+		textFieldSrc.setFont(new Font("Arial", Font.PLAIN, 11));
+		textFieldSrc.setColumns(10);
+		equipPanel.add(textFieldSrc);
+		
+		JButton buttonLoad = new JButton("Load Equipment Data");
+		buttonLoad.setBounds(649, 448, 255, 32);
+		buttonLoad.setFont(new Font("Arial Black", Font.BOLD, 14));
+		equipPanel.add(buttonLoad);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(560, 33, 417, 404);
+		equipPanel.add(scrollPane);
+		
+		tableEquip = new JTable();
+		scrollPane.setViewportView(tableEquip);
+		
+		JLabel lblEquipmentCode = new JLabel("Equipment Code:");
+		lblEquipmentCode.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblEquipmentCode.setBounds(187, 33, 159, 37);
+		equipPanel.add(lblEquipmentCode);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblName.setBounds(187, 76, 132, 37);
+		equipPanel.add(lblName);
+		
+		textFieldEqCode = new JTextField();
+		textFieldEqCode.setBounds(400, 33, 126, 32);
+		equipPanel.add(textFieldEqCode);
+		textFieldEqCode.setColumns(10);
+		
+		textFieldEqName = new JTextField();
+		textFieldEqName.setBounds(400, 78, 126, 32);
+		equipPanel.add(textFieldEqName);
+		textFieldEqName.setColumns(10);
+		
+		JLabel lblItemDescription = new JLabel("Detailed Item Description:");
+		lblItemDescription.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblItemDescription.setBounds(187, 119, 267, 32);
+		equipPanel.add(lblItemDescription);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(187, 162, 327, 138);
+		equipPanel.add(scrollPane_1);
+		
+		itemDescription = new JEditorPane();
+		scrollPane_1.setViewportView(itemDescription);
+		itemDescription.setContentType("Description");
+		
+		JPanel allInfoPanel = new JPanel();
+		tabbedPane.addTab("All Information", null, allInfoPanel, null);
+		allInfoPanel.setLayout(null);
 		
 		timeLbl = new JLabel();
 		timeLbl.setToolTipText("Today's Date and Time");
