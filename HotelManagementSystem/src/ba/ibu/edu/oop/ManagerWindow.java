@@ -110,11 +110,13 @@ public class ManagerWindow extends JFrame {
 	private JTable tableMember;
 	private JTextField textFieldSearch;
 	private String gender;
-	private ButtonGroup bg = new ButtonGroup();
+	private String status;
+	private ButtonGroup bgGender = new ButtonGroup();
+	private ButtonGroup bgStatus = new ButtonGroup();
 	private JTextField textFieldSrc;
-	private JTable tableEquip;
-	private JTextField textFieldEqCode;
-	private JTextField textFieldEqName;
+	private JTable tableItems;
+	private JTextField textFieldItemCode;
+	private JTextField textFieldItemName;
 	
 	public void refresh(String query, JTable table)
 	{
@@ -206,10 +208,10 @@ public class ManagerWindow extends JFrame {
 		textFieldMail.setText("");
 	}
 	
-	public void clearFieldsEquip()
+	public void clearFieldsItem()
 	{
-		textFieldEqCode.setText("");
-		textFieldEqName.setText("");
+		textFieldItemCode.setText("");
+		textFieldItemName.setText("");
 		itemDescription.setText("");
 	}
 	
@@ -257,13 +259,13 @@ public class ManagerWindow extends JFrame {
 		JOptionPane.showMessageDialog(null, "Data Succesfully Saved!");
 	}
 	
-	private void saveRecordEquipment()
+	private void saveRecordItem()
 	{
 		try {
 			
-			String query = "INSERT INTO Equipment (Eq_Name, Eq_Description) VALUES (?, ?)";
+			String query = "INSERT INTO Items (Item_Name, Item_Description) VALUES (?, ?)";
 			pps = connect.prepareStatement(query);
-			pps.setString(1, textFieldEqName.getText());
+			pps.setString(1, textFieldItemName.getText());
 			pps.setString(2, itemDescription.getText());
 			
 			pps.execute();
@@ -629,7 +631,7 @@ public class ManagerWindow extends JFrame {
 				gender = "Male";
 			}
 		});
-		rdbtnMale.setBounds(400, 300, 59, 23);
+		rdbtnMale.setBounds(390, 300, 69, 23);
 		memberPanel.add(rdbtnMale);
 		
 		JRadioButton rdbtnFemale = new JRadioButton("Female");
@@ -641,8 +643,33 @@ public class ManagerWindow extends JFrame {
 		});
 		rdbtnFemale.setBounds(457, 300, 69, 23);
 		memberPanel.add(rdbtnFemale);
-		bg.add(rdbtnMale);
-		bg.add(rdbtnFemale);
+		bgGender.add(rdbtnMale);
+		bgGender.add(rdbtnFemale);
+		
+		JLabel lblMemberStatus = new JLabel("Member Status:");
+		lblMemberStatus.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberStatus.setBounds(187, 336, 145, 32);
+		memberPanel.add(lblMemberStatus);
+		
+		JRadioButton rdbtnActive = new JRadioButton("Active");
+		rdbtnActive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				status = "Active";
+			}
+		});
+		rdbtnActive.setBounds(390, 343, 69, 23);
+		memberPanel.add(rdbtnActive);
+		
+		JRadioButton rdbtnInactive = new JRadioButton("Inactive");
+		rdbtnInactive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				status = "Inactive";
+			}
+		});
+		rdbtnInactive.setBounds(457, 343, 69, 23);
+		memberPanel.add(rdbtnInactive);
 		
 		// START OF EMPLOYEE PANEL
 		
@@ -851,15 +878,15 @@ public class ManagerWindow extends JFrame {
 		comboBoxSearch.setBounds(675, 8, 132, 22);
 		empPanel.add(comboBoxSearch);
 		
-		//Equipment Panel Start
+		//Items Panel Start
 		
-		JPanel equipPanel = new JPanel();
-		tabbedPane.addTab("Equipment", null, equipPanel, null);
-		equipPanel.setLayout(null);
+		JPanel itemPanel = new JPanel();
+		tabbedPane.addTab("Items", null, itemPanel, null);
+		itemPanel.setLayout(null);
 		
 		JLabel labelPict = new JLabel("");
 		labelPict.setBounds(10, 33, 151, 152);
-		equipPanel.add(labelPict);
+		itemPanel.add(labelPict);
 		Image equipment = new ImageIcon(this.getClass().getResource("/gymEquipment.png")).getImage();
 		labelPict.setIcon(new ImageIcon(equipment));
 		
@@ -867,127 +894,127 @@ public class ManagerWindow extends JFrame {
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 
-				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
-				saveRecordEquipment();
-				refresh(queryRefresh, tableEquip);
-				clearFieldsEquip();
+				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				saveRecordItem();
+				refresh(queryRefresh, tableItems);
+				clearFieldsItem();
 			}
 		});
 		buttonSave.setBounds(187, 400, 103, 37);
 		buttonSave.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		equipPanel.add(buttonSave);
+		itemPanel.add(buttonSave);
 		
 		JButton buttonUpdate = new JButton("UPDATE");
 		buttonUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryUpdate = "UPDATE Equipment SET Eq_Code = '"+ textFieldEqCode.getText() +"', Eq_Name = '"+ textFieldEqName.getText() +"', Eq_Description = '"+ itemDescription.getText() +"' WHERE Eq_Code = '"+ textFieldEqCode.getText() +"'";
-				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
+				String queryUpdate = "UPDATE Items SET Item_Code = '"+ textFieldItemCode.getText() +"', Eq_Name = '"+ textFieldItemName.getText() +"', Eq_Description = '"+ itemDescription.getText() +"' WHERE Eq_Code = '"+ textFieldItemCode.getText() +"'";
+				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
 				updateRecord(queryUpdate);
-				refresh(queryRefresh, tableEquip);
-				clearFieldsEquip();
+				refresh(queryRefresh, tableItems);
+				clearFieldsItem();
 			}
 		});
 		buttonUpdate.setBounds(305, 400, 103, 37);
 		buttonUpdate.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		equipPanel.add(buttonUpdate);
+		itemPanel.add(buttonUpdate);
 		
 		JButton buttonDelete = new JButton("DELETE");
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryRefresh = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
-				String queryDelete = "DELETE FROM Equipment WHERE Eq_Code = '"+ textFieldEqCode.getText() +"'";
+				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				String queryDelete = "DELETE FROM Items WHERE Item_Code = '"+ textFieldItemCode.getText() +"'";
 				deleteRecord(queryDelete);
-				refresh(queryRefresh, tableEquip);
-				clearFieldsEquip();
+				refresh(queryRefresh, tableItems);
+				clearFieldsItem();
 			}
 		});
 		buttonDelete.setBounds(423, 400, 103, 37);
 		buttonDelete.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		equipPanel.add(buttonDelete);
+		itemPanel.add(buttonDelete);
 		
 		JButton buttonClear = new JButton("CLEAR FIELDS");
 		buttonClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				clearFieldsEquip();
+				clearFieldsItem();
 			}
 		});
 		buttonClear.setBounds(187, 447, 339, 37);
 		buttonClear.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		equipPanel.add(buttonClear);
+		itemPanel.add(buttonClear);
 		
 		JSeparator separator_1 = new JSeparator(SwingConstants.VERTICAL);
 		separator_1.setBounds(545, 0, 2, 515);
 		separator_1.setForeground(SystemColor.scrollbar);
 		separator_1.setBackground(SystemColor.scrollbar);
-		equipPanel.add(separator_1);
+		itemPanel.add(separator_1);
 		
 		JLabel labelSrchBy = new JLabel("Search by:");
 		labelSrchBy.setBounds(586, 8, 79, 22);
 		labelSrchBy.setFont(new Font("Arial", Font.PLAIN, 12));
-		equipPanel.add(labelSrchBy);
+		itemPanel.add(labelSrchBy);
 		
 		JComboBox comboBoxSrc = new JComboBox();
 		comboBoxSrc.setBounds(675, 8, 132, 22);
 		comboBoxSrc.setFont(new Font("Arial", Font.PLAIN, 12));
-		equipPanel.add(comboBoxSrc);
+		itemPanel.add(comboBoxSrc);
 		
 		textFieldSrc = new JTextField();
 		textFieldSrc.setBounds(817, 8, 132, 22);
 		textFieldSrc.setToolTipText("");
 		textFieldSrc.setFont(new Font("Arial", Font.PLAIN, 11));
 		textFieldSrc.setColumns(10);
-		equipPanel.add(textFieldSrc);
+		itemPanel.add(textFieldSrc);
 		
-		JButton buttonLoad = new JButton("Load Equipment Data");
+		JButton buttonLoad = new JButton("Load Item Data");
 		buttonLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryLoad = "SELECT Eq_Code AS Code, Eq_Name AS Name FROM Equipment";
-				loadData(queryLoad, tableEquip);
+				String queryLoad = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				loadData(queryLoad, tableItems);
 			}
 		});
 		buttonLoad.setBounds(649, 448, 255, 32);
 		buttonLoad.setFont(new Font("Arial Black", Font.BOLD, 14));
-		equipPanel.add(buttonLoad);
+		itemPanel.add(buttonLoad);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(560, 33, 417, 404);
-		equipPanel.add(scrollPane);
+		itemPanel.add(scrollPane);
 		
-		tableEquip = new JTable();
-		scrollPane.setViewportView(tableEquip);
+		tableItems = new JTable();
+		scrollPane.setViewportView(tableItems);
 		
-		JLabel lblEquipmentCode = new JLabel("Equipment Code:");
+		JLabel lblEquipmentCode = new JLabel("Item Code:");
 		lblEquipmentCode.setFont(new Font("Arial Black", Font.BOLD, 14));
 		lblEquipmentCode.setBounds(187, 33, 159, 37);
-		equipPanel.add(lblEquipmentCode);
+		itemPanel.add(lblEquipmentCode);
 		
-		JLabel lblName = new JLabel("Name:");
+		JLabel lblName = new JLabel("Item Name:");
 		lblName.setFont(new Font("Arial Black", Font.BOLD, 14));
 		lblName.setBounds(187, 76, 132, 37);
-		equipPanel.add(lblName);
+		itemPanel.add(lblName);
 		
-		textFieldEqCode = new JTextField();
-		textFieldEqCode.setBounds(400, 33, 126, 32);
-		equipPanel.add(textFieldEqCode);
-		textFieldEqCode.setColumns(10);
+		textFieldItemCode = new JTextField();
+		textFieldItemCode.setBounds(400, 33, 126, 32);
+		itemPanel.add(textFieldItemCode);
+		textFieldItemCode.setColumns(10);
 		
-		textFieldEqName = new JTextField();
-		textFieldEqName.setBounds(400, 78, 126, 32);
-		equipPanel.add(textFieldEqName);
-		textFieldEqName.setColumns(10);
+		textFieldItemName = new JTextField();
+		textFieldItemName.setBounds(400, 78, 126, 32);
+		itemPanel.add(textFieldItemName);
+		textFieldItemName.setColumns(10);
 		
 		JLabel lblItemDescription = new JLabel("Detailed Item Description:");
 		lblItemDescription.setFont(new Font("Arial Black", Font.BOLD, 14));
 		lblItemDescription.setBounds(187, 119, 267, 32);
-		equipPanel.add(lblItemDescription);
+		itemPanel.add(lblItemDescription);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(187, 162, 327, 138);
-		equipPanel.add(scrollPane_1);
+		itemPanel.add(scrollPane_1);
 		
 		itemDescription = new JEditorPane();
 		scrollPane_1.setViewportView(itemDescription);
