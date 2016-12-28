@@ -117,6 +117,7 @@ public class ManagerWindow extends JFrame {
 	private JTable tableItems;
 	private JTextField textFieldItemCode;
 	private JTextField textFieldItemName;
+	private JTextField textFieldPrice;
 	
 	public void refresh(String query, JTable table)
 	{
@@ -187,6 +188,28 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
+	public void fillFieldsItem()
+	{
+		try {
+			
+			String query = "SELECT * FROM Items WHERE Item_Code =?";
+			pps = connect.prepareStatement(query);
+			pps.setString(1, textFieldItemCode.getText());
+			rs = pps.executeQuery();
+			
+			while(rs.next())
+			{
+				textFieldItemName.setText(rs.getString("Item_Name"));
+				textFieldPrice.setText(rs.getString("Item_Price"));
+				itemDescription.setText(rs.getString("Item_Description"));
+			}
+			
+			pps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void clearFieldsEmp()
 	{
 		idTxt.setText("");
@@ -242,7 +265,7 @@ public class ManagerWindow extends JFrame {
 	{
 		try {
 			
-			String query = "INSERT INTO Members (Mem_Name, Mem_Surname, Mem_Age, Mem_Mail, Mem_City, Mem_Gender) VALUES (?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO Members (Mem_Name, Mem_Surname, Mem_Age, Mem_Mail, Mem_City, Mem_Gender, Mem_Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			pps = connect.prepareStatement(query);
 			pps.setString(1, textFieldName.getText());
 			pps.setString(2, textFieldSurname.getText());
@@ -250,6 +273,7 @@ public class ManagerWindow extends JFrame {
 			pps.setString(4, textFieldMail.getText());
 			pps.setString(5, textFieldCity.getText());
 			pps.setString(6, gender);
+			pps.setString(7, status);
 			
 			pps.execute();
 			pps.close();
@@ -263,10 +287,11 @@ public class ManagerWindow extends JFrame {
 	{
 		try {
 			
-			String query = "INSERT INTO Items (Item_Name, Item_Description) VALUES (?, ?)";
+			String query = "INSERT INTO Items (Item_Name, Item_Price , Item_Description) VALUES (?, ?, ?)";
 			pps = connect.prepareStatement(query);
 			pps.setString(1, textFieldItemName.getText());
-			pps.setString(2, itemDescription.getText());
+			pps.setString(2, textFieldPrice.getText());
+			pps.setString(3, itemDescription.getText());
 			
 			pps.execute();
 			pps.close();
@@ -538,7 +563,7 @@ public class ManagerWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				String queryRefresh = "SELECT Mem_ID AS ID, Mem_Name AS Name, Mem_Surname AS Surname, Mem_Age AS Age, Mem_City AS City FROM Members";
-				String queryUpdate = "UPDATE Members SET Mem_ID = '"+ textFieldID.getText() +"', Mem_Name = '"+ textFieldName.getText() +"', Mem_Surname = '"+ textFieldSurname.getText() +"', Mem_Age = '"+ textFieldAge.getText() +"', Mem_Mail = '"+ textFieldMail.getText() +"', Mem_City = '"+ textFieldCity.getText() +"', Mem_Gender = '"+ gender +"' WHERE Mem_ID = '"+ textFieldID.getText() +"'";
+				String queryUpdate = "UPDATE Members SET Mem_ID = '"+ textFieldID.getText() +"', Mem_Name = '"+ textFieldName.getText() +"', Mem_Surname = '"+ textFieldSurname.getText() +"', Mem_Age = '"+ textFieldAge.getText() +"', Mem_Mail = '"+ textFieldMail.getText() +"', Mem_City = '"+ textFieldCity.getText() +"', Mem_Gender = '"+ gender +"', Mem_Status = '"+ status +"' WHERE Mem_ID = '"+ textFieldID.getText() +"'";
 				updateRecord(queryUpdate);
 				refresh(queryRefresh, tableMember);
 			}
@@ -607,7 +632,7 @@ public class ManagerWindow extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City", "UserName", "Gender"}));
 		comboBox.setBounds(675, 8, 132, 22);
 		memberPanel.add(comboBox);
-		
+		// ISPRAVITI :::::::::::::::::::::::::::::::::::::::::::::::::::::
 		textFieldSearch = new JTextField();
 		textFieldSearch.setFont(new Font("Arial", Font.PLAIN, 11));
 		textFieldSearch.addKeyListener(new KeyAdapter() {
@@ -670,6 +695,9 @@ public class ManagerWindow extends JFrame {
 		});
 		rdbtnInactive.setBounds(457, 343, 69, 23);
 		memberPanel.add(rdbtnInactive);
+		
+		bgStatus.add(rdbtnActive);
+		bgStatus.add(rdbtnInactive);
 		
 		// START OF EMPLOYEE PANEL
 		
@@ -894,7 +922,7 @@ public class ManagerWindow extends JFrame {
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 
-				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name, Item_Price AS Price FROM Items";
 				saveRecordItem();
 				refresh(queryRefresh, tableItems);
 				clearFieldsItem();
@@ -908,8 +936,8 @@ public class ManagerWindow extends JFrame {
 		buttonUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryUpdate = "UPDATE Items SET Item_Code = '"+ textFieldItemCode.getText() +"', Eq_Name = '"+ textFieldItemName.getText() +"', Eq_Description = '"+ itemDescription.getText() +"' WHERE Eq_Code = '"+ textFieldItemCode.getText() +"'";
-				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				String queryUpdate = "UPDATE Items SET Item_Code = '"+ textFieldItemCode.getText() +"', Item_Name = '"+ textFieldItemName.getText() +"', Item_Description = '"+ itemDescription.getText() +"', Item_Price = '"+ textFieldPrice.getText() +"' WHERE Item_Code = '"+ textFieldItemCode.getText() +"'";
+				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name, Item_Price AS Price FROM Items";
 				updateRecord(queryUpdate);
 				refresh(queryRefresh, tableItems);
 				clearFieldsItem();
@@ -923,7 +951,7 @@ public class ManagerWindow extends JFrame {
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				String queryRefresh = "SELECT Item_Code AS Code, Item_Name AS Name, Item_Price AS Price FROM Items";
 				String queryDelete = "DELETE FROM Items WHERE Item_Code = '"+ textFieldItemCode.getText() +"'";
 				deleteRecord(queryDelete);
 				refresh(queryRefresh, tableItems);
@@ -972,7 +1000,7 @@ public class ManagerWindow extends JFrame {
 		buttonLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String queryLoad = "SELECT Item_Code AS Code, Item_Name AS Name FROM Items";
+				String queryLoad = "SELECT Item_Code AS Code, Item_Name AS Name, Item_Price AS Price FROM Items";
 				loadData(queryLoad, tableItems);
 			}
 		});
@@ -998,6 +1026,13 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(lblName);
 		
 		textFieldItemCode = new JTextField();
+		textFieldItemCode.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				
+				fillFieldsItem();
+			}
+		});
 		textFieldItemCode.setBounds(400, 33, 126, 32);
 		itemPanel.add(textFieldItemCode);
 		textFieldItemCode.setColumns(10);
@@ -1009,16 +1044,26 @@ public class ManagerWindow extends JFrame {
 		
 		JLabel lblItemDescription = new JLabel("Detailed Item Description:");
 		lblItemDescription.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblItemDescription.setBounds(187, 119, 267, 32);
+		lblItemDescription.setBounds(186, 165, 267, 32);
 		itemPanel.add(lblItemDescription);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(187, 162, 327, 138);
+		scrollPane_1.setBounds(187, 204, 327, 138);
 		itemPanel.add(scrollPane_1);
 		
 		itemDescription = new JEditorPane();
 		scrollPane_1.setViewportView(itemDescription);
 		itemDescription.setContentType("Description");
+		
+		JLabel lblItemPrice = new JLabel("Item Price:");
+		lblItemPrice.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblItemPrice.setBounds(187, 117, 132, 37);
+		itemPanel.add(lblItemPrice);
+		
+		textFieldPrice = new JTextField();
+		textFieldPrice.setBounds(400, 121, 126, 32);
+		itemPanel.add(textFieldPrice);
+		textFieldPrice.setColumns(10);
 		
 		JPanel allInfoPanel = new JPanel();
 		tabbedPane.addTab("All Information", null, allInfoPanel, null);
