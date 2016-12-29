@@ -574,7 +574,6 @@ public class ManagerWindow extends JFrame {
 		
 		
 		JButton saveButton = new JButton("SAVE");
-		saveButton.setIcon(new ImageIcon("C:\\Users\\Mujo\\Desktop\\SaveBtn.png"));
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -586,10 +585,6 @@ public class ManagerWindow extends JFrame {
 		saveButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		saveButton.setBounds(187, 400, 103, 37);
 		memberPanel.add(saveButton);
-		saveButton.setContentAreaFilled(false);
-		saveButton.setBorderPainted(false);
-		saveButton.setMnemonic(1);
-		
 		
 		JButton updateButton = new JButton("UPDATE");
 		updateButton.addActionListener(new ActionListener() {
@@ -781,7 +776,23 @@ public class ManagerWindow extends JFrame {
 				
 				fillFieldsEmp();
 			}
+			@Override
+			public void keyPressed(KeyEvent event) {
+				
+				char ch = event.getKeyChar();
+				
+				if(ch == 8)
+				{
+					textFieldName.setText("");
+					textFieldSurname.setText("");
+					textFieldAge.setText("");
+					textFieldCity.setText("");
+					textFieldMail.setText("");
+				}
+			}
 		});
+		
+		
 		idTxt.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		JLabel lblUn = new JLabel("User Name:");
@@ -1082,6 +1093,20 @@ public class ManagerWindow extends JFrame {
 				
 				fillFieldsItem();
 			}
+			@Override
+			public void keyPressed(KeyEvent event) {
+				
+				char ch = event.getKeyChar();
+				
+				if(ch == 8)
+				{
+					textFieldName.setText("");
+					textFieldSurname.setText("");
+					textFieldAge.setText("");
+					textFieldCity.setText("");
+					textFieldMail.setText("");
+				}
+			}
 		});
 		textFieldItemCode.setBounds(400, 33, 126, 32);
 		itemPanel.add(textFieldItemCode);
@@ -1177,6 +1202,28 @@ public class ManagerWindow extends JFrame {
 		allInfoPanel.add(btnEmployees);
 		
 		JButton btnItems = new JButton("ITEMS");
+		btnItems.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int option;
+				
+				option = Integer.parseInt(JOptionPane.showInputDialog(null, "Please select sort method \n\n 1.LIST ALL ITEMS \t      2.NAME \n\n 3.PRICE ASCENDING \t   4.PRICE DESCENDING \n ", "Items", JOptionPane.OK_CANCEL_OPTION));
+				
+				switch (option) {
+				case 1:
+					String queryAll = "SELECT * FROM Items";
+					loadData(queryAll, tableAllInfo);
+					break;
+				case 2:
+					String queryName = "SELECT Item_Code AS CODE, Item_Name AS NAME, Item_Description AS DESCRIPTION, Item_Price AS PRICE FROM Items ORDER BY Item_Name";
+					loadData(queryName, tableAllInfo);
+					break;
+				
+				default:
+					break;
+				}
+			}
+		});
 		btnItems.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnItems.setBounds(29, 283, 147, 45);
 		allInfoPanel.add(btnItems);
