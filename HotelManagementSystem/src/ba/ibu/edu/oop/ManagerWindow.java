@@ -65,6 +65,15 @@ import java.awt.Toolkit;
 import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 import javax.swing.JEditorPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JScrollBar;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JCheckBox;
 
 public class ManagerWindow extends JFrame {
 
@@ -113,11 +122,14 @@ public class ManagerWindow extends JFrame {
 	private String status;
 	private ButtonGroup bgGender = new ButtonGroup();
 	private ButtonGroup bgStatus = new ButtonGroup();
+	private ButtonGroup bg = new ButtonGroup();
+	private ButtonGroup bg1 = new ButtonGroup();
 	private JTextField textFieldSrc;
 	private JTable tableItems;
 	private JTextField textFieldItemCode;
 	private JTextField textFieldItemName;
 	private JTextField textFieldPrice;
+	private JTable tableAllInfo;
 	
 	public void refresh(String query, JTable table)
 	{
@@ -178,7 +190,6 @@ public class ManagerWindow extends JFrame {
 				textFieldCity.setText(rs.getString("Mem_City"));
 				textFieldMail.setText(rs.getString("Mem_Mail"));
 				
-				
 			}
 			
 			pps.close();
@@ -235,6 +246,7 @@ public class ManagerWindow extends JFrame {
 	{
 		textFieldItemCode.setText("");
 		textFieldItemName.setText("");
+		textFieldPrice.setText("");
 		itemDescription.setText("");
 	}
 	
@@ -506,6 +518,21 @@ public class ManagerWindow extends JFrame {
 				
 				fillFieldsMem();
 			}
+			@Override
+			public void keyPressed(KeyEvent event) {
+				
+				char ch = event.getKeyChar();
+				
+				if(ch == 8)
+				{
+					//clearFieldsMem();
+					textFieldName.setText("");
+					textFieldSurname.setText("");
+					textFieldAge.setText("");
+					textFieldCity.setText("");
+					textFieldMail.setText("");
+				}
+			}
 		});
 		
 		textFieldID.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -614,6 +641,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(scrollPaneMember);
 		
 		tableMember = new JTable();
+		tableMember.setFont(new Font("Arial", Font.PLAIN, 11));
 		tableMember.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -650,6 +678,7 @@ public class ManagerWindow extends JFrame {
 		textFieldSearch.setColumns(10);
 		
 		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.setFont(new Font("Arial", Font.PLAIN, 11));
 		rdbtnMale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -660,6 +689,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(rdbtnMale);
 		
 		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.setFont(new Font("Arial", Font.PLAIN, 11));
 		rdbtnFemale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -677,6 +707,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(lblMemberStatus);
 		
 		JRadioButton rdbtnActive = new JRadioButton("Active");
+		rdbtnActive.setFont(new Font("Arial", Font.PLAIN, 11));
 		rdbtnActive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -687,6 +718,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(rdbtnActive);
 		
 		JRadioButton rdbtnInactive = new JRadioButton("Inactive");
+		rdbtnInactive.setFont(new Font("Arial", Font.PLAIN, 11));
 		rdbtnInactive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -915,7 +947,7 @@ public class ManagerWindow extends JFrame {
 		JLabel labelPict = new JLabel("");
 		labelPict.setBounds(10, 33, 151, 152);
 		itemPanel.add(labelPict);
-		Image equipment = new ImageIcon(this.getClass().getResource("/gymEquipment.png")).getImage();
+		Image equipment = new ImageIcon(this.getClass().getResource("/gymItems.png")).getImage();
 		labelPict.setIcon(new ImageIcon(equipment));
 		
 		JButton buttonSave = new JButton("SAVE");
@@ -985,11 +1017,21 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(labelSrchBy);
 		
 		JComboBox comboBoxSrc = new JComboBox();
+		comboBoxSrc.setModel(new DefaultComboBoxModel(new String[] {"Code", "Name"}));
 		comboBoxSrc.setBounds(675, 8, 132, 22);
 		comboBoxSrc.setFont(new Font("Arial", Font.PLAIN, 12));
 		itemPanel.add(comboBoxSrc);
 		
 		textFieldSrc = new JTextField();
+		textFieldSrc.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				
+				String searchBy = (String)comboBoxSrc.getSelectedItem();
+				String querySearch = "SELECT Item_Code AS Code, Item_Name AS Name, Item_Price AS Price FROM Items WHERE "+ searchBy +" =?";
+				comboGetsFromDB(querySearch, tableItems, textFieldSrc);
+			}
+		});
 		textFieldSrc.setBounds(817, 8, 132, 22);
 		textFieldSrc.setToolTipText("");
 		textFieldSrc.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -1013,6 +1055,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(scrollPane);
 		
 		tableItems = new JTable();
+		tableItems.setFont(new Font("Arial", Font.PLAIN, 11));
 		scrollPane.setViewportView(tableItems);
 		
 		JLabel lblEquipmentCode = new JLabel("Item Code:");
@@ -1026,6 +1069,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(lblName);
 		
 		textFieldItemCode = new JTextField();
+		textFieldItemCode.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldItemCode.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
@@ -1038,6 +1082,7 @@ public class ManagerWindow extends JFrame {
 		textFieldItemCode.setColumns(10);
 		
 		textFieldItemName = new JTextField();
+		textFieldItemName.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldItemName.setBounds(400, 78, 126, 32);
 		itemPanel.add(textFieldItemName);
 		textFieldItemName.setColumns(10);
@@ -1052,6 +1097,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(scrollPane_1);
 		
 		itemDescription = new JEditorPane();
+		itemDescription.setFont(new Font("Arial", Font.PLAIN, 11));
 		scrollPane_1.setViewportView(itemDescription);
 		itemDescription.setContentType("Description");
 		
@@ -1061,6 +1107,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(lblItemPrice);
 		
 		textFieldPrice = new JTextField();
+		textFieldPrice.setFont(new Font("Arial", Font.PLAIN, 12));
 		textFieldPrice.setBounds(400, 121, 126, 32);
 		itemPanel.add(textFieldPrice);
 		textFieldPrice.setColumns(10);
@@ -1068,6 +1115,65 @@ public class ManagerWindow extends JFrame {
 		JPanel allInfoPanel = new JPanel();
 		tabbedPane.addTab("All Information", null, allInfoPanel, null);
 		allInfoPanel.setLayout(null);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(202, 11, 793, 488);
+		allInfoPanel.add(scrollPane_2);
+		
+		tableAllInfo = new JTable();
+		tableAllInfo.setFont(new Font("Arial", Font.PLAIN, 12));
+		scrollPane_2.setViewportView(tableAllInfo);
+		
+		JButton btnMembers = new JButton("MEMBERS");
+		btnMembers.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnMembers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int option;
+				
+				option = Integer.parseInt(JOptionPane.showInputDialog(null, "Please select sort method \n\n 1.MALE MEMBERS \t      2.FEMALE MEMBERS \n\n 3.ACTIVE MEMBERS \t   4.INACTIVE MEMBERS \n ", "Members", JOptionPane.OK_CANCEL_OPTION));
+				
+				switch (option) {
+				case 1:
+					String queryMale = "SELECT Mem_ID AS ID, Mem_Name AS NAME, Mem_Surname AS SURNAME, Mem_Age AS AGE, Mem_Mail AS EMAIL, Mem_City AS CITY, Mem_Gender AS GENDER, Mem_Status AS STATUS FROM Members WHERE Mem_Gender = 'Male'";
+					loadData(queryMale, tableAllInfo);
+					break;
+				case 2:
+					String queryFemale = "SELECT Mem_ID AS ID, Mem_Name AS NAME, Mem_Surname AS SURNAME, Mem_Age AS AGE, Mem_Mail AS EMAIL, Mem_City AS CITY, Mem_Gender AS GENDER, Mem_Status AS STATUS FROM Members WHERE Mem_Gender = 'Female'";
+					loadData(queryFemale, tableAllInfo);
+					break;
+				case 3:
+					String queryActive = "SELECT Mem_ID AS ID, Mem_Name AS NAME, Mem_Surname AS SURNAME, Mem_Age AS AGE, Mem_Mail AS EMAIL, Mem_City AS CITY, Mem_Gender AS GENDER, Mem_Status AS STATUS FROM Members WHERE Mem_Status = 'Active'";
+					loadData(queryActive, tableAllInfo);
+					break;
+				case 4:
+					String queryInActive = "SELECT Mem_ID AS ID, Mem_Name AS NAME, Mem_Surname AS SURNAME, Mem_Age AS AGE, Mem_Mail AS EMAIL, Mem_City AS CITY, Mem_Gender AS GENDER, Mem_Status AS STATUS FROM Members WHERE Mem_Status = 'Inactive'";
+					loadData(queryInActive, tableAllInfo);
+					break;
+				default:
+					break;
+				}
+			}
+		});
+		btnMembers.setBounds(29, 209, 147, 45);
+		allInfoPanel.add(btnMembers);
+		
+		JButton btnEmployees = new JButton("EMPLOYEES");
+		btnEmployees.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnEmployees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String query = "SELECT Emp_ID AS ID, Emp_Name AS NAME, Emp_Surname AS SURNAME, Emp_Age AS AGE, Emp_Mail AS EMAIL, Emp_City AS CITY, UserName AS USERNAME FROM Employees";
+				loadData(query, tableAllInfo);
+			}
+		});
+		btnEmployees.setBounds(29, 131, 147, 45);
+		allInfoPanel.add(btnEmployees);
+		
+		JButton btnItems = new JButton("ITEMS");
+		btnItems.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		btnItems.setBounds(29, 283, 147, 45);
+		allInfoPanel.add(btnItems);
 		
 		timeLbl = new JLabel();
 		timeLbl.setToolTipText("Today's Date and Time");
