@@ -450,6 +450,7 @@ public class ManagerWindow extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("New menu item");
 		helpMenu.add(mntmNewMenuItem_3);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setContentPane(contentPane);
@@ -573,6 +574,7 @@ public class ManagerWindow extends JFrame {
 		
 		
 		JButton saveButton = new JButton("SAVE");
+		saveButton.setIcon(new ImageIcon("C:\\Users\\Mujo\\Desktop\\SaveBtn.png"));
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -584,6 +586,10 @@ public class ManagerWindow extends JFrame {
 		saveButton.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		saveButton.setBounds(187, 400, 103, 37);
 		memberPanel.add(saveButton);
+		saveButton.setContentAreaFilled(false);
+		saveButton.setBorderPainted(false);
+		saveButton.setMnemonic(1);
+		
 		
 		JButton updateButton = new JButton("UPDATE");
 		updateButton.addActionListener(new ActionListener() {
