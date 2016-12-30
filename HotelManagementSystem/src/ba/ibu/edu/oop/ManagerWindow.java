@@ -420,7 +420,7 @@ public class ManagerWindow extends JFrame {
 		
 		connect = DatabaseConnector.databaseConnector();
 		
-		setTitle("Manager Editor");
+		setTitle("Gym Management Software");
 		setType(Type.POPUP);
 		setBounds(100, 100, 1046, 625);
 		
@@ -448,8 +448,15 @@ public class ManagerWindow extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		helpMenu.add(mntmNewMenuItem_2);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("New menu item");
-		helpMenu.add(mntmNewMenuItem_3);
+		JMenuItem mntmAbout = new JMenuItem("About GMS");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				About about = new About();
+				about.About();
+			}
+		});
+		helpMenu.add(mntmAbout);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -574,6 +581,7 @@ public class ManagerWindow extends JFrame {
 		
 		
 		JButton saveButton = new JButton("SAVE");
+		saveButton.setToolTipText("Saves Data To Database");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -587,6 +595,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(saveButton);
 		
 		JButton updateButton = new JButton("UPDATE");
+		updateButton.setToolTipText("Updates Data in Database");
 		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -601,6 +610,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(updateButton);
 		
 		JButton deleteButton = new JButton("DELETE");
+		deleteButton.setToolTipText("Deletes Data From Database");
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -615,6 +625,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(deleteButton);
 		
 		JButton clearFieldButton = new JButton("CLEAR FIELDS");
+		clearFieldButton.setToolTipText("Clears Fields ");
 		clearFieldButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -626,6 +637,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(clearFieldButton);
 		
 		JButton btnButton = new JButton("Load Member Data");
+		btnButton.setToolTipText("Loads Data of Members");
 		btnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -638,7 +650,7 @@ public class ManagerWindow extends JFrame {
 		memberPanel.add(btnButton);
 		
 		JScrollPane scrollPaneMember = new JScrollPane();
-		scrollPaneMember.setBounds(560, 33, 417, 404);
+		scrollPaneMember.setBounds(560, 33, 435, 404);
 		memberPanel.add(scrollPaneMember);
 		
 		tableMember = new JTable();
@@ -673,7 +685,7 @@ public class ManagerWindow extends JFrame {
 				comboGetsFromDB(querySearch, tableMember, textFieldSearch);
 			}
 		});
-		textFieldSearch.setToolTipText("");
+		textFieldSearch.setToolTipText("Search by Fields");
 		textFieldSearch.setBounds(817, 8, 132, 22);
 		memberPanel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
@@ -844,6 +856,7 @@ public class ManagerWindow extends JFrame {
 		mailTxt.setColumns(10);
 		
 		JButton btnSave = new JButton("SAVE");
+		btnSave.setToolTipText("Saves Data To Database");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -870,6 +883,7 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnSave);
 		
 		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.setToolTipText("Updates Data In Database");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String queryUpdate = "UPDATE Employees set Emp_ID = '"+ idTxt.getText() +"', Emp_Name = '"+ nameTxt.getText() +"', Emp_Surname = '"+ surnameTxt.getText() +"', Emp_Age = '"+ ageTxt.getText() +"', Emp_Mail = '"+ mailTxt.getText() +"', Emp_City = '"+cityField.getText()+"' WHERE Emp_ID = '"+ idTxt.getText() +"'";
@@ -884,6 +898,7 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("DELETE");
+		btnDelete.setToolTipText("Deletes Data From Database");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -896,6 +911,7 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnDelete);
 		
 		JButton btnLoadEmployeeData = new JButton("Load Employee Data");
+		btnLoadEmployeeData.setToolTipText("Loads Employee Data");
 		btnLoadEmployeeData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -908,7 +924,7 @@ public class ManagerWindow extends JFrame {
 		empPanel.add(btnLoadEmployeeData);
 		
 		JScrollPane scrollPaneEmp = new JScrollPane();
-		scrollPaneEmp.setBounds(560, 33, 417, 404);
+		scrollPaneEmp.setBounds(560, 33, 435, 404);
 		empPanel.add(scrollPaneEmp);
 		
 		tableEmp = new JTable();
@@ -923,6 +939,7 @@ public class ManagerWindow extends JFrame {
 		scrollPaneEmp.setViewportView(tableEmp);
 		
 		JButton btnClear = new JButton("CLEAR FIELDS");
+		btnClear.setToolTipText("Clears Fields");
 		btnClear.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -944,7 +961,7 @@ public class ManagerWindow extends JFrame {
 				comboGetsFromDB(querySearch, tableEmp, txtSearchBy);
 			}
 		});
-		txtSearchBy.setToolTipText("");
+		txtSearchBy.setToolTipText("Search by Fields");
 		txtSearchBy.setBounds(817, 8, 132, 22);
 		empPanel.add(txtSearchBy);
 		txtSearchBy.setColumns(10);
@@ -968,6 +985,7 @@ public class ManagerWindow extends JFrame {
 		labelPict.setIcon(new ImageIcon(equipment));
 		
 		JButton buttonSave = new JButton("SAVE");
+		buttonSave.setToolTipText("Saves Data To Database");
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 
@@ -982,6 +1000,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(buttonSave);
 		
 		JButton buttonUpdate = new JButton("UPDATE");
+		buttonUpdate.setToolTipText("Updates Data in Database");
 		buttonUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -997,6 +1016,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(buttonUpdate);
 		
 		JButton buttonDelete = new JButton("DELETE");
+		buttonDelete.setToolTipText("Deletes Data From Database");
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -1012,6 +1032,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(buttonDelete);
 		
 		JButton buttonClear = new JButton("CLEAR FIELDS");
+		buttonClear.setToolTipText("Clears Fields");
 		buttonClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -1050,12 +1071,13 @@ public class ManagerWindow extends JFrame {
 			}
 		});
 		textFieldSrc.setBounds(817, 8, 132, 22);
-		textFieldSrc.setToolTipText("");
+		textFieldSrc.setToolTipText("Search by Fields");
 		textFieldSrc.setFont(new Font("Arial", Font.PLAIN, 11));
 		textFieldSrc.setColumns(10);
 		itemPanel.add(textFieldSrc);
 		
 		JButton buttonLoad = new JButton("Load Item Data");
+		buttonLoad.setToolTipText("Loads Item Data");
 		buttonLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -1068,7 +1090,7 @@ public class ManagerWindow extends JFrame {
 		itemPanel.add(buttonLoad);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(560, 33, 417, 404);
+		scrollPane.setBounds(560, 33, 435, 404);
 		itemPanel.add(scrollPane);
 		
 		tableItems = new JTable();
@@ -1156,6 +1178,7 @@ public class ManagerWindow extends JFrame {
 		scrollPane_2.setViewportView(tableAllInfo);
 		
 		JButton btnMembers = new JButton("MEMBERS");
+		btnMembers.setToolTipText("Gives Sort By Popup");
 		btnMembers.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnMembers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -1190,6 +1213,7 @@ public class ManagerWindow extends JFrame {
 		allInfoPanel.add(btnMembers);
 		
 		JButton btnEmployees = new JButton("EMPLOYEES");
+		btnEmployees.setToolTipText("Loads All Employee Data");
 		btnEmployees.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		btnEmployees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1202,6 +1226,7 @@ public class ManagerWindow extends JFrame {
 		allInfoPanel.add(btnEmployees);
 		
 		JButton btnItems = new JButton("ITEMS");
+		btnItems.setToolTipText("Gives Sort By Popup");
 		btnItems.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -1218,7 +1243,13 @@ public class ManagerWindow extends JFrame {
 					String queryName = "SELECT Item_Code AS CODE, Item_Name AS NAME, Item_Description AS DESCRIPTION, Item_Price AS PRICE FROM Items ORDER BY Item_Name";
 					loadData(queryName, tableAllInfo);
 					break;
-				
+				case 3:
+					String queryPriceAsc = "SELECT Item_Code AS CODE, Item_Name AS NAME, Item_Description AS DESCRIPTION, Item_Price AS PRICE FROM Items ORDER BY Item_Price ASC";
+					loadData(queryPriceAsc, tableAllInfo);
+					break;
+				case 4:
+					String queryPriceDesc = "SELECT Item_Code AS CODE, Item_Name AS NAME, Item_Description AS DESCRIPTION, Item_Price AS PRICE FROM Items ORDER BY Item_Price DESC";
+					loadData(queryPriceDesc, tableAllInfo);
 				default:
 					break;
 				}
