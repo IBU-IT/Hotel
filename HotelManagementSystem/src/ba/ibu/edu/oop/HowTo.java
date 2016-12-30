@@ -41,7 +41,7 @@ public class HowTo extends JFrame {
 	public HowTo() {
 		setType(Type.UTILITY);
 		setTitle("How to use program");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 610, 621);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);

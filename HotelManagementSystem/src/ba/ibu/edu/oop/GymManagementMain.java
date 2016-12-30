@@ -63,6 +63,9 @@ public class GymManagementMain {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		ManagerWindow manWind = new ManagerWindow();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 369, 358);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,11 +173,15 @@ public class GymManagementMain {
 					if(counter == 1)
 					{
 						JOptionPane.showMessageDialog(null, "Thank you, succesfully logged in as manager.");
-						//manWind.managerWindow();
+						uN.setText("");
+						passwordField.setText("");
+						manWind.managerWindow();
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(null, "Wrong UserName or Password. Please, try again");
+						JOptionPane.showMessageDialog(null, "Wrong username or password. Please, try again.");
+						uN.setText("");
+						passwordField.setText("");
 					}
 					
 				} catch (Exception e2) {
@@ -193,6 +200,8 @@ public class GymManagementMain {
 				
 				panelManager.setVisible(false);
 				panelMain.setVisible(true);
+				uN.setText("");
+				passwordField.setText("");
 			}
 		});
 		btnBack.setBounds(199, 256, 110, 32);
@@ -246,7 +255,7 @@ public class GymManagementMain {
 					String query = "select * from Employees where UserName =? and Password =?";
 					PreparedStatement pps = connect.prepareStatement(query);
 					pps.setString(1, uNEmp.getText());
-					pps.setString(2, passwordField.getText());
+					pps.setString(2, passwordFieldEmp.getText());
 					ResultSet res = pps.executeQuery();
 					
 					int counter = 0;
@@ -257,15 +266,16 @@ public class GymManagementMain {
 					
 					if(counter == 1)
 					{
-						JOptionPane.showMessageDialog(null, "UserName and Password are correct. Thank you!");
+						JOptionPane.showMessageDialog(null, "Thank you, succesfully logged in as employee");
+						uNEmp.setText("");
+						passwordFieldEmp.setText("");
 					}
-					else if(counter > 1)
-					{
-						JOptionPane.showMessageDialog(null, "Duplicate UserName and Password.");
-					}
+					
 					else
 					{
-						JOptionPane.showMessageDialog(null, "UserName and Password are NOT correct. Please, try again.");
+						JOptionPane.showMessageDialog(null, "Wrong username and password. Please, try again.");
+						uNEmp.setText("");
+						passwordFieldEmp.setText("");
 					}
 
 					res.close();
@@ -280,18 +290,20 @@ public class GymManagementMain {
 		Image okEmp = new ImageIcon(this.getClass().getResource("/Ok.png")).getImage();
 		buttonLoginEmp.setIcon(new ImageIcon(ok));
 		
-		JButton button = new JButton("Back");
-		button.addActionListener(new ActionListener() {
+		JButton buttonBck = new JButton("Back");
+		buttonBck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				panelEmployee.setVisible(false);
 				panelMain.setVisible(true);
+				uNEmp.setText("");
+				passwordFieldEmp.setText("");
 			}
 		});
-		button.setBounds(199, 256, 110, 32);
-		panelEmployee.add(button);
+		buttonBck.setBounds(199, 256, 110, 32);
+		panelEmployee.add(buttonBck);
 		Image back = new ImageIcon(this.getClass().getResource("/Back.png")).getImage();
-		button.setIcon(new ImageIcon(back
+		buttonBck.setIcon(new ImageIcon(back
 				));
 	}
 
