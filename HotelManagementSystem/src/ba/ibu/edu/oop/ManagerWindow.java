@@ -445,8 +445,15 @@ public class ManagerWindow extends JFrame {
 		JMenu helpMenu = new JMenu("Help");
 		menuBar.add(helpMenu);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
-		helpMenu.add(mntmNewMenuItem_2);
+		JMenuItem mntmHowToUse = new JMenuItem("How To Use");
+		mntmHowToUse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				HowTo use = new HowTo();
+				use.HowToUse();
+			}
+		});
+		helpMenu.add(mntmHowToUse);
 		
 		JMenuItem mntmAbout = new JMenuItem("About GMS");
 		mntmAbout.addActionListener(new ActionListener() {
@@ -670,10 +677,10 @@ public class ManagerWindow extends JFrame {
 		
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City", "UserName", "Gender"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ID", "Name", "Surname", "City"}));
 		comboBox.setBounds(675, 8, 132, 22);
 		memberPanel.add(comboBox);
-		// ISPRAVITI :::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 		textFieldSearch = new JTextField();
 		textFieldSearch.setFont(new Font("Arial", Font.PLAIN, 11));
 		textFieldSearch.addKeyListener(new KeyAdapter() {
@@ -714,11 +721,6 @@ public class ManagerWindow extends JFrame {
 		bgGender.add(rdbtnMale);
 		bgGender.add(rdbtnFemale);
 		
-		JLabel lblMemberStatus = new JLabel("Member Status:");
-		lblMemberStatus.setFont(new Font("Arial Black", Font.BOLD, 14));
-		lblMemberStatus.setBounds(187, 336, 145, 32);
-		memberPanel.add(lblMemberStatus);
-		
 		JRadioButton rdbtnActive = new JRadioButton("Active");
 		rdbtnActive.setFont(new Font("Arial", Font.PLAIN, 11));
 		rdbtnActive.addActionListener(new ActionListener() {
@@ -730,6 +732,8 @@ public class ManagerWindow extends JFrame {
 		rdbtnActive.setBounds(390, 343, 69, 23);
 		memberPanel.add(rdbtnActive);
 		
+		bgStatus.add(rdbtnActive);
+		
 		JRadioButton rdbtnInactive = new JRadioButton("Inactive");
 		rdbtnInactive.setFont(new Font("Arial", Font.PLAIN, 11));
 		rdbtnInactive.addActionListener(new ActionListener() {
@@ -740,9 +744,12 @@ public class ManagerWindow extends JFrame {
 		});
 		rdbtnInactive.setBounds(457, 343, 69, 23);
 		memberPanel.add(rdbtnInactive);
-		
-		bgStatus.add(rdbtnActive);
 		bgStatus.add(rdbtnInactive);
+		
+		JLabel lblMemberStatus = new JLabel("Member Status:");
+		lblMemberStatus.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblMemberStatus.setBounds(187, 336, 145, 32);
+		memberPanel.add(lblMemberStatus);
 		
 		// START OF EMPLOYEE PANEL
 		
