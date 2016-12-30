@@ -16,6 +16,7 @@ import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Window.Type;
 
 public class HowTo extends JFrame {
 	
@@ -38,6 +39,7 @@ public class HowTo extends JFrame {
 	private int clicks = 0;
 
 	public HowTo() {
+		setType(Type.UTILITY);
 		setTitle("How to use program");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 621);
