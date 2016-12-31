@@ -28,7 +28,9 @@ public class HowTo extends JFrame {
 			public void run() {
 				try {
 					HowTo frame = new HowTo();
+					ManagerWindow man = new ManagerWindow();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(man);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,6 +41,7 @@ public class HowTo extends JFrame {
 	private int clicks = 0;
 
 	public HowTo() {
+		setResizable(false);
 		setType(Type.UTILITY);
 		setTitle("How to use program");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -102,6 +102,7 @@ public class ManagerWindow extends JFrame {
 				try {
 					ManagerWindow frame = new ManagerWindow();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -417,6 +418,7 @@ public class ManagerWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public ManagerWindow() {
+		setResizable(false);
 		
 		connect = DatabaseConnector.databaseConnector();
 		
@@ -429,9 +431,6 @@ public class ManagerWindow extends JFrame {
 		
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		fileMenu.add(mntmNewMenuItem);
 		
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.addActionListener(new ActionListener() {
@@ -1269,7 +1268,7 @@ public class ManagerWindow extends JFrame {
 		timeLbl = new JLabel();
 		timeLbl.setToolTipText("Today's Date and Time");
 		timeLbl.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		timeLbl.setBounds(813, 549, 199, 16);
+		timeLbl.setBounds(821, 552, 199, 16);
 		contentPane.add(timeLbl);
 		
 		timeMethod();

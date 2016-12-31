@@ -24,7 +24,7 @@ import java.awt.event.ActionEvent;
 
 public class GymManagementMain {
 
-	private JFrame frame;
+	private JFrame frmLogin;
 	private JPasswordField passwordField;
 	private JTextField uN;
 
@@ -36,7 +36,8 @@ public class GymManagementMain {
 			public void run() {
 				try {
 					GymManagementMain window = new GymManagementMain();
-					window.frame.setVisible(true);
+					window.frmLogin.setVisible(true);
+					window.frmLogin.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,13 +67,15 @@ public class GymManagementMain {
 		
 		ManagerWindow manWind = new ManagerWindow();
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 369, 358);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		frmLogin = new JFrame();
+		frmLogin.setResizable(false);
+		frmLogin.setTitle("Login");
+		frmLogin.setBounds(100, 100, 369, 358);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(new CardLayout(0, 0));
 		
 		panelMain = new JPanel();
-		frame.getContentPane().add(panelMain, "name_60623277072290");
+		frmLogin.getContentPane().add(panelMain, "name_60623277072290");
 		panelMain.setLayout(null);
 		
 		JLabel labelLogoMain = new JLabel(" ");
@@ -83,12 +86,12 @@ public class GymManagementMain {
 		
 		JLabel labelWelcome = new JLabel("Welcome to \"Body Fit\"");
 		labelWelcome.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		labelWelcome.setBounds(79, 127, 181, 23);
+		labelWelcome.setBounds(79, 145, 181, 23);
 		panelMain.add(labelWelcome);
 		
 		JLabel labelLogAs = new JLabel("Login as:");
 		labelLogAs.setFont(new Font("Arial", Font.BOLD, 12));
-		labelLogAs.setBounds(140, 175, 70, 14);
+		labelLogAs.setBounds(140, 193, 70, 14);
 		panelMain.add(labelLogAs);
 		
 		JButton buttonEmp = new JButton("Employee");
@@ -99,7 +102,7 @@ public class GymManagementMain {
 				panelEmployee.setVisible(true);
 			}
 		});
-		buttonEmp.setBounds(32, 200, 104, 41);
+		buttonEmp.setBounds(34, 250, 104, 41);
 		panelMain.add(buttonEmp);
 		
 		JButton buttonMan = new JButton("Manager");
@@ -110,11 +113,11 @@ public class GymManagementMain {
 				panelManager.setVisible(true);
 			}
 		});
-		buttonMan.setBounds(202, 200, 104, 41);
+		buttonMan.setBounds(203, 250, 104, 41);
 		panelMain.add(buttonMan);
 		
 		panelManager = new JPanel();
-		frame.getContentPane().add(panelManager, "name_60529189693506");
+		frmLogin.getContentPane().add(panelManager, "name_60529189693506");
 		panelManager.setLayout(null);
 		
 		JLabel labelLogoMan = new JLabel("");
@@ -210,7 +213,7 @@ public class GymManagementMain {
 		btnBack.setIcon(new ImageIcon(backMan));
 		
 		panelEmployee = new JPanel();
-		frame.getContentPane().add(panelEmployee, "name_60522479502094");
+		frmLogin.getContentPane().add(panelEmployee, "name_60522479502094");
 		panelEmployee.setLayout(null);
 		
 		JLabel labelLogoEmp = new JLabel("");

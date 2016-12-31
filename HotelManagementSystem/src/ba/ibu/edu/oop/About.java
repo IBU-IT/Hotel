@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Window.Type;
 import java.awt.SystemColor;
+import javax.swing.JFormattedTextField;
 
 public class About extends JFrame {
 
@@ -59,7 +60,9 @@ public class About extends JFrame {
 			public void run() {
 				try {
 					About frame = new About();
+					ManagerWindow win = new ManagerWindow();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(win);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,6 +72,7 @@ public class About extends JFrame {
 
 
 	public About() {
+		setResizable(false);
 		setType(Type.UTILITY);
 		setTitle("About GMS");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
