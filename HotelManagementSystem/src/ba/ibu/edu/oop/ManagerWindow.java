@@ -418,6 +418,7 @@ public class ManagerWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public ManagerWindow() {
+		
 		setResizable(false);
 		
 		connect = DatabaseConnector.databaseConnector();

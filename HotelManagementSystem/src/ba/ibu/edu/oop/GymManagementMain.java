@@ -65,6 +65,7 @@ public class GymManagementMain {
 	 */
 	private void initialize() {
 		
+		HowTo use = new HowTo();
 		ManagerWindow manWind = new ManagerWindow();
 		
 		frmLogin = new JFrame();
@@ -179,6 +180,10 @@ public class GymManagementMain {
 						uN.setText("");
 						passwordField.setText("");
 						manWind.managerWindow();
+						use.setLocationRelativeTo(manWind);
+						use.setAlwaysOnTop(true);
+						use.setVisible(true);
+						
 					}
 					else
 					{

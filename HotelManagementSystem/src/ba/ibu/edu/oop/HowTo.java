@@ -91,6 +91,37 @@ public class HowTo extends JFrame {
 		Image help5 = new ImageIcon(this.getClass().getResource("/ClearFields.png")).getImage();
 		label5.setIcon(new ImageIcon(help5));
 		
+		JPanel panelClickEmployee = new JPanel();
+		panel.add(panelClickEmployee, "name_151458039812597");
+		JLabel label6 = new JLabel("");
+		panelClickEmployee.add(label6);
+		Image help6 = new ImageIcon(this.getClass().getResource("/PicClickEmployee.png")).getImage();
+		label6.setIcon(new ImageIcon(help6));
+		
+		JPanel panelClickMembers = new JPanel();
+		panel.add(panelClickMembers, "name_152229534657009");
+		JLabel label7 = new JLabel("");
+		panelClickMembers.add(label7);
+		Image help7 = new ImageIcon(this.getClass().getResource("/PicClickMember.png")).getImage();
+		label7.setIcon(new ImageIcon(help7));
+		
+		JPanel panelClickItems = new JPanel();
+		panel.add(panelClickItems, "name_152247260055385");
+		JLabel label8 = new JLabel("");
+		panelClickItems.add(label8);
+		Image help8 = new ImageIcon(this.getClass().getResource("/PicClickItem.png")).getImage();
+		label8.setIcon(new ImageIcon(help8));
+		
+		JButton btnSkip = new JButton("Skip");
+		btnSkip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				dispose();
+			}
+		});
+		btnSkip.setBounds(406, 548, 80, 23);
+		getContentPane().add(btnSkip);
+		
 		JButton btnFinish = new JButton("Finish");
 		btnFinish.setBounds(504, 548, 80, 23);
 		btnFinish.addActionListener(new ActionListener() {
@@ -134,11 +165,44 @@ public class HowTo extends JFrame {
 					panelHelpUpdate.setVisible(false);
 					panelHelpSave.setVisible(false);
 					panelHelp.setVisible(false);
+				}
+				
+				else if(clicks == 5)
+				{
+					panelClickEmployee.setVisible(true);
+					panelHelpClear.setVisible(false);
+					panelHelpDelete.setVisible(false);
+					panelHelpUpdate.setVisible(false);
+					panelHelpSave.setVisible(false);
+					panelHelp.setVisible(false);
+				}
+				
+				else if(clicks == 6)
+				{
+					panelClickMembers.setVisible(true);
+					panelClickEmployee.setVisible(false);
+					panelHelpClear.setVisible(false);
+					panelHelpDelete.setVisible(false);
+					panelHelpUpdate.setVisible(false);
+					panelHelpSave.setVisible(false);
+					panelHelp.setVisible(false);
+				}
+				
+				else if(clicks == 7)
+				{
 					btnNext.setVisible(false);
-					btnFinish.setVisible(true);
+					panelClickItems.setVisible(true);
+					panelClickMembers.setVisible(false);
+					panelClickEmployee.setVisible(false);
+					panelHelpClear.setVisible(false);
+					panelHelpDelete.setVisible(false);
+					panelHelpUpdate.setVisible(false);
+					panelHelpSave.setVisible(false);
+					panelHelp.setVisible(false);
 					getContentPane().add(btnFinish);
 				}
 				
+				btnSkip.setVisible(false);
 			}
 		});
 		btnNext.setBounds(504, 548, 80, 23);
@@ -149,6 +213,8 @@ public class HowTo extends JFrame {
 		separator.setBackground(Color.LIGHT_GRAY);
 		separator.setBounds(10, 539, 574, 8);
 		getContentPane().add(separator);
+		
+		
 		
 	}
 }
