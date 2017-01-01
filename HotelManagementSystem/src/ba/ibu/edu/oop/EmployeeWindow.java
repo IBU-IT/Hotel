@@ -173,7 +173,6 @@ public class EmployeeWindow extends ManagerWindow {
 		HowTo use = new HowTo();
 		About about = new About();
 		
-		
 		setTitle("Employee Account");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1046, 625);
@@ -209,6 +208,12 @@ public class EmployeeWindow extends ManagerWindow {
 		menuBar.add(helpMenu);
 		
 		JMenuItem mntmHowToUse = new JMenuItem("How To Use");
+		mntmHowToUse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				use.HowToUse();
+			}
+		});
 		helpMenu.add(mntmHowToUse);
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
