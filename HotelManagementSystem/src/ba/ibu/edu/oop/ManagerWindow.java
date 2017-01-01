@@ -133,7 +133,7 @@ public class ManagerWindow extends JFrame {
 	private JTable tableAllInfo;
 	private JTextField textFieldQty;
 	
-	public void refresh(String query, JTable table)
+	protected void refresh(String query, JTable table)
 	{
 		try {
 			
@@ -149,7 +149,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void fillFieldsEmp()
+	private void fillFieldsEmp()
 	{
 		try {
 			
@@ -175,7 +175,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void fillFieldsMem()
+	private void fillFieldsMem()
 	{
 		try {
 			
@@ -201,7 +201,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void fillFieldsItem()
+	private void fillFieldsItem()
 	{
 		try {
 			
@@ -213,8 +213,8 @@ public class ManagerWindow extends JFrame {
 			while(rs.next())
 			{
 				textFieldItemName.setText(rs.getString("Item_Name"));
-				textFieldPrice.setText(rs.getString("Item_Price"));
-				textFieldQty.setText(rs.getString("Item_Qty"));
+				textFieldPrice.setText(rs.getString("Item_Price") + " KM");
+				textFieldQty.setText(rs.getString("Item_Qty") + " PCS");
 				itemDescription.setText(rs.getString("Item_Description"));
 			}
 			
@@ -224,7 +224,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void clearFieldsEmp()
+	private void clearFieldsEmp()
 	{
 		idTxt.setText("");
 		nameTxt.setText("");
@@ -235,7 +235,7 @@ public class ManagerWindow extends JFrame {
 		unField.setText("");
 	}
 	
-	public void clearFieldsMem()
+	private void clearFieldsMem()
 	{
 		textFieldID.setText("");
 		textFieldName.setText("");
@@ -245,7 +245,7 @@ public class ManagerWindow extends JFrame {
 		textFieldMail.setText("");
 	}
 	
-	public void clearFieldsItem()
+	private void clearFieldsItem()
 	{
 		textFieldItemCode.setText("");
 		textFieldItemName.setText("");
@@ -318,7 +318,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	private void updateRecord(String query)
+	protected void updateRecord(String query)
 	{
 		try {
 			
@@ -332,7 +332,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	private void deleteRecord(String query)
+	protected void deleteRecord(String query)
 	{
 		String queryRefresh = "SELECT Emp_ID AS ID, Emp_Name AS Name, Emp_Surname AS Surname, Emp_Age AS Age, Emp_City AS City, UserName FROM Employees";
 		int deleteAction = JOptionPane.showConfirmDialog(null, "Do you really want to delete record ?", "Delete", JOptionPane.YES_NO_OPTION );
@@ -353,7 +353,7 @@ public class ManagerWindow extends JFrame {
 		JOptionPane.showMessageDialog(null, "Data Succesfully Deleted!");
 	}
 	
-	private void loadData(String query, JTable table)
+	protected void loadData(String query, JTable table)
 	{
 		try {
 			
@@ -370,7 +370,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	private void comboGetsFromDB(String query, JTable table, JTextField textField)
+	protected void comboGetsFromDB(String query, JTable table, JTextField textField)
 	{
 		try {
 			
@@ -387,7 +387,7 @@ public class ManagerWindow extends JFrame {
 		}
 	}
 	
-	public void timeMethod()
+	protected void timeMethod()
 	{
 		Thread clock = new Thread()
 		{
@@ -543,7 +543,6 @@ public class ManagerWindow extends JFrame {
 				
 				if(ch == 8)
 				{
-					//clearFieldsMem();
 					textFieldName.setText("");
 					textFieldSurname.setText("");
 					textFieldAge.setText("");
