@@ -428,7 +428,6 @@ public class ManagerWindow extends JFrame {
 		connect = DatabaseConnector.databaseConnector();
 		
 		setTitle("Gym Management Software");
-		setType(Type.POPUP);
 		setBounds(100, 100, 1046, 625);
 		
 		JMenuBar menuBar = new JMenuBar();
