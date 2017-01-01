@@ -52,7 +52,7 @@ public class LoginManager extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setType(Type.POPUP);
 		
-		ManagerWindow manWind = new ManagerWindow();
+		//ManagerWindow manWind = new ManagerWindow();
 		
 		setResizable(false);
 		setTitle("Manager Login");
@@ -117,7 +117,7 @@ public class LoginManager extends JFrame {
 					if(counter == 1)
 					{
 						JOptionPane.showMessageDialog(null, "Thank you, succesfully logged in as manager.");
-						manWind.managerWindow();
+						//manWind.managerWindow();
 					}
 					else
 					{

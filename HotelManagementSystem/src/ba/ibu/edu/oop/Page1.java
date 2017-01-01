@@ -56,8 +56,8 @@ public class Page1 {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setBounds(0,0, 1370, 804);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		Image img=new ImageIcon(this.getClass().getResource("/naslovna.png")).getImage();
 		
