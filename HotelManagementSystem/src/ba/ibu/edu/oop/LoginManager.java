@@ -2,6 +2,7 @@ package ba.ibu.edu.oop;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -19,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
+import java.awt.Window.Type;
 
 public class LoginManager extends JFrame {
 
@@ -47,6 +49,11 @@ public class LoginManager extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginManager() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setType(Type.POPUP);
+		
+		//ManagerWindow manWind = new ManagerWindow();
+		
 		setResizable(false);
 		setTitle("Manager Login");
 		setBounds(100, 100, 368, 355);
@@ -110,6 +117,7 @@ public class LoginManager extends JFrame {
 					if(counter == 1)
 					{
 						JOptionPane.showMessageDialog(null, "Thank you, succesfully logged in as manager.");
+						//manWind.managerWindow();
 					}
 					else
 					{
