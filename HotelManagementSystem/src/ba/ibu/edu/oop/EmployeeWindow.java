@@ -34,6 +34,9 @@ import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JEditorPane;
+import javax.swing.JLayeredPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class EmployeeWindow extends ManagerWindow {
 
@@ -61,6 +64,8 @@ public class EmployeeWindow extends ManagerWindow {
 	private JComboBox comboBoxSBy;
 	private JComboBox comboBoxSearch;
 	private JTable tableItem;
+	private JSpinner spinner;
+	private EditAccount pass;
 	
 	private void saveRecordMem()
 	{
@@ -146,12 +151,13 @@ public class EmployeeWindow extends ManagerWindow {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void EmployeeWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					EmployeeWindow frame = new EmployeeWindow();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -164,6 +170,10 @@ public class EmployeeWindow extends ManagerWindow {
 	 */
 	public EmployeeWindow() {
 		
+		HowTo use = new HowTo();
+		About about = new About();
+		
+		
 		setTitle("Employee Account");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1046, 625);
@@ -175,13 +185,25 @@ public class EmployeeWindow extends ManagerWindow {
 		menuBar.add(fileMenu);
 		
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		exitMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.exit(EXIT_ON_CLOSE);
+			}
+		});
 		fileMenu.add(exitMenuItem);
 		
 		JMenu editMenu = new JMenu("Edit");
 		menuBar.add(editMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Edit Account");
-		editMenu.add(mntmNewMenuItem);
+		JMenuItem mntmEdit = new JMenuItem("Change Password");
+		mntmEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				pass.EditAccount();
+			}
+		});
+		editMenu.add(mntmEdit);
 		
 		JMenu helpMenu = new JMenu("Help");
 		menuBar.add(helpMenu);
@@ -190,6 +212,12 @@ public class EmployeeWindow extends ManagerWindow {
 		helpMenu.add(mntmHowToUse);
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				about.About();
+			}
+		});
 		helpMenu.add(mntmAbout);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -482,13 +510,27 @@ public class EmployeeWindow extends ManagerWindow {
 		JButton btnSell = new JButton("SELL");
 		btnSell.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int value = (Integer) spinner.getValue();
+				System.out.println(value);
 				
-				
+				String querySell ="UPDATE Items SET Item_Qty = (Item_Qty - ?) WHERE Item_Code = 1";
+					    
+				try {
+					
+					pps = connect.prepareStatement(querySell);
+					pps.setInt(1, value);
+					
+					pps.execute();
+					pps.close();
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}
 		});
 		btnSell.setToolTipText("Clears Fields");
 		btnSell.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		btnSell.setBounds(187, 423, 339, 37);
+		btnSell.setBounds(187, 447, 339, 37);
 		panelPShop.add(btnSell);
 		
 		JSeparator separator_1 = new JSeparator(SwingConstants.VERTICAL);
@@ -630,5 +672,17 @@ public class EmployeeWindow extends ManagerWindow {
 		
 		tableItem = new JTable();
 		scrollPane_1.setViewportView(tableItem);
+		
+		JLabel lblQuantityToSell = new JLabel("Quantity to Sell:");
+		lblQuantityToSell.setFont(new Font("Arial Black", Font.BOLD, 14));
+		lblQuantityToSell.setBounds(187, 412, 159, 32);
+		panelPShop.add(lblQuantityToSell);
+		
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(1, null, 20, 1));
+		spinner.setFont(new Font("Arial", Font.PLAIN, 13));
+		spinner.setBounds(376, 414, 78, 28);
+		panelPShop.add(spinner);
+		
 	}
 }

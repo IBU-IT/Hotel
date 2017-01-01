@@ -67,6 +67,7 @@ public class GymManagementMain {
 		
 		HowTo use = new HowTo();
 		ManagerWindow manWind = new ManagerWindow();
+		EmployeeWindow empl = new EmployeeWindow();
 		
 		frmLogin = new JFrame();
 		frmLogin.setResizable(false);
@@ -277,6 +278,7 @@ public class GymManagementMain {
 						JOptionPane.showMessageDialog(null, "Thank you, succesfully logged in as employee");
 						uNEmp.setText("");
 						passwordFieldEmp.setText("");
+						empl.EmployeeWindow();
 					}
 					
 					else
