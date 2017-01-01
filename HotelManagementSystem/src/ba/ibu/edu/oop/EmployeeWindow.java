@@ -513,19 +513,20 @@ public class EmployeeWindow extends ManagerWindow {
 				int value = (Integer) spinner.getValue();
 				System.out.println(value);
 				
-				String querySell ="UPDATE Items SET Item_Qty = (Item_Qty - ?) WHERE Item_Code = 1";
-					    
 				try {
+					String querySell = "UPDATE Items SET Item_Qty = (Item_Qty - ?) WHERE Item_Code = ?";
 					
 					pps = connect.prepareStatement(querySell);
 					pps.setInt(1, value);
+					pps.setString(2, textFieldItemCode.getText());
 					
 					pps.execute();
 					pps.close();
-					
+					fillFieldsItem();
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
+				JOptionPane.showMessageDialog(null, "Sold " + value + " items!");
 			}
 		});
 		btnSell.setToolTipText("Clears Fields");

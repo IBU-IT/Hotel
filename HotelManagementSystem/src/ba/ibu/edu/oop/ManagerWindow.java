@@ -343,14 +343,14 @@ public class ManagerWindow extends JFrame {
 			
 			pps.execute();
 			pps.close();
-			
+			JOptionPane.showMessageDialog(null, "Data Succesfully Deleted!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		refresh(queryRefresh, tableEmp);
 		clearFieldsEmp();
 	}
-		JOptionPane.showMessageDialog(null, "Data Succesfully Deleted!");
+		
 	}
 	
 	protected void loadData(String query, JTable table)

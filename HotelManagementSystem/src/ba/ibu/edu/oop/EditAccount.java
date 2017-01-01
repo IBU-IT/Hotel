@@ -101,6 +101,8 @@ public class EditAccount extends EmployeeWindow {
 				if(pass1.equals(pass2))
 				{
 					updateRecord(query);
+					JOptionPane.showMessageDialog(null, "You have succesfully changed your password!");
+					dispose();
 				}
 				else
 				{
