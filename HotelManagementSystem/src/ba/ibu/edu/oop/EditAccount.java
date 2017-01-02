@@ -6,6 +6,7 @@ import java.awt.TexturePaint;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,8 +24,8 @@ public class EditAccount extends EmployeeWindow {
 
 	private JPanel contentPane;
 	private JTextField textFieldID;
-	private JTextField textFieldPass;
-	private JTextField textFieldPass2;
+	private JPasswordField textFieldPass;
+	private JPasswordField textFieldPass2;
 	private PreparedStatement pps;
 	
 	public static void EditAccount() {
@@ -67,12 +68,12 @@ public class EditAccount extends EmployeeWindow {
 		contentPane.add(textFieldID);
 		textFieldID.setColumns(10);
 		
-		textFieldPass = new JTextField();
+		textFieldPass = new JPasswordField();
 		textFieldPass.setBounds(197, 79, 86, 20);
 		contentPane.add(textFieldPass);
 		textFieldPass.setColumns(10);
 		
-		textFieldPass2 = new JTextField();
+		textFieldPass2 = new JPasswordField();
 		textFieldPass2.setBounds(197, 125, 86, 20);
 		contentPane.add(textFieldPass2);
 		textFieldPass2.setColumns(10);
