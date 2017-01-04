@@ -55,10 +55,24 @@ public class Botom {
 		frame.getContentPane().add(label_7);
 		
 		JButton button = new JButton("At The Top");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Top aa=new Top();
+				aa.t();
+			}
+		});
 		button.setBounds(425, 337, 156, 50);
 		frame.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("In The Middle");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Middle aa=new Middle();
+				aa.Midle();
+			}
+		});
 		button_1.setBounds(425, 424, 156, 50);
 		frame.getContentPane().add(button_1);
 		

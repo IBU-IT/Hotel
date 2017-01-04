@@ -66,14 +66,35 @@ public class FirstFloor {
 		frame.getContentPane().add(label_7);
 		
 		JButton button_1 = new JButton("At The Top");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Top aa=new Top();
+				aa.t();
+			}
+		});
 		button_1.setBounds(425, 337, 156, 50);
 		frame.getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("In The Middle");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Middle aa=new Middle();
+				aa.Midle();
+			}
+		});
 		button_2.setBounds(425, 424, 156, 50);
 		frame.getContentPane().add(button_2);
 		
 		JButton btnInTheBottom = new JButton("At The Bottom");
+		btnInTheBottom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Botom aa=new Botom();
+				aa.BotomA();
+			}
+		});
 		btnInTheBottom.setForeground(new Color(0, 0, 0));
 		btnInTheBottom.setBackground(Color.LIGHT_GRAY);
 		btnInTheBottom.setBounds(425, 507, 156, 50);

@@ -56,6 +56,13 @@ public class Middle {
 		frame.getContentPane().add(label_7);
 		
 		JButton button = new JButton("At The Top");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Top aa=new Top();
+				aa.t();
+			}
+		});
 		button.setBounds(425, 337, 156, 50);
 		frame.getContentPane().add(button);
 		
@@ -66,6 +73,13 @@ public class Middle {
 		frame.getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("At The Bottom");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Botom aa=new Botom();
+				aa.BotomA();
+			}
+		});
 		button_2.setForeground(new Color(0, 0, 0));
 		button_2.setBackground(UIManager.getColor("Button.background"));
 		button_2.setBounds(425, 507, 156, 50);

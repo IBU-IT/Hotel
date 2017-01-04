@@ -67,17 +67,38 @@ public class SixthFloor {
 		frame.getContentPane().add(label);
 		
 		JButton button_1 = new JButton("At The Bottom");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Botom aa=new Botom();
+				aa.BotomA();
+			}
+		});
 		button_1.setForeground(new Color(0, 0, 0));
 		button_1.setBackground(UIManager.getColor("Button.background"));
 		button_1.setBounds(425, 507, 156, 50);
 		frame.getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("In The Middle");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Middle aa=new Middle();
+				aa.Midle();
+			}
+		});
 		button_2.setBackground(UIManager.getColor("Button.background"));
 		button_2.setBounds(425, 424, 156, 50);
 		frame.getContentPane().add(button_2);
 		
 		JButton button_3 = new JButton("At The Top");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Top aa=new Top();
+				aa.t();
+			}
+		});
 		button_3.setBackground(Color.LIGHT_GRAY);
 		button_3.setBounds(425, 337, 156, 50);
 		frame.getContentPane().add(button_3);

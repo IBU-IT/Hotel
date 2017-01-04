@@ -1440,7 +1440,7 @@ public class Restaurant {
 		btnExit.setBounds(802, 11, 95, 26);
 		panel_11.add(btnExit);
 		
-		JLabel lblRestaurantMenagingSystem = new JLabel("Restaurant Menaging System");
+		JLabel lblRestaurantMenagingSystem = new JLabel("Restaurant Management System");
 		lblRestaurantMenagingSystem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRestaurantMenagingSystem.setFont(new Font("Tahoma", Font.PLAIN, 90));
 		lblRestaurantMenagingSystem.setBounds(10, -13, 1332, 109);
