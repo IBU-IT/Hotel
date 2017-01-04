@@ -40,10 +40,30 @@ public class Kafic {
 	private JTextField Text_ChocolateCake;
 	private JTextField Text_CoconutCake;
 	private JTextField Text_DobosCake;
-	
+	private double IC;
+	private double AC;
+	private double C;
+	private double IL;
+	private double L;
+	private double IS;
+	private double ac;
+	private double b;
+	private double be;
+	private double bf;
+	private double c;
+	private double cc;
+	private double cc_2;
+	private double d;
 	
 	double[]i=new double[5];
 	private JLabel label_3;
+	
+	private double parseDouble(String s){
+	    if(s == null || s.isEmpty()) 
+	        return 0.0;
+	    else
+	        return Double.parseDouble(s);
+	}
 	
 	
 	
@@ -80,7 +100,7 @@ public class Kafic {
 		frmCaffeManagementSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCaffeManagementSystem.getContentPane().setLayout(null);
 		
-		JLabel lblCaffeMenagingSystem = new JLabel("Caffee Management System");
+		JLabel lblCaffeMenagingSystem = new JLabel("Coffee Management System");
 		lblCaffeMenagingSystem.setBounds(10, 0, 1332, 109);
 		lblCaffeMenagingSystem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCaffeMenagingSystem.setFont(new Font("Tahoma", Font.PLAIN, 90));
@@ -242,38 +262,33 @@ public class Kafic {
 		
 		JLabel lblCostOfDrinks = new JLabel("Cost of Drinks");
 		lblCostOfDrinks.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblCostOfDrinks.setBounds(10, 11, 181, 32);
+		lblCostOfDrinks.setBounds(10, 57, 181, 32);
 		panel_4.add(lblCostOfDrinks);
 		
 		JLabel lblCostOfCakes = new JLabel("Cost of Cakes");
 		lblCostOfCakes.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblCostOfCakes.setBounds(10, 93, 181, 32);
+		lblCostOfCakes.setBounds(10, 131, 181, 32);
 		panel_4.add(lblCostOfCakes);
-		
-		JLabel lblService = new JLabel("Service Charge");
-		lblService.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblService.setBounds(10, 175, 181, 32);
-		panel_4.add(lblService);
 		
 		
 		
 		JLabel lblCostOfCakes_2 = new JLabel("");
 		lblCostOfCakes_2.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblCostOfCakes_2.setBorder(new LineBorder(new Color(0, 0,0),2));
-		lblCostOfCakes_2.setBounds(262, 93, 128, 32);
+		lblCostOfCakes_2.setBounds(262, 131, 128, 32);
 		panel_4.add(lblCostOfCakes_2);
 		
 		JLabel lblCostOfDrink_2 = new JLabel("");
 		lblCostOfDrink_2.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblCostOfDrink_2.setBorder(new LineBorder(new Color(0, 0,0),2));
-		lblCostOfDrink_2.setBounds(262, 11, 128, 32);
+		lblCostOfDrink_2.setBounds(262, 57, 128, 32);
 		panel_4.add(lblCostOfDrink_2);
 		
-		JLabel lblServiceCharge_2 = new JLabel("");
+		/*JLabel lblServiceCharge_2 = new JLabel("");
 		lblServiceCharge_2.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblServiceCharge_2.setBorder(new LineBorder(new Color(0, 0,0),2));
 		lblServiceCharge_2.setBounds(262, 175, 128, 32);
-		panel_4.add(lblServiceCharge_2);
+		panel_4.add(lblServiceCharge_2);*/
 		
 		Text_Chiffon = new JTextField();
 		Text_Chiffon.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -436,124 +451,223 @@ public class Kafic {
 		Buton_Total.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				double IcedCapucino=Double.parseDouble(Text_IcedCapucino.getText());
-				double iIcedCapucino=4.50;
-				double IC;
-				IC=(IcedCapucino*iIcedCapucino);
-				String pMeal=String.format("%.2f", IC);
-				lblCostOfDrink_2.setText(pMeal);
+				if(Text_IcedCapucino.getText() == null || (Text_IcedCapucino.getText()).isEmpty())
+				{
+					Text_IcedCapucino.setText("");
+				}
+				else
+				{
+					double IcedCapucino=Double.parseDouble(Text_IcedCapucino.getText());
+					double iIcedCapucino=4.50;		
+					IC=(IcedCapucino*iIcedCapucino);
+					String pMeal=String.format("%.2f", IC);
+					lblCostOfDrink_2.setText(pMeal);
+					lblCostOfCakes_2.setText("0");
+				}
 				
-				double AmericanCafe=Double.parseDouble(Text_AmericanCofe.getText());
-				double iAmericanCafe=5.50;
-				double AC;
-				AC=(AmericanCafe*iAmericanCafe);
-				String aMeal=String.format("%.2f", IC+AC);
-				lblCostOfDrink_2.setText(aMeal);
 				
-				double Capucino=Double.parseDouble(Text_Capucino.getText());
-				double iCapucino=4.00;
-				double C;
-				C=(Capucino*iCapucino);
-				String cMeal=String.format("%.2f", IC+AC+C);
-				lblCostOfDrink_2.setText(cMeal);
+				if(Text_AmericanCofe.getText() == null || (Text_AmericanCofe.getText()).isEmpty())
+				{
+					Text_AmericanCofe.setText("");
+				}
+				else
+				{
+					double AmericanCafe=Double.parseDouble(Text_AmericanCofe.getText());
+					double iAmericanCafe=5.50;		
+					AC=(AmericanCafe*iAmericanCafe);
+					String aMeal=String.format("%.2f", IC+AC);
+					lblCostOfDrink_2.setText(aMeal);
+					lblCostOfCakes_2.setText("0");
+				}
 				
-				double IcedLatle=Double.parseDouble(Text_IcedLatle.getText());
-				double iIcedLatle=5.00;
-				double IL;
-				IL=(IcedLatle*iIcedLatle);
-				String ILMeal=String.format("%.2f", IC+AC+C+IL);
-				lblCostOfDrink_2.setText(ILMeal);
+				if(Text_Capucino.getText() == null || (Text_Capucino.getText()).isEmpty())
+				{
+					Text_Capucino.setText("");
+				}
+				else
+				{
+					double Capucino=Double.parseDouble(Text_Capucino.getText());
+					double iCapucino=4.00;		
+					C=(Capucino*iCapucino);
+					String cMeal=String.format("%.2f", IC+AC+C);
+					lblCostOfDrink_2.setText(cMeal);
+					lblCostOfCakes_2.setText("0");
+				}
 				
-				double Latle=Double.parseDouble(Text_Latle.getText());
-				double iLatle=4.50;
-				double L;
-				L=(Latle*iLatle);
-				String lMeal=String.format("%.2f", IC+AC+C+IL+L);
-				lblCostOfDrink_2.setText(lMeal);
 				
-				double Espreso=Double.parseDouble(Text_Espreso.getText());
-				double iEspreso=3.50;
-				double IS;
-				IS=(Espreso*iEspreso);
-				String sMeal=String.format("%.2f", IC+AC+C+IL+L+IS);
-				lblCostOfDrink_2.setText(sMeal);
+				if(Text_IcedLatle.getText() == null || (Text_IcedLatle.getText()).isEmpty())
+				{
+					Text_IcedLatle.setText("");
+				}
+				else
+				{
+					double IcedLatle=Double.parseDouble(Text_IcedLatle.getText());
+					double iIcedLatle=5.00;		
+					IL=(IcedLatle*iIcedLatle);
+					String ILMeal=String.format("%.2f", IC+AC+C+IL);
+					lblCostOfDrink_2.setText(ILMeal);
+					lblCostOfCakes_2.setText("0");
+				}
 				
-				double AngelCake=Double.parseDouble(Text_AngelFoodCake.getText());
-				double iAngelCake=5.00;
-				double ac;
-				ac=(AngelCake*iAngelCake);
-				String ameal=String.format("%.2f", ac);
-				lblCostOfCakes_2.setText(ameal);
 				
-				double Boston=Double.parseDouble(Text_Boston.getText());
-				double iBoston=4.50;
-				double b;
-				b=(Boston*iBoston);
-				String bmeal=String.format("%.2f", ac+b);
-				lblCostOfCakes_2.setText(bmeal);
+				if(Text_Latle.getText() == null || (Text_Latle.getText()).isEmpty())
+				{
+					Text_Latle.setText("");
+				}
+				else
+				{
+					double Latle=Double.parseDouble(Text_Latle.getText());
+					double iLatle=4.50;		
+					L=(Latle*iLatle);
+					String lMeal=String.format("%.2f", IC+AC+C+IL+L);
+					lblCostOfDrink_2.setText(lMeal);
+					lblCostOfCakes_2.setText("0");
+				}
 				
-				double Banoffee=Double.parseDouble(Text_Banoffee.getText());
-				double iBanoffee=6.00;
-				double be;
-				be=(Banoffee*iBanoffee);
-				String bemeal=String.format("%.2f", ac+b+be);
-				lblCostOfCakes_2.setText(bemeal);
 				
-				double BlackForest=Double.parseDouble(Text_BlackForest.getText());
-				double iBlackForest=6.50;
-				double bf;
-				bf=(BlackForest*iBlackForest);
-				String bfmeal=String.format("%.2f", ac+b+be+bf);
-				lblCostOfCakes_2.setText(bfmeal);
+				if(Text_Espreso.getText() == null || (Text_Espreso.getText()).isEmpty())
+				{
+					Text_Espreso.setText("");
+				}
+				else
+				{
+					double Espreso=Double.parseDouble(Text_Espreso.getText());
+					double iEspreso=3.50;			
+					IS=(Espreso*iEspreso);
+					String sMeal=String.format("%.2f", IC+AC+C+IL+L+IS);
+					lblCostOfDrink_2.setText(sMeal);
+					lblCostOfCakes_2.setText("0");
+				}
 				
-				double Chiffon=Double.parseDouble(Text_Chiffon.getText());
-				double iChiffon=5.00;
-				double c;
-				c=(Chiffon*iChiffon);
-				String cmeal=String.format("%.2f", ac+b+be+bf+c);
-				lblCostOfCakes_2.setText(cmeal);
 				
-				double ChocolateCake=Double.parseDouble(Text_ChocolateCake.getText());
-				double iChocolateCake=4.50;
-				double cc;
-				cc=(ChocolateCake*iChocolateCake);
-				String ccmeal=String.format("%.2f", ac+b+be+bf+c+cc);
-				lblCostOfCakes_2.setText(ccmeal);
+				if(Text_AngelFoodCake.getText() == null || (Text_AngelFoodCake.getText()).isEmpty())
+				{
+					Text_AngelFoodCake.setText("");
+				}
+				else
+				{
+					double AngelCake=Double.parseDouble(Text_AngelFoodCake.getText());
+					double iAngelCake=5.00;				
+					ac=(AngelCake*iAngelCake);
+					String ameal=String.format("%.2f", ac);
+					lblCostOfCakes_2.setText(ameal);
+				}
 				
-				double CoconutCake=Double.parseDouble(Text_CoconutCake.getText());
-				double iCoconutCake=5.50;
-				double cc_2;
-				cc_2=(CoconutCake*iCoconutCake);
-				String cc_2meal=String.format("%.2f", ac+b+be+bf+c+cc+cc_2);
-				lblCostOfCakes_2.setText(cc_2meal);
 				
-				double DobosCake=Double.parseDouble(Text_DobosCake.getText());
-				double iDobosCake=6.00;
-				double d;
-				d=(DobosCake*iDobosCake);
-				String dmeal=String.format("%.2f", ac+b+be+bf+c+cc+cc_2+d);
-				lblCostOfCakes_2.setText(dmeal);
+				if(Text_Boston.getText() == null || (Text_Boston.getText()).isEmpty())
+				{
+					Text_Boston.setText("");
+				}
+				else
+				{
+					double Boston=Double.parseDouble(Text_Boston.getText());
+					double iBoston=4.50;			
+					b=(Boston*iBoston);
+					String bmeal=String.format("%.2f", ac+b);
+					lblCostOfCakes_2.setText(bmeal);
+				}
+				
+				
+				if(Text_Banoffee.getText() == null || (Text_Banoffee.getText()).isEmpty())
+				{
+					Text_Banoffee.setText("");
+				}
+				else
+				{
+					double Banoffee=Double.parseDouble(Text_Banoffee.getText());
+					double iBanoffee=6.00;		
+					be=(Banoffee*iBanoffee);
+					String bemeal=String.format("%.2f", ac+b+be);
+					lblCostOfCakes_2.setText(bemeal);
+				}
+				
+				if(Text_BlackForest.getText() == null || (Text_BlackForest.getText()).isEmpty())
+				{
+					Text_BlackForest.setText("");
+				}
+				else
+				{
+					double BlackForest=Double.parseDouble(Text_BlackForest.getText());
+					double iBlackForest=6.50;				
+					bf=(BlackForest*iBlackForest);
+					String bfmeal=String.format("%.2f", ac+b+be+bf);
+					lblCostOfCakes_2.setText(bfmeal);
+				}
+				
+				if(Text_Chiffon.getText() == null || (Text_Chiffon.getText()).isEmpty())
+				{
+					Text_Chiffon.setText("");
+				}
+				else
+				{
+					double Chiffon=Double.parseDouble(Text_Chiffon.getText());
+					double iChiffon=5.00;				
+					c=(Chiffon*iChiffon);
+					String cmeal=String.format("%.2f", ac+b+be+bf+c);
+					lblCostOfCakes_2.setText(cmeal);
+				}
+				
+				if(Text_ChocolateCake.getText() == null || (Text_ChocolateCake.getText()).isEmpty())
+				{
+					Text_ChocolateCake.setText("");
+				}
+				else
+				{
+					double ChocolateCake=Double.parseDouble(Text_ChocolateCake.getText());
+					double iChocolateCake=4.50;
+					cc=(ChocolateCake*iChocolateCake);
+					String ccmeal=String.format("%.2f", ac+b+be+bf+c+cc);
+					lblCostOfCakes_2.setText(ccmeal);
+				}
+				
+				if(Text_CoconutCake.getText() == null || (Text_CoconutCake.getText()).isEmpty())
+				{
+					Text_CoconutCake.setText("");
+				}
+				else
+				{
+					double CoconutCake=Double.parseDouble(Text_CoconutCake.getText());
+					double iCoconutCake=5.50;
+					cc_2=(CoconutCake*iCoconutCake);
+					String cc_2meal=String.format("%.2f", ac+b+be+bf+c+cc+cc_2);
+					lblCostOfCakes_2.setText(cc_2meal);
+				}
+				
+				if(Text_DobosCake.getText() == null || (Text_DobosCake.getText()).isEmpty())
+				{
+					Text_DobosCake.setText("");
+				}
+				else
+				{
+					double DobosCake=Double.parseDouble(Text_DobosCake.getText());
+					double iDobosCake=6.00;
+					d=(DobosCake*iDobosCake);
+					String dmeal=String.format("%.2f", ac+b+be+bf+c+cc+cc_2+d);
+					lblCostOfCakes_2.setText(dmeal);
+				}
+			
+				
 				
 				double cTotal_1=Double.parseDouble(lblCostOfDrink_2.getText());
 				double cTotal_2=Double.parseDouble(lblCostOfCakes_2.getText());
 				double Service; 
 				Service=(cTotal_1+cTotal_2)/95;
 				String ServiceC=String.format("%.2f", Service);
-				lblServiceCharge_2.setText(ServiceC);
-				
+		
 				double Tax;
 				Tax=(cTotal_1+cTotal_2)/100;
 				String tax=String.format("%.2f", Tax);
 				lblTax_2.setText(tax);
 				
 				double subTotal;
-				double S=Double.parseDouble(lblServiceCharge_2.getText());
-				subTotal=cTotal_1+cTotal_2+S;
+				//double S=Double.parseDouble(lblServiceCharge_2.getText());
+				subTotal=cTotal_1+cTotal_2;
 				String SubTotal=String.format("%.2f", subTotal);
 				lblSubTotal_2.setText(SubTotal);
+				//lblServiceCharge_2.setText("1");
 				
 				double total;
-				total=cTotal_1+cTotal_2+S+Tax;
+				total=cTotal_1+cTotal_2+Tax;
 				String Total=String.format("%.2f", total);
 				lblTotal.setText(Total);
 				
@@ -569,37 +683,72 @@ public class Kafic {
 		Buton_Receipt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				double IcedCapucino=Double.parseDouble(Text_IcedCapucino.getText());
-				double iIcedCapucino=4.50;
-				double IC;
-				IC=(IcedCapucino*iIcedCapucino);
+				if((Text_IcedCapucino.getText()).isEmpty())
+				{
+					Text_IcedCapucino.setText("");
+				}
+				else
+				{
+					double IcedCapucino=Double.parseDouble(Text_IcedCapucino.getText());
+					double iIcedCapucino=4.50;
+					IC=(IcedCapucino*iIcedCapucino);
+				}
 				
-                double AmericanCafe=Double.parseDouble(Text_AmericanCofe.getText());
-                double iAmericanCafe=5.50;
-                double AC;
-                AC=(AmericanCafe*iAmericanCafe);
-
-                double Capucino=Double.parseDouble(Text_Capucino.getText());
-                double iCapucino=4.00;
-                double C;
-                C=(Capucino*iCapucino);
-
-                double IcedLatle=Double.parseDouble(Text_IcedLatle.getText());
-                double iIcedLatle=5.00;
-                double IL;
-                IL=(IcedLatle*iIcedLatle);
-
-                double Latle=Double.parseDouble(Text_Latle.getText());
-                double iLatle=4.50;
-                double L;
-                L=(Latle*iLatle);
-
-                double Espreso=Double.parseDouble(Text_Espreso.getText());
-                double iEspreso=3.50;
-                double IS;
-                IS=(Espreso*iEspreso);
-
-				
+				if((Text_AmericanCofe.getText()).isEmpty())
+				{
+					Text_AmericanCofe.setText("");
+				}
+				else
+				{
+					double AmericanCafe=Double.parseDouble(Text_AmericanCofe.getText());
+	                double iAmericanCafe=5.50;
+	                AC=(AmericanCafe*iAmericanCafe);
+				}
+                
+				if((Text_Capucino.getText()).isEmpty())
+				{
+					Text_Capucino.setText("");
+				}
+				else
+				{
+					double Capucino=Double.parseDouble(Text_Capucino.getText());
+	                double iCapucino=4.00;
+	                C=(Capucino*iCapucino);
+				}
+                
+				if((Text_IcedLatle.getText()).isEmpty())
+				{
+					Text_IcedLatle.setText("");
+				}
+				else
+				{
+					double IcedLatle=Double.parseDouble(Text_IcedLatle.getText());
+	                double iIcedLatle=5.00;
+	                IL=(IcedLatle*iIcedLatle);
+				}
+                
+				if((Text_Latle.getText()).isEmpty())
+				{
+					Text_Latle.setText("");
+				}
+				else
+				{
+					double Latle=Double.parseDouble(Text_Latle.getText());
+	                double iLatle=4.50;
+	                L=(Latle*iLatle);
+				}
+                
+				if((Text_Espreso.getText()).isEmpty())
+				{
+					Text_Espreso.setText("");
+				}
+				else
+				{
+					double Espreso=Double.parseDouble(Text_Espreso.getText());
+	                double iEspreso=3.50;
+	                IS=(Espreso*iEspreso);
+				}
+                
 				lblNaslov.setText("Caffee Management System");
 				Drinks.setText("Drinks");
 				IcedCapuccino.setText("Iced-Capuccino:            "+IC);
@@ -610,46 +759,95 @@ public class Kafic {
 				Espresoo.setText("Espreso:                          "+IS);
 			
 			
-
-				double AngelCake=Double.parseDouble(Text_AngelFoodCake.getText());
-				double iAngelCake=5.00;
-				double ac;
-				ac=(AngelCake*iAngelCake);
-
-				double Boston=Double.parseDouble(Text_Boston.getText());
-				double iBoston=4.50;
-				double b;
-				b=(Boston*iBoston);
-
-				double Banoffee=Double.parseDouble(Text_Banoffee.getText());
-				double iBanoffee=6.00;
-				double be;
-				be=(Banoffee*iBanoffee);
-
-				double BlackForest=Double.parseDouble(Text_BlackForest.getText());
-				double iBlackForest=6.50;
-				double bf;
-				bf=(BlackForest*iBlackForest);
-
-				double Chiffon=Double.parseDouble(Text_Chiffon.getText());
-				double iChiffon=5.00;
-				double c;
-				c=(Chiffon*iChiffon);
-
-				double ChocolateCake=Double.parseDouble(Text_ChocolateCake.getText());
-				double iChocolateCake=4.50;
-				double cc;
-				cc=(ChocolateCake*iChocolateCake);
-
-				double CoconutCake=Double.parseDouble(Text_CoconutCake.getText());
-				double iCoconutCake=5.50;
-				double cc_2;
-				cc_2=(CoconutCake*iCoconutCake);
-
-				double DobosCake=Double.parseDouble(Text_DobosCake.getText());
-				double iDobosCake=6.00;
-				double d;
-				d=(DobosCake*iDobosCake);
+				if((Text_AngelFoodCake.getText()).isEmpty())
+				{
+					Text_AngelFoodCake.setText("");
+				}
+				else
+				{
+					double AngelCake=Double.parseDouble(Text_AngelFoodCake.getText());
+					double iAngelCake=5.00;
+					ac=(AngelCake*iAngelCake);
+				}
+				
+				if((Text_Boston.getText()).isEmpty())
+				{
+					Text_Boston.setText("");
+				}
+				else
+				{
+					double Boston=Double.parseDouble(Text_Boston.getText());
+					double iBoston=4.50;
+					b=(Boston*iBoston);
+				}
+				
+				if((Text_Banoffee.getText()).isEmpty())
+				{
+					Text_Banoffee.setText("");
+				}
+				else
+				{
+					double Banoffee=Double.parseDouble(Text_Banoffee.getText());
+					double iBanoffee=6.00;
+					be=(Banoffee*iBanoffee);
+				}
+				
+				if((Text_BlackForest.getText()).isEmpty())
+				{
+					Text_BlackForest.setText("");
+				}
+				else
+				{
+					double BlackForest=Double.parseDouble(Text_BlackForest.getText());
+					double iBlackForest=6.50;
+					bf=(BlackForest*iBlackForest);
+				}
+				
+				if((Text_Chiffon.getText()).isEmpty())
+				{
+					Text_Chiffon.setText("");
+				}
+				else
+				{
+					double Chiffon=Double.parseDouble(Text_Chiffon.getText());
+					double iChiffon=5.00;
+					c=(Chiffon*iChiffon);
+				}
+				
+				if((Text_ChocolateCake.getText()).isEmpty())
+				{
+					Text_ChocolateCake.setText("");
+				}
+				else
+				{
+					double ChocolateCake=Double.parseDouble(Text_ChocolateCake.getText());
+					double iChocolateCake=4.50;
+					cc=(ChocolateCake*iChocolateCake);
+				}
+				
+				if((Text_CoconutCake.getText()).isEmpty())
+				{
+					Text_CoconutCake.setText("");
+				}
+				else
+				{
+					double CoconutCake=Double.parseDouble(Text_CoconutCake.getText());
+					double iCoconutCake=5.50;
+					cc_2=(CoconutCake*iCoconutCake);
+				}
+				
+				if((Text_DobosCake.getText()).isEmpty())
+				{
+					Text_DobosCake.setText("");
+				}
+				else
+				{
+					double DobosCake=Double.parseDouble(Text_DobosCake.getText());
+					double iDobosCake=6.00;
+					d=(DobosCake*iDobosCake);
+				}
+				
+				
 				label.setText("Cakes");
 				AngelFoodCake.setText("Angel food cake:             "+ac);
 				BostonCreamPie.setText("Boston cream pie:          "+b);
@@ -661,9 +859,6 @@ public class Kafic {
 				DobosC.setText("Dobos cake:                     "+d);
 				
 				Thanks.setText("Thanks for using Job Estimator");
-			
-			
-			
 			
 			}
 		});
@@ -703,7 +898,7 @@ public class Kafic {
 				Text_DobosCake.setText(null);
 				lblCostOfDrink_2.setText(null);
 				lblCostOfCakes_2.setText(null);
-				lblServiceCharge_2.setText(null);
+				//lblServiceCharge_2.setText(null);
 				lblTax_2.setText(null);
 				lblSubTotal_2.setText(null);
 				lblTotal.setText(null);
