@@ -25,7 +25,7 @@ import java.awt.Label;
 
 public class Kafic {
 
-	private JFrame frame;
+	private JFrame frmCaffeManagementSystem;
 	private JTextField Text_IcedCapucino;
 	private JTextField Text_AmericanCofe;
 	private JTextField Text_Capucino;
@@ -55,7 +55,7 @@ public class Kafic {
 			public void run() {
 				try {
 					Kafic window = new Kafic();
-					window.frame.setVisible(true);
+					window.frmCaffeManagementSystem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -74,21 +74,22 @@ public class Kafic {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(0, 0, 1368, 720);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmCaffeManagementSystem = new JFrame();
+		frmCaffeManagementSystem.setTitle("Caffe Management System");
+		frmCaffeManagementSystem.setBounds(0, 0, 1368, 720);
+		frmCaffeManagementSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCaffeManagementSystem.getContentPane().setLayout(null);
 		
-		JLabel lblCaffeMenagingSystem = new JLabel("Caffee Menaging System");
+		JLabel lblCaffeMenagingSystem = new JLabel("Caffee Management System");
 		lblCaffeMenagingSystem.setBounds(10, 0, 1332, 109);
 		lblCaffeMenagingSystem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCaffeMenagingSystem.setFont(new Font("Tahoma", Font.PLAIN, 90));
-		frame.getContentPane().add(lblCaffeMenagingSystem);
+		frmCaffeManagementSystem.getContentPane().add(lblCaffeMenagingSystem);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 120, 400, 315);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 8));
-		frame.getContentPane().add(panel);
+		frmCaffeManagementSystem.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel Label_IcedCapucino = new JLabel("Iced- Capuucino");
@@ -166,7 +167,7 @@ public class Kafic {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(426, 120, 400, 315);
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 8));
-		frame.getContentPane().add(panel_1);
+		frmCaffeManagementSystem.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel Label_Boston = new JLabel("Boston cream pie");
@@ -237,7 +238,7 @@ public class Kafic {
 		panel_4.setLayout(null);
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 8));
 		panel_4.setBounds(10, 453, 400, 218);
-		frame.getContentPane().add(panel_4);
+		frmCaffeManagementSystem.getContentPane().add(panel_4);
 		
 		JLabel lblCostOfDrinks = new JLabel("Cost of Drinks");
 		lblCostOfDrinks.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -301,7 +302,7 @@ public class Kafic {
 		JPanel panel_5 = new JPanel();
 		panel_5.setBounds(426, 453, 400, 218);
 		panel_5.setBorder(new LineBorder(new Color(0,0,0),8));
-		frame.getContentPane().add(panel_5);
+		frmCaffeManagementSystem.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 		
 		JLabel Label_Tax = new JLabel("Tax");
@@ -344,7 +345,7 @@ public class Kafic {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(845, 120, 497, 452);
 		panel_2.setBorder(new LineBorder(new Color(0,0,0), 8));
-		frame.getContentPane().add(panel_2);
+		frmCaffeManagementSystem.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel lblNaslov = new JLabel("");
@@ -428,7 +429,7 @@ public class Kafic {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(845, 593, 497, 78);
 		panel_3.setBorder(new LineBorder(new Color(0,0,0),8));
-		frame.getContentPane().add(panel_3);
+		frmCaffeManagementSystem.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
 		JButton Buton_Total = new JButton("Total");
@@ -561,7 +562,7 @@ public class Kafic {
 			
 		});
 		Buton_Total.setFont(new Font("Tahoma", Font.BOLD, 18));
-		Buton_Total.setBounds(10, 23, 102, 30);
+		Buton_Total.setBounds(20, 23, 102, 30);
 		panel_3.add(Buton_Total);
 		
 		JButton Buton_Receipt = new JButton("Receipt");
@@ -667,7 +668,7 @@ public class Kafic {
 			}
 		});
 		Buton_Receipt.setFont(new Font("Tahoma", Font.BOLD, 18));
-		Buton_Receipt.setBounds(135, 23, 102, 30);
+		Buton_Receipt.setBounds(137, 23, 102, 30);
 		panel_3.add(Buton_Receipt);
 		
 		JButton Buton_Exit = new JButton("Exit");
@@ -678,7 +679,7 @@ public class Kafic {
 			}
 		});
 		Buton_Exit.setFont(new Font("Tahoma", Font.BOLD, 18));
-		Buton_Exit.setBounds(385, 23, 102, 30);
+		Buton_Exit.setBounds(371, 23, 102, 30);
 		panel_3.add(Buton_Exit);
 		
 		JButton Buton_Reset = new JButton("Reset");
@@ -729,7 +730,7 @@ public class Kafic {
 				
 			}
 		});
-		Buton_Reset.setBounds(260, 23, 102, 30);
+		Buton_Reset.setBounds(253, 23, 102, 30);
 		panel_3.add(Buton_Reset);
 		
 		
