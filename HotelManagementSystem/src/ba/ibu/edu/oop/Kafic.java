@@ -13,12 +13,14 @@ import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
+import javax.annotation.processing.RoundEnvironment;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.AncestorEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import java.awt.Label;
@@ -54,17 +56,13 @@ public class Kafic {
 	private double cc;
 	private double cc_2;
 	private double d;
+	private double total;
+	private double subTotal, subT;
+	private final double Tax = 1.17;
+	private double taxOut;
 	
 	double[]i=new double[5];
 	private JLabel label_3;
-	
-	private double parseDouble(String s){
-	    if(s == null || s.isEmpty()) 
-	        return 0.0;
-	    else
-	        return Double.parseDouble(s);
-	}
-	
 	
 	
 	/**
@@ -321,13 +319,13 @@ public class Kafic {
 		panel_5.setLayout(null);
 		
 		JLabel Label_Tax = new JLabel("Tax");
-		Label_Tax.setBounds(10, 11, 167, 34);
+		Label_Tax.setBounds(10, 90, 167, 34);
 		Label_Tax.setVerticalAlignment(SwingConstants.BOTTOM);
 		Label_Tax.setFont(new Font("Tahoma", Font.BOLD, 24));
 		panel_5.add(Label_Tax);
 		
 		JLabel Label_SubTotal = new JLabel("Sub Total");
-		Label_SubTotal.setBounds(10, 90, 167, 34);
+		Label_SubTotal.setBounds(10, 13, 167, 34);
 		Label_SubTotal.setVerticalAlignment(SwingConstants.BOTTOM);
 		Label_SubTotal.setFont(new Font("Tahoma", Font.BOLD, 24));
 		panel_5.add(Label_SubTotal);
@@ -339,13 +337,13 @@ public class Kafic {
 		panel_5.add(Label_Total);
 		
 		JLabel lblTax_2 = new JLabel("");
-		lblTax_2.setBounds(262, 13, 128, 32);
+		lblTax_2.setBounds(262, 90, 128, 32);
 		lblTax_2.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblTax_2.setBorder(new LineBorder(new Color(0, 0,0),2));
 		panel_5.add(lblTax_2);
 		
 		JLabel lblSubTotal_2 = new JLabel("");
-		lblSubTotal_2.setBounds(262, 90, 128, 32);
+		lblSubTotal_2.setBounds(262, 15, 128, 32);
 		lblSubTotal_2.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblSubTotal_2.setBorder(new LineBorder(new Color(0, 0,0),2));
 		panel_5.add(lblSubTotal_2);
@@ -650,26 +648,25 @@ public class Kafic {
 				
 				double cTotal_1=Double.parseDouble(lblCostOfDrink_2.getText());
 				double cTotal_2=Double.parseDouble(lblCostOfCakes_2.getText());
-				double Service; 
+				/*double Service; 
 				Service=(cTotal_1+cTotal_2)/95;
-				String ServiceC=String.format("%.2f", Service);
+				String ServiceC=String.format("%.2f", Service);*/
 		
-				double Tax;
-				Tax=(cTotal_1+cTotal_2)/100;
-				String tax=String.format("%.2f", Tax);
-				lblTax_2.setText(tax);
 				
-				double subTotal;
-				//double S=Double.parseDouble(lblServiceCharge_2.getText());
+				
+				
 				subTotal=cTotal_1+cTotal_2;
-				String SubTotal=String.format("%.2f", subTotal);
-				lblSubTotal_2.setText(SubTotal);
-				//lblServiceCharge_2.setText("1");
+				//String SubTotal1=String.format("%.2f", subTotal);
+				lblSubTotal_2.setText(Double.toString(subTotal));
 				
-				double total;
-				total=cTotal_1+cTotal_2+Tax;
-				String Total=String.format("%.2f", total);
-				lblTotal.setText(Total);
+				total=subTotal * Tax;
+				double rounded = Math.round(total * 100.0)/100.0;
+				//String Total=String.format("%.2f", total);
+				lblTotal.setText(Double.toString(rounded));
+				
+				taxOut = total - subTotal;
+				double roundedTax = Math.round(taxOut * 100.0)/100.0;
+				lblTax_2.setText(Double.toString(roundedTax));
 				
 			}
 
