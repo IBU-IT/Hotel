@@ -84,7 +84,7 @@ public class Top {
 		frame.getContentPane().add(lblSelectNo);
 		
 		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Downloads\\qqq.jpg"));
+		label_7.setIcon(new ImageIcon("qqq.jpg"));
 		label_7.setBounds(10, 149, 405, 522);
 		frame.getContentPane().add(label_7);
 		
@@ -126,7 +126,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom);
 		
 		JLabel label_8 = new JLabel("");
-		label_8.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5a.jpg"));
+		label_8.setIcon(new ImageIcon("5a.jpg"));
 		label_8.setBounds(727, 71, 107, 67);
 		frame.getContentPane().add(label_8);
 		
@@ -136,7 +136,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_1);
 		
 		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5b.jpg"));
+		label_9.setIcon(new ImageIcon("5b.jpg"));
 		label_9.setBounds(970, 71, 119, 67);
 		frame.getContentPane().add(label_9);
 		
@@ -146,7 +146,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_2);
 		
 		JLabel label_10 = new JLabel("");
-		label_10.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5c.jpg"));
+		label_10.setIcon(new ImageIcon("5c.jpg"));
 		label_10.setBounds(1212, 71, 119, 67);
 		frame.getContentPane().add(label_10);
 		
@@ -156,7 +156,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_3);
 		
 		JLabel label_11 = new JLabel("");
-		label_11.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5d.jpg"));
+		label_11.setIcon(new ImageIcon("5d.jpg"));
 		label_11.setBounds(727, 149, 107, 67);
 		frame.getContentPane().add(label_11);
 		
@@ -166,7 +166,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_4);
 		
 		JLabel label_12 = new JLabel("");
-		label_12.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5e.jpg"));
+		label_12.setIcon(new ImageIcon("5e.jpg"));
 		label_12.setBounds(970, 149, 119, 73);
 		frame.getContentPane().add(label_12);
 		
@@ -176,7 +176,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_5);
 		
 		JLabel label_13 = new JLabel("");
-		label_13.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5f.jpg"));
+		label_13.setIcon(new ImageIcon("5f.jpg"));
 		label_13.setBounds(1212, 149, 119, 73);
 		frame.getContentPane().add(label_13);
 		
@@ -186,7 +186,7 @@ public class Top {
 		frame.getContentPane().add(chckbxExclusive);
 		
 		JLabel label_14 = new JLabel("");
-		label_14.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5e1.jpg"));
+		label_14.setIcon(new ImageIcon("5e1.jpg"));
 		label_14.setBounds(727, 233, 107, 67);
 		frame.getContentPane().add(label_14);
 		
@@ -196,7 +196,7 @@ public class Top {
 		frame.getContentPane().add(chckbxExclusive_1);
 		
 		JLabel label_15 = new JLabel("");
-		label_15.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5e2.jpg"));
+		label_15.setIcon(new ImageIcon("5e2.jpg"));
 		label_15.setBounds(970, 233, 119, 67);
 		frame.getContentPane().add(label_15);
 		
@@ -206,7 +206,7 @@ public class Top {
 		frame.getContentPane().add(chckbxExlusive);
 		
 		JLabel label_16 = new JLabel("");
-		label_16.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\5e3.jpg"));
+		label_16.setIcon(new ImageIcon("5e3.jpg"));
 		label_16.setBounds(1212, 233, 119, 67);
 		frame.getContentPane().add(label_16);
 		
@@ -216,7 +216,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_6);
 		
 		JLabel label_17 = new JLabel("");
-		label_17.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6a.jpg"));
+		label_17.setIcon(new ImageIcon("6a.jpg"));
 		label_17.setBounds(727, 335, 107, 73);
 		frame.getContentPane().add(label_17);
 		
@@ -226,7 +226,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_7);
 		
 		JLabel label_18 = new JLabel("");
-		label_18.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6b.jpg"));
+		label_18.setIcon(new ImageIcon("6b.jpg"));
 		label_18.setBounds(970, 337, 119, 73);
 		frame.getContentPane().add(label_18);
 		
@@ -236,7 +236,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_8);
 		
 		JLabel label_19 = new JLabel("");
-		label_19.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6c.jpg"));
+		label_19.setIcon(new ImageIcon("6c.jpg"));
 		label_19.setBounds(1212, 335, 119, 73);
 		frame.getContentPane().add(label_19);
 		
@@ -246,7 +246,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_9);
 		
 		JLabel label_20 = new JLabel("");
-		label_20.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6d.jpg"));
+		label_20.setIcon(new ImageIcon("6d.jpg"));
 		label_20.setBounds(727, 419, 107, 67);
 		frame.getContentPane().add(label_20);
 		
@@ -256,7 +256,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_10);
 		
 		JLabel label_21 = new JLabel("");
-		label_21.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6e.jpg"));
+		label_21.setIcon(new ImageIcon("6e.jpg"));
 		label_21.setBounds(970, 419, 119, 67);
 		frame.getContentPane().add(label_21);
 		
@@ -266,7 +266,7 @@ public class Top {
 		frame.getContentPane().add(chckbxRoom_11);
 		
 		JLabel label_22 = new JLabel("");
-		label_22.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6f.jpg"));
+		label_22.setIcon(new ImageIcon("6f.jpg"));
 		label_22.setBounds(1212, 419, 119, 67);
 		frame.getContentPane().add(label_22);
 		
@@ -276,7 +276,7 @@ public class Top {
 		frame.getContentPane().add(chckbxExclusive_2);
 		
 		JLabel label_23 = new JLabel("");
-		label_23.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6ee.jpg"));
+		label_23.setIcon(new ImageIcon("6ee.jpg"));
 		label_23.setBounds(727, 507, 107, 67);
 		frame.getContentPane().add(label_23);
 		
@@ -286,7 +286,7 @@ public class Top {
 		frame.getContentPane().add(chckbxExclusive_3);
 		
 		JLabel label_24 = new JLabel("");
-		label_24.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6ee1.jpg"));
+		label_24.setIcon(new ImageIcon("6ee1.jpg"));
 		label_24.setBounds(970, 507, 119, 67);
 		frame.getContentPane().add(label_24);
 		
@@ -296,7 +296,7 @@ public class Top {
 		frame.getContentPane().add(chckbxExlusive_1);
 		
 		JLabel label_25 = new JLabel("");
-		label_25.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6ee2.jpg"));
+		label_25.setIcon(new ImageIcon("6ee2.jpg"));
 		label_25.setBounds(1214, 507, 117, 67);
 		frame.getContentPane().add(label_25);
 		
