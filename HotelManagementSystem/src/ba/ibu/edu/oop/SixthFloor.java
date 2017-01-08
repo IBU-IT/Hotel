@@ -62,7 +62,7 @@ public class SixthFloor {
 		frame.getContentPane().add(button);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Downloads\\qqq.jpg"));
+		label.setIcon(new ImageIcon("qqq.jpg"));
 		label.setBounds(10, 149, 405, 522);
 		frame.getContentPane().add(label);
 		
@@ -109,7 +109,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxRoom);
 		
 		JLabel label_8 = new JLabel("");
-		label_8.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6a.jpg"));
+		label_8.setIcon(new ImageIcon("6a.jpg"));
 		label_8.setBounds(744, 109, 107, 73);
 		frame.getContentPane().add(label_8);
 		
@@ -119,7 +119,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxRoom_1);
 		
 		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6b.jpg"));
+		label_9.setIcon(new ImageIcon("6b.jpg"));
 		label_9.setBounds(981, 109, 107, 73);
 		frame.getContentPane().add(label_9);
 		
@@ -129,12 +129,12 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxRoom_2);
 		
 		JLabel label_10 = new JLabel("");
-		label_10.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6c.jpg"));
+		label_10.setIcon(new ImageIcon("6c.jpg"));
 		label_10.setBounds(1229, 109, 107, 73);
 		frame.getContentPane().add(label_10);
 		
 		JLabel label_11 = new JLabel("");
-		label_11.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6f.jpg"));
+		label_11.setIcon(new ImageIcon("6f.jpg"));
 		label_11.setBounds(1223, 213, 119, 73);
 		frame.getContentPane().add(label_11);
 		
@@ -144,7 +144,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxRoom_5);
 		
 		JLabel label_12 = new JLabel("");
-		label_12.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6e.jpg"));
+		label_12.setIcon(new ImageIcon("6e.jpg"));
 		label_12.setBounds(981, 213, 119, 73);
 		frame.getContentPane().add(label_12);
 		
@@ -159,7 +159,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxRoom_3);
 		
 		JLabel label_13 = new JLabel("");
-		label_13.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6d.jpg"));
+		label_13.setIcon(new ImageIcon("6d.jpg"));
 		label_13.setBounds(738, 213, 107, 67);
 		frame.getContentPane().add(label_13);
 		
@@ -169,7 +169,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxExclusive);
 		
 		JLabel label_14 = new JLabel("");
-		label_14.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6ee.jpg"));
+		label_14.setIcon(new ImageIcon("6ee.jpg"));
 		label_14.setBounds(738, 320, 107, 67);
 		frame.getContentPane().add(label_14);
 		
@@ -179,7 +179,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxExclusive_1);
 		
 		JLabel label_15 = new JLabel("");
-		label_15.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6ee1.jpg"));
+		label_15.setIcon(new ImageIcon("6ee1.jpg"));
 		label_15.setBounds(981, 320, 107, 67);
 		frame.getContentPane().add(label_15);
 		
@@ -189,7 +189,7 @@ public class SixthFloor {
 		frame.getContentPane().add(chckbxExlusive);
 		
 		JLabel label_16 = new JLabel("");
-		label_16.setIcon(new ImageIcon("C:\\Users\\Toshiba\\Desktop\\6ee2.jpg"));
+		label_16.setIcon(new ImageIcon("6ee2.jpg"));
 		label_16.setBounds(1223, 320, 107, 67);
 		frame.getContentPane().add(label_16);
 		
