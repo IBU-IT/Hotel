@@ -88,17 +88,17 @@ public class About extends JFrame {
 		Image logo = new ImageIcon(this.getClass().getResource("/AboutLogo.png")).getImage();
 		labelLogo.setIcon(new ImageIcon(logo));
 		
-		JLabel lblURL = new JLabel("http://facebook.com");
+		JLabel lblURL = new JLabel("http://royalhotelapp.wordpress.com");
 		lblURL.setFont(new Font("Arial", Font.ITALIC, 13));
 		lblURL.setForeground(SystemColor.textHighlight);
 		lblURL.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				openURL("http://facebook.com");
+				openURL("http://royalhotelapp.wordpress.com");
 			}
 		});
-		lblURL.setBounds(135, 130, 122, 21);
+		lblURL.setBounds(116, 130, 224, 21);
 		contentPane.add(lblURL);
 		
 		JLabel lblHomepage = new JLabel("Homepage");
